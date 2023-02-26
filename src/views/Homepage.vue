@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-center items-center">
-    <div class="content-homepage flex flex-col justify-center items-center ">
+    <div class="content-homepage flex flex-col justify-center items-center">
     <img class="w-full mt-10" src="../assets/homepage/banner.svg" />
     <div class="w-full space-x-6 mt-10 flex justify-between">
       <img class="w-full" src="../assets/homepage/forWoman.png" />
@@ -19,7 +19,7 @@
 </template>
 <style>
 .content-homepage{
-  width: 85%;
+  /* width: 85%; */
   height: auto;
 }
 </style>
