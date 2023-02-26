@@ -1,24 +1,49 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
-    <div class="content-homepage flex flex-col justify-center items-center">
-    <img class="w-full mt-10" src="../assets/homepage/banner.svg" />
-    <div class="w-full space-x-6 mt-10 flex justify-between">
-      <img class="w-full" src="../assets/homepage/forWoman.png" />
-      <img class="w-full" src="../assets/homepage/forMen.png" />
-      <img class="w-full" src="../assets/homepage/forKids.png" />
-    </div>
-    <div class="w-full space-x-6 mt-10 flex justify-between">
-      <img class="w-full" src="../assets/homepage/img1.png" />
-      <img class="w-full" src="../assets/homepage/img2.png" />
-      <img class="w-full" src="../assets/homepage/img3.png" />
-      <img class="w-full" src="../assets/homepage/img4.png" />
-      <img class="w-full" src="../assets/homepage/img5.png" />
-    </div>
+  <div class="flex flex-col center-set">
+    <div class="content-homepage flex flex-col center-set ">
+      <img class="w-full mt-10" src="../assets/homepage/banner.svg" />
+      <div class="w-full space-x-6 mt-10 flex justify-between">
+        <!-- FOR WOMEN, FOR MEN, FOR KIDS -->
+        <div v-for="(item, index) in forWho" :key="index" class="img-forwomen w-full h-full flex center-set">
+          <img :src="item.url" />
+          <div class="w-44 h-14 bg-black font-semibold text-white flex center-set absolute">
+            {{ item.name }}
+          </div>
+        </div>
+
+      </div>
+      <div class="flex w-full space-x-6 mt-10">
+        <div v-for="(item, index) in homeProduct" :key="index" class="w-full">
+          <div class="homeProduct w-full">
+            <img class="w-6 absolute" src="../assets/icons/heart.svg" alt="">
+            <img :src="item.url" />
+            <p class="text-lg ">{{ item.title }}</p>
+            <p class="text-2xl leading-4">{{ item.price }} <span class="text-sm text-gray-600">THB</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="first-buyNowBanner mt-10 w-full h-full relative">
+        <img src="../assets/homepage/buyNow1.svg" />
+        <div class="w-44 h-14 bg-black text-white font-semibold center-set absolute top-10 right-10 cursor-pointer">
+          BUY NOW
+        </div>
+      </div>
+      <div class="second-buyNowBanner mt-10 w-full h-full relative">
+        <img src="../assets/homepage/buyNow2.svg" />
+        <div class="w-44 h-14 bg-black text-white font-semibold center-set absolute top-10 right-10 cursor-pointer">
+          BUY NOW
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <style>
-.content-homepage{
+img {
+  width: 100%;
+}
+
+.content-homepage {
   /* width: 85%; */
   height: auto;
 }

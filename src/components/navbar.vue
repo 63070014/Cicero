@@ -33,7 +33,6 @@
 .menu-navbar-group>a {
     color: #2c3e50;
     position: relative;
-    padding-bottom: 5px;
 }
 
 nav a.router-link-exact-active {
