@@ -33,10 +33,11 @@
 .menu-navbar-group>a {
     color: #2c3e50;
     position: relative;
+    padding-bottom: 5px;
 }
 
 nav a.router-link-exact-active {
-    color: #42b983;
+    border-bottom: 1px solid black;
 }
 
 .dropdown-menu-items {
