@@ -18,7 +18,9 @@
     padding-bottom: 5px;
     font-weight: 800;
 }
-
+.forgot:hover{
+    text-decoration: underline;
+}
 /* .email,
 .password {
     border-left: 1px solid black;
@@ -29,7 +31,7 @@
         <div class="group-signin flex justify-center flex-col items-center mt-12">
             <div class=" flex justify-center items-center w-full">
                 <div class="sign-in w-2/4 text-center text-3xl">Sign in</div>
-                <div class="sign-up w-2/4 text-center text-3xl text-gray-200">Sign up</div>
+                <div @click="linkToSignUp()" class="sign-up w-2/4 text-center text-3xl text-gray-200 cursor-pointer">Sign up</div>
             </div>
             <div class="flex flex-col justify-center w-full mt-8">
                 <span>EMAIL ADDRESS</span>
@@ -41,7 +43,7 @@
                     <input type="text" class="w-full bg-gray-200 h-9">
                 </div>
                 <button @click="homepage()" class="bg-black text-white h-9 mt-8">LOGIN</button>
-                <span class="mt-6 text-center">Forgot your password ?</span>
+                <span class="forgot mt-6 text-center cursor-pointer">Forgot your password ?</span>
             </div>
         </div>
 
@@ -53,6 +55,9 @@ export default {
     methods: {
         homepage() {
             location.href='/'
+        },
+        linkToSignUp(){
+            location.href='#/signup'
         }
     }
 }
