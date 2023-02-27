@@ -9,7 +9,7 @@
 }
 </style>
 <template>
-    <footer class="bg-black flex flex-col justify-center items-center text-white mt-12">
+    <footer class="relative bottom-0 bg-black flex flex-col justify-center items-center text-white mt-12">
         <div class="head flex justify-center items-center h-28 text-3xl tracking-widest font-medium w-full">
             <span class="">CICERO</span>
         </div>

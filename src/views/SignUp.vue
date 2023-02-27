@@ -4,7 +4,7 @@
 .group-signup {
     font-family: 'Jura', sans-serif;
     width: 28rem;
-    height: 42rem;
+    height: 50rem;
 }
 
 .head-up {
@@ -26,8 +26,8 @@
 <template>
     <div class="center-set">
         <div class="group-signup flex justify-center flex-col items-center mt-12">
-            <div class=" flex justify-center items-center w-full">
-                <div class="head-in w-2/4 text-center text-3xl text-gray-200">Sign in</div>
+            <div class="center-set w-full">
+                <div class="head-in w-2/4 text-center text-3xl text-gray-200 cursor-pointer" @click="LinkTo('/signin')">Sign in</div>
                 <div class="head-up w-2/4 text-center text-3xl">Sign up</div>
             </div>
             <div class="flex flex-col justify-center w-full mt-8">
@@ -40,8 +40,10 @@
                     <input type="text" class="w-full bg-gray-200 h-9">
                 </div>
                 <span class="mt-6">DATE OF BIRTH (OPTIONAL)</span>
-                <div class="flex justify-between item-center">
-                    <select name="" class="bg-gray-200 h-9" id=""></select>                    <select name="" class="bg-gray-200 h-9" id=""></select>
+                <div class="flex justify-between item-center space-x-3 mt-2">
+                    <select name="" class="bg-gray-200 h-9 w-1/3 " id=""></select>
+                    <select name="" class="bg-gray-200 h-9 w-1/3" id=""></select>
+                    <select name="" class="bg-gray-200 h-9 w-1/3" id=""></select>
                 </div>
                 <span class="mt-6">PHONE NUMBER *</span>
                 <div class="password mt-2">
@@ -55,7 +57,7 @@
                 <div class="password mt-2">
                     <input type="text" class="w-full bg-gray-200 h-9">
                 </div>
-                <button @click="homepage()" class="bg-black text-white h-9 mt-8">REGISTER</button>
+                <button @click="LinkTo('/')" class="bg-black text-white h-9 mt-8">REGISTER</button>
                 <span class="mt-6 text-center">Forgot your password ?</span>
             </div>
         </div>
@@ -66,9 +68,10 @@
 export default {
     name: 'signin',
     methods: {
-        homepage() {
-            location.href = '/'
-        }
+        LinkTo(e) {
+            location.href = e
+        },
+        
     }
 }
 </script>
