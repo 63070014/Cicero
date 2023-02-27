@@ -1,9 +1,10 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Jura&display=swap');
 
-.container {
+.group-signin {
     font-family: 'Jura', sans-serif;
-    /* width: 32rem; */
+    width: 28rem;
+    height: 32rem;
 }
 
 .sign-in {
@@ -18,14 +19,14 @@
     font-weight: 800;
 }
 
-.email,
+/* .email,
 .password {
     border-left: 1px solid black;
-}
+} */
 </style>
 <template>
-    <div class="flex justify-center items-center">
-        <div class="container flex justify-center flex-col items-center w-96 mt-32">
+    <div class="center-set">
+        <div class="group-signin flex justify-center flex-col items-center mt-12">
             <div class=" flex justify-center items-center w-full">
                 <div class="sign-in w-2/4 text-center text-3xl">Sign in</div>
                 <div class="sign-up w-2/4 text-center text-3xl text-gray-200">Sign up</div>
