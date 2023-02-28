@@ -46,6 +46,7 @@ nav a.router-link-exact-active {
     text-align: center;
     /* background-color: red; */
     position: absolute;
+    z-index: 10;
 }
 
 .dropdown-menu-items>li {
@@ -56,7 +57,7 @@ nav a.router-link-exact-active {
 }
 
 .dropdown-menu-items>li:hover {
-    background-color: rgba(171, 168, 168, 0.525)
+    background-color: rgb(171, 168, 168)
 }
 
 .isOpen {
