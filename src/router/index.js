@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/Homepage.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
+import Men from "../views/Product.vue"
 const routes = [
   {
     path: "/",
@@ -17,6 +18,11 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: SignUp,
+  },
+  {
+    path: "/men",
+    name: "men",
+    component: Men,
   },
   {
     path: "/about",
@@ -35,3 +41,4 @@ const router = createRouter({
 });
 
 export default router;
+// https://router.vuejs.org/guide/essentials/dynamic-matching.html

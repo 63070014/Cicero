@@ -13,12 +13,17 @@
 
       </div>
       <div class="flex w-full space-x-6 mt-10">
-        <div v-for="(item, index) in homeProduct" :key="index" class="w-full">
-          <div class="homeProduct w-full">
-            <img class="w-6 absolute" src="../assets/icons/heart.svg" alt="">
+        <div class="listhomeProduct w-full" v-for="(item, index) in homeProduct" :key="index">
+          <div class="w-full relative">
             <img :src="item.url" />
-            <p class="text-lg ">{{ item.title }}</p>
-            <p class="text-2xl leading-4">{{ item.price }} <span class="text-sm text-gray-600">THB</span></p>
+            <div class="p-2">
+              <div class="flex items-center">
+                <img v-show="item.is_favourite == false" class="w-5 absolute right-0" @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heart.svg">
+                <img v-show="item.is_favourite == true" class="w-5 absolute right-0" @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heartt.svg">
+                <p class="text-md ">{{ item.title }}</p>
+              </div>
+              <p class="text-2xl leading-5">{{ item.price }} <span class="text-sm text-gray-600">THB</span></p>
+            </div>
           </div>
         </div>
       </div>
@@ -69,13 +74,18 @@ export default {
         { name: "FOR KIDS", url: require('../assets/homepage/forKids.png') }
       ],
       homeProduct: [
-        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg') },
-        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img2.svg') },
-        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img3.svg') },
-        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img4.svg') },
-        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img5.svg') },
-      ]
+        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg') , is_favourite: false},
+        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img2.svg') , is_favourite: false},
+        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img3.svg') , is_favourite: false},
+        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img4.svg') , is_favourite: false},
+        { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img5.svg') , is_favourite: false},
+      ],
     }
   },
+  methods:{
+  },
+  watch:{
+    
+  }
 };
 </script>
