@@ -1,5 +1,6 @@
 <template>
-    <nav class="bg-white px-4 py-2.5 flex border-b justify-between items-center">
+    <nav class="bg-white px-4 py-2.5 flex border-b justify-between items-center sticky top-0 z-10">
+
         <router-link class="space-x-2 flex items-center" to="/">
             <img src="../assets/icons/image1.svg" />
             <p>Cicero</p>
@@ -10,6 +11,12 @@
             <router-link to="/kids">KIDS</router-link>
             <router-link to="/sale">SALE</router-link>
             <router-link to="/newin">NEW IN</router-link>
+            <div class="dropdown-menu-items left-0" :class="{ isOpen }" v-on:mouseleave="slideToggle()">
+                <li v-for="item in men_item" :key="item.name">
+                    <router-link to="{ path: item.path }">{{ item.name }}</router-link>
+                </li>
+            </div>
+
         </div>
         <div class="flex items-center space-x-4">
             <div class="search-bar bg-gray-200">
@@ -19,15 +26,16 @@
             <img src="../assets/icons/basket.svg" />
             <img src="../assets/icons/heart.svg" />
             <img src="../assets/icons/profile.svg" alt="" />
+
             <!-- <router-link to="/about">About</router-link> -->
         </div>
 
     </nav>
-    <div class="dropdown-menu-items" :class="{ isOpen }" v-on:mouseleave="slideToggle()">
+    <!-- <div class="dropdown-menu-items" :class="{ isOpen }" v-on:mouseleave="slideToggle()">
         <li v-for="item in men_item" :key="item.name">
             <router-link :to="{ path: item.path }">{{ item.name }}</router-link>
         </li>
-    </div>
+    </div> -->
 </template>
 <style>
 .menu-navbar-group>a {
@@ -47,6 +55,7 @@ nav a.router-link-exact-active {
     /* background-color: red; */
     position: absolute;
     z-index: 10;
+    margin-top: 1.05rem;
 }
 
 .dropdown-menu-items>li {
@@ -84,7 +93,7 @@ export default {
         };
     },
     methods: {
-        slideToggle(){
+        slideToggle() {
             $('.dropdown-menu-items').slideToggle();
         }
     },
