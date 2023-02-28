@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/Homepage.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
-import Men from "../views/Product.vue"
+import Order from "../views/Order.vue"
 const routes = [
   {
     path: "/",
@@ -32,6 +32,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path: "/order",
+    name: "order",
+    component: Order,
   },
 ];
 
