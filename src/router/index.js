@@ -3,6 +3,7 @@ import HomeView from "../views/Homepage.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import Order from "../views/Order.vue"
+import Men from "../views/Product.vue"
 const routes = [
   {
     path: "/",

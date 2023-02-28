@@ -1,26 +1,26 @@
 <template>
     <div class="center-set">
-        <div class="container flex mt-20">
+        <div class="flex mt-20 space-x-8">
             <div class="sidebar-sort-group">
-                <h1 class="text-3xl font-bold line-height-cus border-b-2 border-gray-400">PRODUCT</h1>
-                <div id="category-group" class="flex justify-between items-center">
-                    <h2 class="text-xl font-bold py-4">CATEGORIES</h2>
-                    <hr id="line-category" class="w-8 bg-gray-100 border-0 rounded dark:bg-gray-700 cursor-pointer"
-                        @click="slideSidebar('#category-slide')" :style="{ 'height': '2px' }">
+                <h1 class="text-3xl font-bold line-height-cus border-b-2 border-gray-300">PRODUCT</h1>
+                <div id="category-group" @click="slideSidebar('#category-slide')"
+                    class="flex justify-between items-center cursor-pointer">
+                    <h2 class="text-xl font-bold py-6">CATEGORIES</h2>
+                    <hr id="line-category" class="w-8 bg-gray-500 border-0 rounded" :style="{ 'height': '2px' }">
                 </div>
-                <div id="category-slide" class="hidden">
+                <div id="category-slide" class="hidden mb-4">
                     <p v-for="(catego, index) in categorie" :key="index" class="py-2 px-4 text-xl"
                         @mouseover="catego.hover = true" @mouseleave="catego.hover = false"
                         :id="'items_category_hover' + index" :class="{ hover_items_bg: catego.hover }">{{
                             catego.title }}</p>
                 </div>
                 <!-- SIZE DROPDOWN -->
-                <div id="size-group" class="flex justify-between items-center border-t-2 border-gray-400">
-                    <h3 class="text-xl font-bold py-4">SIZE</h3>
-                    <hr id="line-category" class="w-8 bg-gray-100 border-0 rounded dark:bg-gray-700 cursor-pointer"
-                        @click="slideSidebar('#category-slide')" :style="{ 'height': '2px' }">
+                <div id="size-group" @click="slideSidebar('#size-slide')"
+                    class="flex justify-between items-center border-t-2 border-gray-300 cursor-pointer">
+                    <h3 class="text-xl font-bold py-6">SIZE</h3>
+                    <hr id="line-category" class="w-8 bg-gray-500 border-0 rounded" :style="{ 'height': '2px' }">
                 </div>
-                <div id="size-slide">
+                <div id="size-slide" class="hidden mb-4">
                     <div class="flex space-x-4 mb-3">
                         <div id="btn-size" class="border w-16 h-10 text-center border-gray-500 border-2 p-1">XS</div>
                         <div id="btn-size" class="border w-16 h-10 text-center border-gray-500 border-2 p-1">S</div>
@@ -30,6 +30,23 @@
                         <div id="btn-size" class="border w-16 h-10 text-center border-gray-500 border-2 p-1">L</div>
                         <div id="btn-size" class="border w-16 h-10 text-center border-gray-500 border-2 p-1">XL</div>
                     </div>
+                </div>
+                <div id="color-group" @click="slideSidebar('#color-slide')" class="flex justify-between items-center border-t-2 border-gray-300 cursor-pointer">
+                    <h3 class="text-xl font-bold py-6">COLOR</h3>
+                    <hr id="line-category" class="w-8 bg-gray-500 border-0 rounded" :style="{ 'height': '2px' }">
+                </div>
+                <div id="color-slide" class="grid grid-cols-3 gap-y-5 w-36 mt-2 ml-2">
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#2E2D2D'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#5766B5'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#6F5C5C'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#429A70'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#9F9F9F'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#E08F54'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#EE9AA9'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#A5739D'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#D36262'}"></div>
+                    <div class="w-8 h-8 bg-red-500 border rounded-full" :style="{backgroundColor: '#ffffff'}"></div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full" :style="{backgroundColor: '#FCD05F'}"></div>
                 </div>
             </div>
             <div class="text-right px-6 w-full">
@@ -74,9 +91,10 @@
 .hover_items_bg {
     background-color: #d9d9d9;
 }
-#btn-size:hover{
+
+#btn-size:hover {
     background-color: black;
-    color:white
+    color: white
 }
 
 .browseProduct>div>img {
