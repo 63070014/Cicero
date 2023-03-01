@@ -1,23 +1,23 @@
 <template>
-    <div class="container center-set mt-10 relative">
+    <div class="center-set mt-10 relative">
         <div class="img-preview-group">
         </div>
         <div id="product" class="flex space-x-8">
-            <div class="image-scroll sticky top-0">
+            <div class="image-scroll">
                 <img src="../assets/products/iddoitagaintop1.svg" />
                 <img src="../assets/products/iddoitagaintop2.svg" />
                 <img src="../assets/products/iddoitagaintop3.svg" />
                 <img src="../assets/products/iddoitagaintop4.svg" />
             </div>
             <div class="relative w-80">
-                <div class="w-80 space-y-4 fixed">
+                <div class="w-80 space-y-6 sticky top-20">
                     <h1 class="font-frans text-4xl font-bold ">I'D DO IT AGAIN TOP</h1>
                     <p class="text-2xl text-left leading-5">1,590 <span class="text-sm text-gray-600">THB</span></p>
                     <p class="text-lg mt-10" :style="{ color: '#716F6F' }">Lorem ipsum dolor sit amet consectetur
                         adipisicing
                         elit. Illum, veniam praesentium voluptates aperiam in possimus, id eveniet rem provident quasi eum
                         placeat modi, facilis accusantium dolor inventore perferendis vel consequatur.</p>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col ">
                         <div class="font-semibold text-2xl font-frans pb-3">SIZE</div>
                         <div class="flex space-x-4 mb-3">
                             <div id="btn-size"
@@ -38,6 +38,11 @@
                                 class="border w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer">XL
                             </div>
                         </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="font-frans font-bold border text-center border-gray-500 border-2 text-white py-2 px-4 bg-black cursor-pointer">
+                            ADD TO CART</div>
+                        <div class="font-frans font-boldborder text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer ">ADD TO WISHLIST</div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-white px-4 py-2.5 flex border-b justify-between items-center sticky top-0 z-10">
+    <nav class="bg-white px-12 py-2.5 flex border-b justify-between items-center sticky top-0 z-10">
 
         <router-link class="space-x-2 flex items-center" to="/">
             <img src="../assets/icons/image1.svg" />
@@ -19,9 +19,9 @@
 
         </div>
         <div class="flex items-center space-x-4">
-            <div class="search-bar bg-gray-200">
-                <img src="../assets/icons/Search_light@3x.svg" alt="">
-
+            <div class="search-box">
+                <button class="btn-search"><img src="../assets/icons/Search_light.svg" alt=""></button>
+                <input type="text" class="input-search" placeholder="Type to Search...">
             </div>
             <img src="../assets/icons/basket.svg" />
             <img src="../assets/icons/heart.svg" />
@@ -69,9 +69,65 @@ nav a.router-link-exact-active {
     background-color: rgb(171, 168, 168)
 }
 
-.isOpen {
-    display: block;
+.search-box{
+  width: fit-content;
+  height: fit-content;
+  position: relative;
 }
+.input-search{
+  height: 30px;
+  width: 30px;
+  border-style: none;
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 25px;
+  transition: all .5s ease-in-out;
+  /* background-color: #F2F2F2; */
+  padding-right: 40px;
+  color:#C1C1C1;
+}
+.input-search::placeholder{
+  color:#C1C1C1;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.btn-search{
+  width: 30px;
+  height: 30px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  color: #C1C1C1 ;
+  background-color:transparent;
+  pointer-events: painted;  
+}
+.btn-search:focus ~ .input-search{
+  width: 200px;
+  margin-right: 40px;
+  border-radius: 0px;
+  padding-bottom: 7px;
+  
+  background-color: transparent;
+  border-bottom:1px solid rgba(195, 102, 102, 0.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+.input-search:focus{
+    width: 300px;
+    margin-right: 40px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(195, 102, 102, 0.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
 </style>
 <script>
 import $ from 'jquery'
