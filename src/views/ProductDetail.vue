@@ -40,9 +40,12 @@
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <div class="font-frans font-bold border text-center border-gray-500 border-2 text-white py-2 px-4 bg-black cursor-pointer">
+                        <div
+                            class="font-frans font-bold border text-center border-gray-500 border-2 text-white py-2 px-4 bg-black cursor-pointer">
                             ADD TO CART</div>
-                        <div class="font-frans font-boldborder text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer ">ADD TO WISHLIST</div>
+                        <div
+                            class="font-frans font-boldborder text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer ">
+                            ADD TO WISHLIST</div>
                     </div>
                 </div>
             </div>
@@ -59,7 +62,53 @@ export default {
     name: "productDetail",
     data() {
         return {
-            product: [{}]
+            product: [
+                {
+                    id: '001',
+                    title: 'CELESTIAL SPHERE SEQUIN JACKET',
+                    price: '1290',
+                    color: 'blue',
+                    sex: 'women',
+                    categories: 'Tops',
+                    detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+                    listImg: [
+                        require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_0.jpg'),
+                        require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_1.jpg'),
+                        require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_2.jpg'),
+                        require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_3.jpg'),
+                        require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_4.jpg'),
+                        require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_5.jpg')],
+                },
+                {
+                    id: '002',
+                    title: 'GLW PINK SKIRT',
+                    price: '890',
+                    color: 'pink',
+                    sex: 'kids',
+                    categories: 'Skirts',
+                    detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+                    listImg: [
+                        require('../assets/products/GLW_PINK_SKIRT_0.jpg'),
+                        require('../assets/products/GLW_PINK_SKIRT_1.jpg'),
+                        require('../assets/products/GLW_PINK_SKIRT_2.jpg'),
+                        require('../assets/products/GLW_PINK_SKIRT_3.jpg'),
+                        require('../assets/products/GLW_PINK_SKIRT_4.jpg')],
+                },
+                {
+                    id: '003',
+                    title: 'GENTLE LITTLEWOMAN RABBIT T-SHIRT',
+                    price: '790',
+                    color: 'black',
+                    sex: 'kids',
+                    categories: 'Tops',
+                    detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+                    listImg: [
+                        require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_0.jpg'),
+                        require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_1.jpg'),
+                        require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_3.jpg'),
+                        require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_4.jpg')]
+                },
+            ]
         }
     }
 }
