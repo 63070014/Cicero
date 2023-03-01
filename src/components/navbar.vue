@@ -7,12 +7,12 @@
         </div>
         <div class="w-full flex justify-center items-center absolute">
             <div class="menu-navbar-group text-sm">
-                <router-link class="ml-4" to="/men" v-on:mouseover="slideToggle()">MEN</router-link>
+                <router-link class="ml-4" to="/men" v-on:mouseover="slideToggle('.dropdown-menu-items')">MEN</router-link>
                 <router-link class="ml-4" to="/women">WOMEN</router-link>
                 <router-link class="ml-4" to="/kids">KIDS</router-link>
                 <router-link class="ml-4" to="/sale">SALE</router-link>
                 <router-link class="ml-4" to="/newin">NEW IN</router-link>
-                <div class="dropdown-menu-items left-0" :class="{ isOpen }" v-on:mouseleave="slideToggle()">
+                <div class="dropdown-menu-items left-0" v-on:mouseleave="slideToggle('.dropdown-menu-items')">
                     <li v-for="item in men_item" :key="item.name">
                         <router-link to="{ path: item.path }">{{ item.name }}</router-link>
                     </li>
@@ -26,12 +26,12 @@
             </div>
             <img src="../assets/icons/basket.svg" />
             <img src="../assets/icons/favourite.svg" />
-            <img src="../assets/icons/profile.svg" alt="" />
+            <img v-on:mouseover="slideToggle('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
             <!-- <router-link to="/about">About</router-link> -->
         </div>
 
     </nav>
-    <div class="dropdown-profile w-24 bg-red-200 flex flex-col items-center absolute right-0">
+    <div class="dropdown-profile hidden w-40 space-y-3 mr-4 border flex flex-col items-cente p-4 absolute right-0 text-left cursor-pointer">
         <p>Account</p>
         <p>My Order</p>
         <p>Favourite</p>
@@ -163,8 +163,8 @@ export default {
         };
     },
     methods: {
-        slideToggle() {
-            $('.dropdown-menu-items').slideToggle();
+        slideToggle(comp) {
+            $(comp).slideToggle();
         },
         LinkTo(destination) {
             location.href = destination
