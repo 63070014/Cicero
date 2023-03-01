@@ -62,15 +62,14 @@ const routes = [
     component: confirmPayment,
   },
   {
-<<<<<<< HEAD
     path: "/mypurchase",
     name: "mypurchase",
     component: Purchase
-=======
+  },
+  {
     path: "/profile",
     name: "profile",
     component: Profile,
->>>>>>> 98a7f92ee7824f2da9d9e2333385d1644445bf90
   },
 ];
 

@@ -7,15 +7,17 @@
         </div>
         <div class="w-full flex justify-center items-center absolute">
             <div class="menu-navbar-group text-sm">
-                <router-link class="ml-4" to="/product/men" v-on:mouseover="slideToggle('.dropdown-menu-items')">MEN</router-link>
-                <router-link class="ml-4" to="/product/women">WOMEN</router-link>
+                <router-link class="ml-4" to="/product/men"
+                    v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = men_item">MEN</router-link>
+                <router-link class="ml-4" to="/product/women"
+                    v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = women_item">WOMEN</router-link>
                 <router-link class="ml-4" to="/product/kids">KIDS</router-link>
                 <router-link class="ml-4" to="/product/sale">SALE</router-link>
                 <router-link class="ml-4" to="/product/new in">NEW IN</router-link>
-                <div class="dropdown-menu-items left-0" v-on:mouseleave="slideToggle('.dropdown-menu-items')">
-                    <li v-for="item in men_item" :key="item.name">
-                        <router-link :to="'/product/men/'+item.name">{{ item.name }}</router-link>
-                    </li>
+                <div class="dropdown-menu-items left-0" v-on:mouseleave="slideUp('.dropdown-menu-items')">
+                    <div v-for="item in navbar_item" :key="item.name">
+                        <router-link :to="'/product/men/' + item.name">{{ item.name }}</router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,14 +26,20 @@
                 <button class="btn-search"><img src="../assets/icons/Search_light.svg" alt=""></button>
                 <input type="text" class="input-search" placeholder="Type to Search...">
             </div>
-            <img @click="LinkTo('/cart')" src="../assets/icons/basket.svg" />
-            <img @click="LinkTo('/wishlist')" src="../assets/icons/favourite.svg" />
-            <img v-on:mouseover="slideToggle('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
+            <div @click="LinkTo('/signin')" id="btn-login" class="px-8 py-2 border cursor-pointer select-none">
+                LOGIN
+            </div>
+            <div class="hidden flex items-center space-x-4">
+                <img @click="LinkTo('/cart')" src="../assets/icons/basket.svg" />
+                <img @click="LinkTo('/wishlist')" src="../assets/icons/favourite.svg" />
+                <img v-on:mouseover="slideToggle('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
+            </div>
             <!-- <router-link to="/about">About</router-link> -->
         </div>
 
     </nav>
-    <div class="dropdown-profile hidden w-40 space-y-3 mr-4 border flex flex-col items-cente p-4 absolute right-0 text-left cursor-pointer">
+    <div
+        class="dropdown-profile hidden w-40 space-y-3 mr-4 border flex flex-col items-cente p-4 absolute right-0 text-left cursor-pointer">
         <p>Account</p>
         <p>My Order</p>
         <p>Favourite</p>
@@ -53,9 +61,7 @@ nav a.router-link-exact-active {
     border-bottom: 1px solid black;
 }
 
-.dropdown-profile {
-    
-}
+.dropdown-profile {}
 
 .dropdown-menu-items {
     display: none;
@@ -68,14 +74,14 @@ nav a.router-link-exact-active {
     margin-top: 1.05rem;
 }
 
-.dropdown-menu-items>li {
+.dropdown-menu-items>div {
     padding: .75rem;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.93);
     list-style-type: none;
 }
 
-.dropdown-menu-items>li:hover {
+.dropdown-menu-items>div:hover {
     background-color: rgb(171, 168, 168)
 }
 
@@ -159,14 +165,22 @@ export default {
                 { name: "T-Shirts & Tops", path: "/" },
                 { name: "Shorts", path: "/" },
             ],
-            women_item: ["Tops", "Shorts", "Skirts", "Trousers", "Sets", "Dresses", "Jumpsuits"],
+            women_item: [
+                { name: "Tops" }, { name: "Shorts" }, { name: "Skirts" }, { name: "Trousers" }, { name: "Sets" }, { name: "Dresses" }, { name: "Jumpsuits" }],
+            navbar_item: [],
         };
     },
     methods: {
         slideToggle(comp) {
             $(comp).slideToggle();
         },
-        LinkTo(whereTo){
+        slideDown(comp) {
+            $(comp).slideDown();
+        },
+        slideUp(comp) {
+            $(comp).slideUp();
+        },
+        LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
     },
