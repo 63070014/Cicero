@@ -6,6 +6,7 @@ import Order from "../views/Order.vue"
 import Men from "../views/Product.vue"
 import Cart from "../views/Cart.vue"
 import productDetail from "../views/ProductDetail.vue"
+import confirmPayment from "../views/confirmPayment.vue"
 const routes = [
   {
     path: "/",
@@ -50,6 +51,11 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
+  },
+  {
+    path: "/confirm",
+    name: "confirm",
+    component: confirmPayment,
   },
 ];
 
