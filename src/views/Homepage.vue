@@ -4,8 +4,8 @@
       <img class="w-full mt-10 cursor-pointer" src="../assets/homepage/banner.svg" />
       <div class="w-full space-x-6 mt-10 flex justify-between">
         <!-- FOR WOMEN, FOR MEN, FOR KIDS -->
-        <div v-for="(item, index) in forWho" :key="index" class="img-forwomen w-full h-full flex center-set font-frans cursor-pointer">
-          <img :src="item.url" />
+        <div v-for="(item, index) in forWho" :key="index" class="img-forwomen overflow-hidden w-full h-full flex center-set font-frans cursor-pointer">
+          <img class="zoomImg" :src="item.url" />
           <div class="w-36 h-14 bg-black text-lg font-semibold text-white flex center-set absolute">
             {{ item.name }}
           </div>
@@ -72,7 +72,12 @@ img {
   /* width: 85%; */
   height: auto;
 }
-
+.zoomImg{
+  transition:all .5s;
+}
+.zoomImg:hover{
+  transform: scale(1.2);
+}
 .center-set {
   display: flex;
   justify-content: center;
