@@ -75,7 +75,7 @@ img {
 .zoomImg{
   transition:all .5s;
 }
-.zoomImg:hover,{
+.zoomImg:hover{
   transform: scale(1.2);
 }
 .center-set {

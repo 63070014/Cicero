@@ -11,7 +11,7 @@
             </div>
             <div class="relative w-80">
                 <div class="w-80 space-y-6 sticky top-20">
-                    <h1 class="font-frans text-4xl font-bold ">I'D DO IT AGAIN TOP</h1>
+                    <h1 class="font-frans text-4xl font-bold ">{{ this.$route.params.title }}</h1>
                     <p class="text-2xl text-left leading-5">1,590 <span class="text-sm text-gray-600">THB</span></p>
                     <p class="text-lg mt-10" :style="{ color: '#716F6F' }">Lorem ipsum dolor sit amet consectetur
                         adipisicing
@@ -40,11 +40,11 @@
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <div
+                        <div @click="LinkTo('/cart')"
                             class="font-frans font-bold border text-center border-gray-500 border-2 text-white py-2 px-4 bg-black cursor-pointer">
                             ADD TO CART</div>
                         <div
-                            class="font-frans font-boldborder text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer ">
+                           @click="LinkTo('/wishlist')" class="font-frans font-boldborder text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer ">
                             ADD TO WISHLIST</div>
                     </div>
                 </div>
@@ -216,6 +216,11 @@ export default {
                 },
             ]
         }
+    },
+    methods:{
+        LinkTo(whereTo){
+            this.$router.push(whereTo)
+        },
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-white py-2.5 flex border-b justify-between items-center sticky top-0 z-10">
+    <nav class="bg-white py-2.5 flex border-b justify-between items-center sticky top-0 z-10 select-none">
 
         <div class="space-x-2 ml-6 flex items-center z-10 cursor-pointer" @click="LinkTo('/')">
             <img src="../assets/icons/image1.svg" />
@@ -7,25 +7,25 @@
         </div>
         <div class="w-full flex justify-center items-center absolute">
             <div class="menu-navbar-group text-sm">
-                <router-link class="ml-4" to="/men" v-on:mouseover="slideToggle('.dropdown-menu-items')">MEN</router-link>
-                <router-link class="ml-4" to="/women">WOMEN</router-link>
-                <router-link class="ml-4" to="/kids">KIDS</router-link>
-                <router-link class="ml-4" to="/sale">SALE</router-link>
-                <router-link class="ml-4" to="/newin">NEW IN</router-link>
+                <router-link class="ml-4" to="/product/men" v-on:mouseover="slideToggle('.dropdown-menu-items')">MEN</router-link>
+                <router-link class="ml-4" to="/product/women">WOMEN</router-link>
+                <router-link class="ml-4" to="/product/kids">KIDS</router-link>
+                <router-link class="ml-4" to="/product/sale">SALE</router-link>
+                <router-link class="ml-4" to="/product/new in">NEW IN</router-link>
                 <div class="dropdown-menu-items left-0" v-on:mouseleave="slideToggle('.dropdown-menu-items')">
                     <li v-for="item in men_item" :key="item.name">
-                        <router-link to="{ path: item.path }">{{ item.name }}</router-link>
+                        <router-link :to="'/product/men/'+item.name">{{ item.name }}</router-link>
                     </li>
                 </div>
             </div>
         </div>
-        <div class="flex items-center justify-end space-x-4 mr-6">
+        <div class="flex items-center justify-end space-x-4 mr-6 z-10">
             <div class="search-box">
                 <button class="btn-search"><img src="../assets/icons/Search_light.svg" alt=""></button>
                 <input type="text" class="input-search" placeholder="Type to Search...">
             </div>
-            <img src="../assets/icons/basket.svg" />
-            <img src="../assets/icons/favourite.svg" />
+            <img @click="LinkTo('/cart')" src="../assets/icons/basket.svg" />
+            <img @click="LinkTo('/wishlist')" src="../assets/icons/favourite.svg" />
             <img v-on:mouseover="slideToggle('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
             <!-- <router-link to="/about">About</router-link> -->
         </div>
@@ -166,9 +166,9 @@ export default {
         slideToggle(comp) {
             $(comp).slideToggle();
         },
-        LinkTo(destination) {
-            location.href = destination
-        }
+        LinkTo(whereTo){
+            this.$router.push(whereTo)
+        },
     },
     components: {}
 }
