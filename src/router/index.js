@@ -9,6 +9,7 @@ import productDetail from "../views/ProductDetail.vue"
 import confirmPayment from "../views/confirmPayment.vue"
 import wishlist from "../views/wishlist.vue"
 import Purchase from "../views/MyPurchase.vue"
+import Profile from "../views/Profile.vue"
 const routes = [
   {
     path: "/",
@@ -61,9 +62,15 @@ const routes = [
     component: confirmPayment,
   },
   {
+<<<<<<< HEAD
     path: "/mypurchase",
     name: "mypurchase",
     component: Purchase
+=======
+    path: "/profile",
+    name: "profile",
+    component: Profile,
+>>>>>>> 98a7f92ee7824f2da9d9e2333385d1644445bf90
   },
 ];
 
