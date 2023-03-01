@@ -8,6 +8,7 @@ import Cart from "../views/Cart.vue"
 import productDetail from "../views/ProductDetail.vue"
 import confirmPayment from "../views/confirmPayment.vue"
 import wishlist from "../views/wishlist.vue"
+import Profile from "../views/Profile.vue"
 const routes = [
   {
     path: "/",
@@ -58,6 +59,11 @@ const routes = [
     path: "/confirm",
     name: "confirm",
     component: confirmPayment,
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile,
   },
 ];
 
