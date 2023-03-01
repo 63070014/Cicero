@@ -7,6 +7,7 @@ import Men from "../views/Product.vue"
 import Cart from "../views/Cart.vue"
 import productDetail from "../views/ProductDetail.vue"
 import confirmPayment from "../views/confirmPayment.vue"
+import wishlist from "../views/wishlist.vue"
 const routes = [
   {
     path: "/",
@@ -32,6 +33,11 @@ const routes = [
     path:'/productDetail',
     name: "productDetail",
     component: productDetail,
+  },
+  {
+    path:'/wishlist',
+    name:'Wishlist',
+    component: wishlist
   },
   {
     path: "/about",
