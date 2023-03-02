@@ -210,12 +210,13 @@ const routes = [
     path:"/product/:sex/:category",
     name: "productCategory",
     component: Product,
-    props:true,
+    props:{ products: product},
   },
   {
     path:'/productDetail/:title',
     name: "productDetail",
     component: productDetail,
+    props:{ products : product },
   },
   {
     path:'/wishlist',

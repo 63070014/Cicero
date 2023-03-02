@@ -6,7 +6,7 @@
                 <div id="category-group" @click="slideSidebar('#category-slide')"
                     class="flex justify-between items-center cursor-pointer select-none">
                     <h2 class="text-xl font-bold py-6 font-frans">CATEGORIES</h2>
-                    <hr id="line-category" class="w-8 bg-gray-500 border-0 rounded" :style="{ 'height': '2px' }">
+                    <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
                 </div>
                 <div id="category-slide" class="hidden mb-4">
                     <p v-for="(catego, index) in categorie" :key="index" class="py-2 px-4 text-xl cursor-pointer select-none font-jura"
@@ -18,7 +18,7 @@
                 <div id="size-group" @click="slideSidebar('#size-slide')"
                     class="flex justify-between items-center border-t-2 border-gray-300 cursor-pointer select-none">
                     <h3 class="text-xl font-bold py-6 font-frans">SIZE</h3>
-                    <hr id="line-category" class="w-8 bg-gray-500 border-0 rounded" :style="{ 'height': '2px' }">
+                    <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
                 </div>
                 <div id="size-slide" class="hidden mb-4">
                     <div class="flex space-x-4 mb-3">
@@ -33,7 +33,7 @@
                 </div>
                 <div id="color-group" @click="slideSidebar('#color-slide')" class="flex justify-between items-center border-t-2 border-gray-300 cursor-pointer select-none">
                     <h3 class="text-xl font-bold py-6 font-frans">COLOR</h3>
-                    <hr id="line-category" class="w-8 bg-gray-500 border-0 rounded" :style="{ 'height': '2px' }">
+                    <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
                 </div>
                 <div id="color-slide" class="grid grid-cols-3 gap-y-5 w-36 mt-2 ml-2">
                     <div class="w-8 h-8 bg-red-500 rounded-full cursor-pointer select-none" :style="{backgroundColor: '#2E2D2D'}"></div>
@@ -54,9 +54,9 @@
                 <div id="browserProduct" class="grid grid-cols-3 gap-6 mt-10">
                     <div class="cardProduct cursor-pointer select-none" v-for="(item, index) in renderProduct" :key="index">
                         <div class="w-full relative">
-                            <img class="w-96" :src="item.listImg[0]" @click="LinkTo('/productDetail/'+item.title)"/>
-                            <div class="p-2">
-                                <div class="flex items-center text-left">
+                            <img class="w-80" :src="item.listImg[0]" @click="LinkTo('/productDetail/'+item.title)"/>
+                            <div class="py-2">
+                                <div class="w-80 relative flex items-center text-left">
                                     <img v-show="item.is_favourite == false" class="w-5 absolute right-0 cursor-pointer select-none"
                                         @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heart.svg">
                                     <img v-show="item.is_favourite == true" class="w-5 absolute right-0 cursor-pointer select-none"
@@ -76,10 +76,13 @@
     </div>
 </template>
 <style>
-.sidebar-sort-group {
-    width: 20%;
-}
 
+.sidebar-sort-group {
+    width: 25rem;
+}
+#line-category{
+    border-bottom: 1px solid black;
+}
 .line-height-cus {
     line-height: 5rem !important;
 }
@@ -108,6 +111,7 @@ export default {
     },
     data() {
         return {
+            browseProduct: this.products,
             categorie: [
                 { id: 1, title: "Tops", hover: false },
                 { ic: 2, title: "Shorts", hover: false },
@@ -141,11 +145,11 @@ export default {
     },
     computed:{
         renderProduct(){
-            let filterProduct = this.products.filter(e => e.sex == this.$route.params.sex)
+            let filterProduct = this.browseProduct.filter(e => e.sex == this.$route.params.sex)
             if (filterProduct.length > 0){
                 return filterProduct
             }else{
-                return this.products
+                return this.browseProduct
             }
         }
     }
