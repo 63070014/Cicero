@@ -19,9 +19,9 @@
                         <router-link :to="'/product/'+this.sex_path+'/' + item.name">{{ item.name }}</router-link>
                     </div>
                 </div>
-                <div @click="LinkTo('/profile')" v-on:mouseleave="slideUp('.dropdown-profile')"
+                <div v-on:mouseleave="slideUp('.dropdown-profile')"
                     class="dropdown-profile bg-white hidden w-40 mr-4 border flex flex-col absolute right-0 text-left cursor-pointer">
-                    <p class="py-2 px-4">Account</p>
+                    <p @click="LinkTo('/profile')" class="py-2 px-4">Account</p>
                     <p @click="LinkTo('/mypurchase')" class="py-2 px-4">My Order</p>
                     <p @click="LinkTo('/wishlist')" class="py-2 px-4">Favourite</p>
                     <p @click="logout()" class="py-2 px-4">Logout</p>
@@ -194,10 +194,11 @@ export default {
         },
         logout(){
             localStorage.removeItem("user")
+            this.LinkTo('/')
             this.$forceUpdate();
         }
     },
-    components: {}
+    components: {},
 }
 
 </script>

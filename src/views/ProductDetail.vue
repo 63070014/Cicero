@@ -60,7 +60,7 @@
                         <div @click="addItemToCart()"
                             class="font-frans font-medium border text-center border-gray-500 border-2 text-white py-2 px-4 bg-black cursor-pointer select-none">
                             ADD TO CART</div>
-                        <div @click="LinkTo('/wishlist')"
+                        <div @click="addToFav(this.thisProduct[0])"
                             class="font-frans font-medium border text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer select-none ">
                             ADD TO WISHLIST</div>
                     </div>
@@ -85,10 +85,18 @@ export default {
     data() {
         return {
             size:'',
+            fav:[],
             thisProduct: this.products.filter(e => e.title == this.$route.params.title)
         }
     },
     methods: {
+        addToFav(e) {
+            if (!this.fav.includes(e)){
+                this.fav.push(e)
+            }
+            localStorage.setItem('favorite', JSON.stringify(this.fav))
+            alert('Added to Wishlist')
+        },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
