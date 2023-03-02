@@ -63,7 +63,7 @@
             <div class="w-1/2 mt-4 flex space-x-3">
                 <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">CONTINUE
                     SHOPPING</button>
-                <button @click="LinkTo('/order')" class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
+                <button @click="savePayment(),LinkTo('/order')" class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
                     OUT</button>
             </div>
         </div>
@@ -88,6 +88,9 @@ export default {
         }
     },
     methods: {
+        savePayment(){
+            localStorage.setItem("payment_items", JSON.stringify(this.cartItems))
+        },
         totalPrice(){
             let price = 0
             for (let i = 0; i < this.cartItems.length; i++) {

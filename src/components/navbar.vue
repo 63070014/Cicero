@@ -8,21 +8,21 @@
         <div class="w-full flex justify-center items-center absolute">
             <div class="menu-navbar-group text-sm">
                 <router-link class="ml-4" to="/product/men"
-                    v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = men_item">MEN</router-link>
+                    v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = men_item, sex_path = 'men'">MEN</router-link>
                 <router-link class="ml-4" to="/product/women"
-                    v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = women_item">WOMEN</router-link>
-                <router-link class="ml-4" to="/product/kids">KIDS</router-link>
-                <router-link class="ml-4" to="/product/sale">SALE</router-link>
-                <router-link class="ml-4" to="/product/new in">NEW IN</router-link>
+                    v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = women_item, sex_path = 'women'">WOMEN</router-link>
+                <router-link class="ml-4" to="/product/kids" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = kids_item, sex_path = 'kids'" >KIDS</router-link>
+                <router-link class="ml-4" to="/product/sale" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'sale'">SALE</router-link>
+                <router-link class="ml-4" to="/product/new in" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'new in'">NEW IN</router-link>
                 <div class="dropdown-menu-items left-0" v-on:mouseleave="slideUp('.dropdown-menu-items')">
                     <div v-for="item in navbar_item" :key="item.name">
-                        <router-link :to="'/product/men/' + item.name">{{ item.name }}</router-link>
+                        <router-link :to="'/product/'+this.sex_path+'/' + item.name">{{ item.name }}</router-link>
                     </div>
                 </div>
                 <div v-on:mouseleave="slideUp('.dropdown-profile')"
                     class="dropdown-profile bg-white hidden w-40 mr-4 border flex flex-col absolute right-0 text-left cursor-pointer">
                     <p class="py-2 px-4">Account</p>
-                    <p @click="LinkTo('/order')" class="py-2 px-4">My Order</p>
+                    <p @click="LinkTo('/mypurchase')" class="py-2 px-4">My Order</p>
                     <p @click="LinkTo('/wishlist')" class="py-2 px-4">Favourite</p>
                     <p @click="logout()" class="py-2 px-4">Logout</p>
                 </div>
@@ -162,6 +162,7 @@ export default {
     data() {
         return {
             user: JSON.parse(localStorage.getItem("user")),
+            sex_path: '',
             men_item: [
                 { name: "Hoodies & Sweatshirts", path: "/" },
                 { name: "Jackets", path: "/" },
@@ -173,6 +174,8 @@ export default {
             ],
             women_item: [
                 { name: "Tops" }, { name: "Shorts" }, { name: "Skirts" }, { name: "Trousers" }, { name: "Sets" }, { name: "Dresses" }, { name: "Jumpsuits" }],
+            kids_item:[{name: "Tops"}, {name:"Shprts"}, {name: "Skirts"},{name: "Trousers"}, {name: "Hoodies"}],
+            sale_item:[{name: "Men"}, {name:"Women"}, {name: "Kids"}],
             navbar_item: [],
         };
     },
@@ -191,6 +194,7 @@ export default {
         },
         logout(){
             localStorage.removeItem("user")
+            this.$forceUpdate();
         }
     },
     components: {}

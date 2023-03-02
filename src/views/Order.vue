@@ -102,11 +102,11 @@
                 <div v-for="(item, index) in orderSummary" :key="index" class="w-full border">
                     <div class="flex">
                         <div class="w-32 p-2">
-                            <img :src="item.url" class="img-summary">
+                            <img :src="item.listImg[0]" class="img-summary">
                         </div>
                         <div class="flex flex-col">
-                            <div class="p-3 font-semibold">{{ item.topic }}</div>
-                            <div class="border w-16 h-10 text-center border-gray-500 border-2 ml-3 p-1">{{ item.size }}
+                            <div class="p-3 font-semibold">{{ item.title }}</div>
+                            <div class="border w-16 h-10 text-center border-gray-500 border-2 ml-3 p-1">L
                             </div>
                             <div class="flex text-lg p-2">{{ item.price }} <div class="ml-2 text-gray-400">THB x 1
                                 </div>
@@ -117,7 +117,7 @@
                 <div class="border center-set flex-col font-bold h-28">
                     <div class="flex w-80">
                         <div class="w-1/2 ">TOTAL PRODUCT</div>
-                        <div class="w-1/2 ">5920 THB</div>
+                        <div class="w-1/2 ">{{ this.totalPrice() }} THB</div>
                     </div>
                     <div class="flex w-80 mt-3">
                         <div class="w-1/2 ">SHIPPING</div>
@@ -128,7 +128,7 @@
         </div>
         <div class="flex line-order w-3/5 mt-12 border-2"></div>
         <div class="flex w-3/5 justify-between">
-            <div class="text-xl font-bold p-5 tracking-wider">TOTAL 5920 THB</div>
+            <div class="text-xl font-bold p-5 tracking-wider">TOTAL {{ this.totalPrice() }} THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
                 <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">BACK</button>
                 <button @click="saveAddress()"
@@ -160,13 +160,18 @@ export default {
                 { topic: "Province", detail: "Province", vModel: "province" },
                 { topic: "Postcode", detail: "Postcode", vModel: "postcode" },
             ],
-            orderSummary: [
-                { topic: "BRASSAC BODYSUITS", size: "XS", price: "2590", url: require('../assets/homepage/img1.svg') },
-                { topic: "THE STAR CROP VEST", size: "S", price: "1590", url: require('../assets/homepage/img2.svg') },
-            ],
+            orderSummary: JSON.parse(localStorage.getItem("payment_items")),
         }
     },
     methods: {
+        totalPrice(){
+            let price = 0
+            for (let i = 0; i < this.orderSummary.length; i++) {
+                price += parseInt(this.orderSummary[i].price)
+                
+            }
+            return price
+        },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
