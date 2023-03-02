@@ -10,6 +10,179 @@ import confirmPayment from "../views/confirmPayment.vue"
 import wishlist from "../views/wishlist.vue"
 import Purchase from "../views/MyPurchase.vue"
 import Profile from "../views/Profile.vue"
+const product = [
+  {
+      id: '001',
+      title: 'CELESTIAL SPHERE SEQUIN JACKET',
+      price: '1290',
+      color: 'blue',
+      sex: 'kids',
+      categories: 'Tops',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_0.jpg'),
+          require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_1.jpg'),
+          require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_2.jpg'),
+          require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_3.jpg'),
+          require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_4.jpg'),
+          require('../assets/products/CELESTIAL_SPHERE_SEQUIN_JACKET_5.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '002',
+      title: 'GLW PINK SKIRT',
+      price: '890',
+      color: 'pink',
+      sex: 'kids',
+      categories: 'Skirts',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/GLW_PINK_SKIRT_0.jpg'),
+          require('../assets/products/GLW_PINK_SKIRT_1.jpg'),
+          require('../assets/products/GLW_PINK_SKIRT_2.jpg'),
+          require('../assets/products/GLW_PINK_SKIRT_3.jpg'),
+          require('../assets/products/GLW_PINK_SKIRT_4.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '003',
+      title: 'GENTLE LITTLEWOMAN RABBIT T-SHIRT',
+      price: '790',
+      color: 'black',
+      sex: 'kids',
+      categories: 'Tops',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_0.jpg'),
+          require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_1.jpg'),
+          require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_3.jpg'),
+          require('../assets/products/GENTLE_LITTLEWOMAN_RABBIT_T-SHIRT_4.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '004',
+      title: 'GLW PINK TROUSERS',
+      price: '990',
+      color: 'pink',
+      sex: 'kids',
+      categories: 'Trousers',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/GLW_PINK_TROUSERS_0.jpg'),
+          require('../assets/products/GLW_PINK_TROUSERS_1.jpg'),
+          require('../assets/products/GLW_PINK_TROUSERS_3.jpg'),
+          require('../assets/products/GLW_PINK_TROUSERS_4.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '005',
+      title: 'PAPER PLANE SEQUIN JACKET',
+      price: '1290',
+      color: 'blue',
+      sex: 'kids',
+      categories: 'Tops',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/PAPER_PLANE_SEQUIN_JACKET_0.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_JACKET_1.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_JACKET_3.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_JACKET_4.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '006',
+      title: 'PAPER PLANE SEQUIN SHORTS',
+      price: '990',
+      color: 'blue',
+      sex: 'kids',
+      categories: 'Shorts',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/PAPER_PLANE_SEQUIN_SHORTS_0.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_SHORTS_1.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_SHORTS_3.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_SHORTS_4.jpg'),
+          require('../assets/products/PAPER_PLANE_SEQUIN_SHORTS_5.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '007',
+      title: 'ALL THAT I AN DO TOP',
+      price: '1290',
+      color: 'pink',
+      sex: 'women',
+      categories: 'Tops',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/ALL_THAT_I_AN_DO_TOP_0.jpg'),
+          require('../assets/products/ALL_THAT_I_AN_DO_TOP_1.jpg'),
+          require('../assets/products/ALL_THAT_I_AN_DO_TOP_2.jpg'),
+          require('../assets/products/ALL_THAT_I_AN_DO_TOP_3.jpg'),
+          require('../assets/products/ALL_THAT_I_AN_DO_TOP_4.jpg'),
+          require('../assets/products/ALL_THAT_I_AN_DO_TOP_5.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '008',
+      title: 'GLISTEN TWEED STRAIGHT TROUSERS',
+      price: '2290',
+      color: 'white',
+      sex: 'women',
+      categories: 'Trousers',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/GLISTEN_TWEED_STRAIGHT_TROUSERS_0.jpg'),
+          require('../assets/products/GLISTEN_TWEED_STRAIGHT_TROUSERS_1.jpg'),
+          require('../assets/products/GLISTEN_TWEED_STRAIGHT_TROUSERS_2.jpg'),
+          require('../assets/products/GLISTEN_TWEED_STRAIGHT_TROUSERS_3.jpg'),
+          require('../assets/products/GLISTEN_TWEED_STRAIGHT_TROUSERS_4.jpg'),
+          require('../assets/products/GLISTEN_TWEED_STRAIGHT_TROUSERS_5.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '009',
+      title: 'MATTER TANK TOP',
+      price: '990',
+      color: 'orange',
+      sex: 'women',
+      categories: 'Tops',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/MATTER_TANK_TOP_0.jpg'),
+          require('../assets/products/MATTER_TANK_TOP_1.jpg'),
+          require('../assets/products/MATTER_TANK_TOP_2.jpg'),
+          require('../assets/products/MATTER_TANK_TOP_3.jpg'),
+          require('../assets/products/MATTER_TANK_TOP_4.jpg')
+      ],
+      is_favourite: false,
+  },
+  {
+      id: '010',
+      title: 'THIS TIME MINI SKIRT',
+      price: '1290',
+      color: 'pink',
+      sex: 'women',
+      categories: 'Skirts',
+      detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+      listImg: [
+          require('../assets/products/THIS_TIME_MINI_SKIRT_0.jpg'),
+          require('../assets/products/THIS_TIME_MINI_SKIRT_1.jpg'),
+          require('../assets/products/THIS_TIME_MINI_SKIRT_2.jpg'),
+          require('../assets/products/THIS_TIME_MINI_SKIRT_3.jpg'),
+          require('../assets/products/THIS_TIME_MINI_SKIRT_4.jpg'),
+          require('../assets/products/THIS_TIME_MINI_SKIRT_5.jpg')
+      ],
+      is_favourite: false,
+  },
+]
 const routes = [
   {
     path: "/",
@@ -30,11 +203,13 @@ const routes = [
     path: "/product/:sex",
     name: "productSex",
     component: Product,
+    props:{ products: product},
   },
   {
     path:"/product/:sex/:category",
     name: "productCategory",
     component: Product,
+    props:true,
   },
   {
     path:'/productDetail/:title',

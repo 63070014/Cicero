@@ -19,6 +19,13 @@
                         <router-link :to="'/product/men/' + item.name">{{ item.name }}</router-link>
                     </div>
                 </div>
+                <div v-on:mouseleave="slideUp('.dropdown-profile')"
+                    class="dropdown-profile bg-white hidden w-40 mr-4 border flex flex-col absolute right-0 text-left cursor-pointer">
+                    <p class="py-2 px-4">Account</p>
+                    <p @click="LinkTo('/order')" class="py-2 px-4">My Order</p>
+                    <p @click="LinkTo('/wishlist')" class="py-2 px-4">Favourite</p>
+                    <p class="py-2 px-4">Logout</p>
+                </div>
             </div>
         </div>
         <div class="flex items-center justify-end space-x-4 mr-6 z-10">
@@ -26,25 +33,20 @@
                 <button class="btn-search"><img src="../assets/icons/Search_light.svg" alt=""></button>
                 <input type="text" class="input-search" placeholder="Type to Search...">
             </div>
-            <div @click="LinkTo('/signin')" id="btn-login" class="px-8 py-2 border cursor-pointer select-none">
+            <div @click="LinkTo('/signin')" id="btn-login" class="hidden px-8 py-2 border cursor-pointer select-none">
                 LOGIN
             </div>
-            <div class="hidden flex items-center space-x-4">
-                <img @click="LinkTo('/cart')" src="../assets/icons/basket.svg" />
-                <img @click="LinkTo('/wishlist')" src="../assets/icons/favourite.svg" />
-                <img v-on:mouseover="slideToggle('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
+            <div class=" flex items-center space-x-4">
+                <img @click="LinkTo('/cart')" class="cursor-pointer" src="../assets/icons/basket.svg" />
+                <img @click="LinkTo('/wishlist')" class="cursor-pointer" src="../assets/icons/favourite.svg" />
+                <img v-on:mouseover="slideDown('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
             </div>
+
             <!-- <router-link to="/about">About</router-link> -->
         </div>
 
     </nav>
-    <div
-        class="dropdown-profile hidden w-40 space-y-3 mr-4 border flex flex-col items-cente p-4 absolute right-0 text-left cursor-pointer">
-        <p>Account</p>
-        <p>My Order</p>
-        <p>Favourite</p>
-        <p>Logout</p>
-    </div>
+
     <!-- <div class="dropdown-menu-items" :class="{ isOpen }" v-on:mouseleave="slideToggle()">
         <li v-for="item in men_item" :key="item.name">
             <router-link :to="{ path: item.path }">{{ item.name }}</router-link>
@@ -60,8 +62,12 @@
 nav a.router-link-exact-active {
     border-bottom: 1px solid black;
 }
-
-.dropdown-profile {}
+.dropdown-profile{
+    margin-top: 1rem;
+}
+.dropdown-profile>p:hover {
+    background-color: #C1C1C1;
+}
 
 .dropdown-menu-items {
     display: none;

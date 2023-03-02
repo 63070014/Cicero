@@ -52,11 +52,11 @@
             <div class="text-right px-6 w-full">
                 <p class="text-2xl text-gray-400 font-jura capitalize">/ {{ this.$route.params.sex }}</p>
                 <div id="browserProduct" class="grid grid-cols-3 gap-6 mt-10">
-                    <div class="cardProduct cursor-pointer select-none" v-for="(item, index) in listProduct" :key="index">
+                    <div class="cardProduct cursor-pointer select-none" v-for="(item, index) in renderProduct" :key="index">
                         <div class="w-full relative">
-                            <img :src="item.url" @click="LinkTo('/productDetail/'+item.title)"/>
+                            <img class="w-96" :src="item.listImg[0]" @click="LinkTo('/productDetail/'+item.title)"/>
                             <div class="p-2">
-                                <div class="flex items-center">
+                                <div class="flex items-center text-left">
                                     <img v-show="item.is_favourite == false" class="w-5 absolute right-0 cursor-pointer select-none"
                                         @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heart.svg">
                                     <img v-show="item.is_favourite == true" class="w-5 absolute right-0 cursor-pointer select-none"
@@ -77,7 +77,7 @@
 </template>
 <style>
 .sidebar-sort-group {
-    width: 25rem;
+    width: 20%;
 }
 
 .line-height-cus {
@@ -96,17 +96,16 @@
     background-color: black;
     color: white
 }
-
-.browseProduct>div>img {
-    /* width: 300px;
-    height: 300px;
-    object-fit: none; */
-}
 </style>
 <script>
 import $ from 'jquery'
 export default {
     name: "Product",
+    props:{
+        products:{
+            default: []
+        }
+    },
     data() {
         return {
             categorie: [
@@ -117,13 +116,14 @@ export default {
                 { ic: 5, title: "Sets", hover: false },
                 { ic: 6, title: "Dresses", hover: false },
                 { ic: 7, title: "Jumpsuits", hover: false }],
-            listProduct: [
-                { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg'), is_favourite: false },
-                { title: "THE STAR CROP VEST", price: "2790", url: require('../assets/homepage/img2.svg'), is_favourite: false },
-                { title: "THE STAR CROP VEST", price: "690", url: require('../assets/homepage/img3.svg'), is_favourite: false },
-                { title: "THE STAR CROP VEST", price: "990", url: require('../assets/homepage/img4.svg'), is_favourite: false },
-                { title: "THE STAR CROP VEST", price: "1290", url: require('../assets/homepage/img5.svg'), is_favourite: false },
-            ],
+            // listProducts:this.products.filter(e => e.sex == this.$route.params.sex),
+            // listProduct: [
+            //     { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg'), is_favourite: false },
+            //     { title: "THE STAR CROP VEST", price: "2790", url: require('../assets/homepage/img2.svg'), is_favourite: false },
+            //     { title: "THE STAR CROP VEST", price: "690", url: require('../assets/homepage/img3.svg'), is_favourite: false },
+            //     { title: "THE STAR CROP VEST", price: "990", url: require('../assets/homepage/img4.svg'), is_favourite: false },
+            //     { title: "THE STAR CROP VEST", price: "1290", url: require('../assets/homepage/img5.svg'), is_favourite: false },
+            // ],
         }
     },
     methods: {
@@ -137,6 +137,17 @@ export default {
         },
         slideSidebar(comp) {
             $(comp).slideToggle();
+        }
+    },
+    computed:{
+        renderProduct(){
+            let filterProduct = this.products.filter(e => e.sex == this.$route.params.sex)
+            console.log(filterProduct)
+            if (filterProduct.length > 0){
+                return filterProduct
+            }else{
+                return this.products
+            }
         }
     }
 }

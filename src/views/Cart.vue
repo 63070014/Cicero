@@ -60,8 +60,10 @@
         <div class="flex w-3/5 justify-between">
             <div class="text-xl font-bold p-5 tracking-wider">TOTAL 5920 THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
-                <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">CONTINUE SHOPPING</button>
-                <button class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK OUT</button>
+                <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">CONTINUE
+                    SHOPPING</button>
+                <button class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
+                    OUT</button>
             </div>
         </div>
     </div>
@@ -75,6 +77,7 @@ export default {
     },
     data() {
         return {
+
             cartProduct: [
                 { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg'), detail_product: "Lorem Ipsum is simply dummy text of the printing setting industry.", },
                 { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img2.svg'), detail_product: "Lorem Ipsum is simply dummy text of the printing setting industry.", },
@@ -83,8 +86,12 @@ export default {
     },
     methods: {
     },
-    watch: {
-
+    mounted() {
+        if (JSON.parse(localStorage.getItem("user")) == null) {
+            alert("Please Login First !")
+            this.$router.push('/')
+        }
     }
+
 };
 </script>

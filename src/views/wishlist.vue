@@ -194,6 +194,12 @@ export default {
         // EnableEdit(){
             
         // }
+    },
+    mounted() {
+        if (JSON.parse(localStorage.getItem("user")) == null) {
+            alert("Please Login First !")
+            this.$router.push('/')
+        }
     }
 }
 </script>
