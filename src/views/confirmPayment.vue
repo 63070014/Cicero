@@ -47,10 +47,10 @@ export default{
         }
     },
     methods:{
-        showData(){
-            var getData = JSON.parse(localStorage.getItem('address')) 
-            this.address = getData[0].localAddress
-        }
+        // showData(){
+        //     var getData = JSON.parse(localStorage.getItem('address')) 
+        //     this.address = getData[0].localAddress
+        // }
     }
 }
 </script>
