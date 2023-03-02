@@ -167,6 +167,9 @@ export default {
         }
     },
     methods: {
+        LinkTo(whereTo) {
+            this.$router.push(whereTo)
+        },
         saveAddress() {
             var getData = [{
                 localFname: this.fname,
@@ -179,6 +182,7 @@ export default {
                 localPostcode: this.postcode,
             }]
             localStorage.setItem('address', JSON.stringify(getData));
+            this.LinkTo('/confirm')
         },
     },
 }
