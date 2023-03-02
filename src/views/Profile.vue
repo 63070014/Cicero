@@ -75,7 +75,7 @@ export default {
         }
     },
     methods: {
-        getData() {
+        showData() {
             var getData = JSON.parse(localStorage.getItem('regisList'))
             var fname = ''; var lname = ''; var day = ''; var month = ''; var year = ''; var phone = ''; var email = ''
             for (let i = 0; i < getData.length; i++) {
@@ -94,7 +94,7 @@ export default {
                 this.year = year,
                 this.phone = phone,
                 this.email = email
-            // this.password = getData[0][7]
+                // window.onload = showData();
         }
     },
     watch: {
