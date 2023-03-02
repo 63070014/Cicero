@@ -40,12 +40,60 @@
         <div class="flex space-x-5">
             <div class="flex flex-col shipping-address border mt-12">
                 <div class="line-order flex text-xl font-bold p-5 tracking-wider">SHIPPING ADDRESS</div>
-                <div v-for="(item, index) in detailAddress1" :key="index" class="w-full">
-                    <div class="enter-address flex justify-between item-center">
-                        <div class="flex p-5">{{ item.topic }}</div>
-                        <div class="center-set">
-                            <input type="text" class="w-96 h-10 p-2" :placeholder="item.detail">
+                <!-- <div v-for="(item, index) in detailAddress1" :key="index" class="w-full">
+                        <div class="enter-address flex justify-between item-center">
+                            <div class="flex p-5">{{ item.topic }}</div>
+                            <div class="center-set">
+                                <input type="text" class="w-96 h-10 p-2" :placeholder="item.detail">
+                            </div>
                         </div>
+                    </div> -->
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Firstname</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Firstname" v-model="fname">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Lastname</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Lastname" v-model="lname">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Tel.</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Tel." v-model="phone">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Email</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Email" v-model="email">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Country</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Country" v-model="country">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Address</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Address" v-model="address">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Province</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Province" v-model="province">
+                    </div>
+                </div>
+                <div class="enter-address flex justify-between item-center">
+                    <div class="flex p-5">Postcode</div>
+                    <div class="center-set">
+                        <input type="text" class="w-96 h-10 p-2" placeholder="Postcode" v-model="postcode">
                     </div>
                 </div>
             </div>
@@ -83,7 +131,9 @@
             <div class="text-xl font-bold p-5 tracking-wider">TOTAL 5920 THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
                 <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">BACK</button>
-                <button class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">PLACE MY ORDER</button>
+                <button @click="saveAddress()"
+                    class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">PLACE MY
+                    ORDER</button>
             </div>
         </div>
     </div>
@@ -92,6 +142,14 @@
 export default {
     data() {
         return {
+            fname: '',
+            lname: '',
+            phone: '',
+            email: '',
+            country: '',
+            address: '',
+            province: '',
+            postcode: '',
             detailAddress1: [
                 { topic: "First name", detail: "First name", vModel: "fname" },
                 { topic: "Last name", detail: "Last name", vModel: "lname" },
@@ -107,6 +165,21 @@ export default {
                 { topic: "THE STAR CROP VEST", size: "S", price: "1590", url: require('../assets/homepage/img2.svg') },
             ],
         }
-    }
+    },
+    methods: {
+        saveAddress() {
+            var getData = [{
+                localFname: this.fname,
+                localLname: this.lname,
+                localPhone: this.phone,
+                localEmail: this.email,
+                localCountry: this.country,
+                localAddress: this.address,
+                localProvince: this.province,
+                localPostcode: this.postcode,
+            }]
+            localStorage.setItem('address', JSON.stringify(getData));
+        },
+    },
 }
 </script>
