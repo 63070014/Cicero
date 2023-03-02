@@ -118,6 +118,7 @@ export default {
                         temp.push({"id" : this.thisProduct[0].id, "count" : 1})
                     }
                     localStorage.setItem("cart", JSON.stringify(temp))
+                    // localStorage.setItem("size", )
                     alert("Product added to Cart")
                 }
             }

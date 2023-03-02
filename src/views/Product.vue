@@ -82,10 +82,10 @@
                                 <div class="relative flex items-center text-left">
                                     <img v-show="item.is_favourite == false"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heart.svg">
+                                        @click="item.is_favourite = !item.is_favourite, addToFav(item)" src="../assets/icons/heart.svg">
                                     <img v-show="item.is_favourite == true"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="item.is_favourite = !item.is_favourite, addToFav()"
+                                        @click="item.is_favourite = !item.is_favourite, cancelFav(index)"
                                         src="../assets/icons/heartt.svg">
                                     <p class="text-md w-64">{{ item.title }}</p>
                                 </div>
@@ -138,6 +138,7 @@ export default {
     },
     data() {
         return {
+            fav:[],
             browseProduct: this.products,
             categorie: [
                 { id: 1, title: "Tops", hover: false },
@@ -161,16 +162,21 @@ export default {
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
-        itemdropdown_hover(index) {
-            let item = '#items_category_hover' + index
-            let category = document.querySelector(item)
-            category.classList.add('bg-red-200')
-        },
         slideSidebar(comp) {
             $(comp).slideToggle();
         },
-        addToFav() {
-            localStorage.setItem('favorite', JSON.stringify([this.thisProduct[0].id]))
+        addToFav(e) {
+            if (!this.fav.includes(e)){
+                this.fav.push(e)
+            }
+            localStorage.setItem('favorite', JSON.stringify(this.fav))
+        },
+        cancelFav(e){
+            let temp = JSON.parse(localStorage.getItem('favorite'));
+            let index_delete = temp.indexOf(e)
+            temp.splice(index_delete,1)
+            localStorage.setItem('favorite', JSON.stringify(temp))
+
         }
     },
     computed: {
