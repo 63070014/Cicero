@@ -20,9 +20,9 @@
                 </div>
                 <span class="mt-6">CONFIRM PASSWORD</span>
                 <div class="password mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="password">
+                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="confirm">
                 </div>
-                <button @click="checkMail()" class="bg-black text-white h-9 mt-8">RESET PASSWORD</button>
+                <button @click="setNewPass()" class="bg-black text-white h-9 mt-8">RESET PASSWORD</button>
                 <button @click="LinkTo('/signin')" class="border border-black text-black h-9 mt-8">BACK</button>
             </div>
         </div>
@@ -35,34 +35,35 @@ export default {
         return {
             username: '',
             password: '',
+            confirm:'',
             getEmail: '',
             getPass: '',
             check: '',
         }
     },
     methods: {
-        getData() {
+        setNewPass(){
             var getData = JSON.parse(localStorage.getItem('regisList'))
-            var getEmail = ''; var getPass = '';
-            for (let i = 0; i < getData.length; i++) {
-                getEmail += getData[i].localEmail
-                getPass += getData[i].localPassword
+            for(let i = 0;i < getData.length; i++){
+                if (this.username === getData[i].localEmail) {
+                    getData[i].localPassword = this.password;
+                    alert("Succesful password reset!")
+                    this.username = ''
+                    this.password = ''
+                    this.confirm = ''
+                }
+                else{
+                    alert("Sorry We couldn't find your account.")
+                }
             }
-            this.getEmail = getEmail
-            this.getPass = getPass
+                localStorage.setItem('regisList', JSON.stringify(getData))
+            
         },
         homepage() {
             location.href = '/'
         },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
-        },
-        checkMail() {
-            if (this.username == this.getEmail) {
-                this.homepage()
-            } else {
-                alert("Your Email")
-            }
         },
     }
 }
