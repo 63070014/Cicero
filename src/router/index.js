@@ -377,6 +377,7 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
+    props: { products: product },
   },
   {
     path: "/confirm",

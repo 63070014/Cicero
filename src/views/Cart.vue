@@ -8,15 +8,15 @@
             <div class="flex text-gray-200">CONFIRMATION</div>
         </div>
         <div class="flex flex-col mt-12 ">
-            <div v-for="(item, index) in cartProduct" :key="index" class="flex flex-col">
+            <div v-for="(item, index) in cartItems" :key="index" class="flex flex-col">
                 <div class="flex space-x-6 ">
-                    <div class="flex"><img src="../assets/icons/delete_button.svg" alt=""></div>
-                    <div class="flex"><img :src="item.url" alt=""></div>
+                    <div @click="deleteItems(index)" class="flex"><img src="../assets/icons/delete_button.svg" alt=""></div>
+                    <div @click="LinkTo('/productDetail/'+item.title)" class="w-80 flex"><img :src="item.listImg[0]" alt=""></div>
                     <div class="flex space-x-28">
                         <div class="flex justify-between flex-col p-6">
                             <div class="flex flex-col">
                                 <div class="text-base font-semibold">{{ item.title }}</div>
-                                <div class="w-44 text-gray-400">{{ item.detail_product }}</div>
+                                <div class="w-44 text-gray-400">{{ item.detail }}</div>
                             </div>
                             <div class="flex flex-col">
                                 <div class="font-semibold font-copper pb-3">SELECT YOUR SIZE</div>
@@ -43,8 +43,9 @@
                         </div>
                         <div class="flex justify-between flex-col ">
                             <div class="flex space-x-4 p-8">
-                                <div class="flex cursor-pointer"> <img src="../assets/icons/minus.svg" alt=""></div>
-                                <div class="text-3xl">1</div>
+                                <div @click="cartItems()" class="flex cursor-pointer"> <img src="../assets/icons/minus.svg"
+                                        alt=""></div>
+                                <div class="text-3xl">{{ count[index].count }}</div>
                                 <div class="flex mt-1 cursor-pointer"> <img src="../assets/icons/plus.svg" alt=""></div>
                             </div>
                             <div class="flex text-2xl p-4">{{ item.price }} <p class="text-base text-gray-400 p-2">THB</p>
@@ -58,11 +59,11 @@
 
         </div>
         <div class="flex w-3/5 justify-between">
-            <div class="text-xl font-bold p-5 tracking-wider">TOTAL 5920 THB</div>
+            <div class="text-xl font-frans font-bold p-5 tracking-wider">SUBTOTAL {{ totalPrice() }} THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
                 <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">CONTINUE
                     SHOPPING</button>
-                <button class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
+                <button @click="LinkTo('/order')" class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
                     OUT</button>
             </div>
         </div>
@@ -72,19 +73,50 @@
 // @ is an alias to /src
 
 export default {
-    name: "Homepage",
+    name: "Cart",
+    props: {
+        products: {
+            default: []
+        }
+    },
     components: {
     },
     data() {
         return {
-
-            cartProduct: [
-                { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg'), detail_product: "Lorem Ipsum is simply dummy text of the printing setting industry.", },
-                { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img2.svg'), detail_product: "Lorem Ipsum is simply dummy text of the printing setting industry.", },
-            ],
+            cartProduct: [],
+            count: JSON.parse(localStorage.getItem("cart"))
         }
     },
     methods: {
+        totalPrice(){
+            let price = 0
+            for (let i = 0; i < this.cartItems.length; i++) {
+                price += parseInt(this.cartItems[i].price)
+                
+            }
+            return price
+        },
+        deleteItems(index){
+            console.log(this.cartItems)
+            this.cartItems.splice(index,1)
+            console.log(this.cartItems)
+            localStorage.setItem("cart", JSON.stringify(this.cartItems))
+            this.$forceUpdate();
+        },
+        LinkTo(whereTo) {
+            this.$router.push(whereTo)
+        },
+    },
+    computed: {
+        cartItems() {
+            var temp = JSON.parse(localStorage.getItem("cart"));
+            let cart = []
+            for (let i = 0; i < temp.length; i++) {
+                cart.push(...this.products.filter(e => e.id == temp[i].id))
+            }
+            // this.cartProduct = cart
+            return cart
+        }
     },
     mounted() {
         if (JSON.parse(localStorage.getItem("user")) == null) {
