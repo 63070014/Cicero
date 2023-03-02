@@ -43,10 +43,10 @@
                         </div>
                         <div class="flex justify-between flex-col ">
                             <div class="flex space-x-4 p-8">
-                                <div @click="cartItems()" class="flex cursor-pointer"> <img src="../assets/icons/minus.svg"
+                                <div @click="count[index].count--" class="flex cursor-pointer"> <img src="../assets/icons/minus.svg"
                                         alt=""></div>
                                 <div class="text-3xl">{{ count[index].count }}</div>
-                                <div class="flex mt-1 cursor-pointer"> <img src="../assets/icons/plus.svg" alt=""></div>
+                                <div @click="count[index].count++" class="flex mt-1 cursor-pointer select-none"> <img src="../assets/icons/plus.svg" alt=""></div>
                             </div>
                             <div class="flex text-2xl p-4">{{ item.price }} <p class="text-base text-gray-400 p-2">THB</p>
                             </div>
