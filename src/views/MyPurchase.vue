@@ -12,7 +12,7 @@
         <div class="flex flex-col mt-12">
             <div v-for="(item, index) in cartProduct" :key="index" class="flex flex-col w-full">
                 <div class="flex justify-between space-x-6">
-                    <img :src="item.url" alt="">
+                    <img class="w-60" :src="item.listImg[0]" alt="">
                     <div class="flex">
                         <div class="flex space-y-5 flex-col px-4 py-6">
                             <div class="flex flex-col">
@@ -35,8 +35,9 @@
                                 <p class="font-bold w-44 font-frans"># ORDER 1RSTGO-5D</p>
                             </div>
                             <div class="">
-                                <button
-                                    class="font-frans border text-center border-gray-500 border-1 text-white text-sm px-16 py-1.5 bg-black hover:bg-white hover:text-black">BUY AGAIN</button>
+                                <button @click="LinkTo('/productDetail/' + item.title)"
+                                    class="font-frans border text-center border-gray-500 border-1 text-white text-sm px-16 py-1.5 bg-black hover:bg-white hover:text-black">BUY
+                                    AGAIN</button>
 
                             </div>
                         </div>
@@ -49,7 +50,7 @@
         </div>
         <div class="flex justify-center">
             <div class="mt-8 flex space-x-3">
-                <button
+                <button @click="LinkTo('/')"
                     class="font-frans border text-center border-gray-500 border-1 text-black px-16 py-1.5 bg-white hover:bg-black hover:text-white">BACK</button>
             </div>
         </div>
@@ -64,13 +65,13 @@ export default {
     },
     data() {
         return {
-            cartProduct: [
-                { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg'), detail_product: "Lorem Ipsum is simply dummy text of the printing setting industry.", },
-                { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img2.svg'), detail_product: "Lorem Ipsum is simply dummy text of the printing setting industry.", },
-            ],
+            cartProduct: JSON.parse(localStorage.getItem("payment_items")),
         }
     },
     methods: {
+        LinkTo(whereTo) {
+            this.$router.push(whereTo)
+        },
     },
     watch: {
 

@@ -108,7 +108,7 @@
                 </div>
                 <span class="mt-6">PASSWORD</span>
                 <div class="password mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="password">
+                    <input type="password" class="w-full bg-gray-200 h-9 p-2" v-model="password">
                 </div>
                 <button @click="saveData(), LinkTo('/signin')" class="bg-black text-white h-9 mt-8">REGISTER</button>
             </div>

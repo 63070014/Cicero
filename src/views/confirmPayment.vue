@@ -18,7 +18,7 @@
                             <div class="">PAYMENT METHOD</div>
                         </div>
                         <div class="flex flex-col space-y-3">
-                            <div class="">1,590 THB</div>
+                            <div class="">{{ this.totalPrice() }} THB</div>
                             <div class="">MAR 3, 2022</div>
                             <div class="">ACCOUNT *1203</div>
                         </div>
@@ -43,10 +43,19 @@ export default{
     data(){
         return{
             address:'',
-            getData:JSON.parse(localStorage.getItem('address')) 
+            getData:JSON.parse(localStorage.getItem('address')),
+            orderSummary: JSON.parse(localStorage.getItem("payment_items")),
         }
     },
     methods:{
+        totalPrice(){
+            let price = 0
+            for (let i = 0; i < this.orderSummary.length; i++) {
+                price += parseInt(this.orderSummary[i].price)
+                
+            }
+            return price
+        },
         // showData(){
         //     var getData = JSON.parse(localStorage.getItem('address')) 
         //     this.address = getData[0].localAddress

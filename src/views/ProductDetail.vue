@@ -93,31 +93,37 @@ export default {
             this.$router.push(whereTo)
         },
         addItemToCart() {
-            let check = 0;
-            let index = 0;
-            if (localStorage.getItem("cart") == null) {
-                let data = [{ id: this.thisProduct[0].id, count: 1 }]
-                localStorage.setItem("cart", JSON.stringify(data))
-            }
-            else {
-                let temp = JSON.parse(localStorage.getItem("cart"));
-                for (let i = 0; i < temp.length; i++) {
-                    if (temp[i].id == this.thisProduct[0].id) {
-                        check = 1;
-                        index = i
+            if (localStorage.getItem("user") != null){
+                let check = 0;
+                let index = 0;
+                if (localStorage.getItem("cart") == null) {
+                    let data = [{ id: this.thisProduct[0].id, count: 1 }]
+                    localStorage.setItem("cart", JSON.stringify(data))
+                }
+                else {
+                    let temp = JSON.parse(localStorage.getItem("cart"));
+                    for (let i = 0; i < temp.length; i++) {
+                        if (temp[i].id == this.thisProduct[0].id) {
+                            check = 1;
+                            index = i
+                        }
                     }
+                    if (check) {
+                        let backup = temp[index];
+                        temp.splice(index, 1);
+                        backup.count++;
+                        temp.push(backup)
+                    }
+                    else{
+                        temp.push({"id" : this.thisProduct[0].id, "count" : 1})
+                    }
+                    localStorage.setItem("cart", JSON.stringify(temp))
+                    alert("Product added to Cart")
                 }
-                if (check) {
-                    let backup = temp[index];
-                    temp.splice(index, 1);
-                    backup.count++;
-                    temp.push(backup)
-                }
-                else{
-                    temp.push({"id" : this.thisProduct[0].id, "count" : 1})
-                }
-                localStorage.setItem("cart", JSON.stringify(temp))
-                alert("Product added to Cart")
+            }
+            else{
+                alert("Please Login First !")
+                this.LinkTo('/signin')
             }
         }
         // localStorage.setItem(JSON.stringify())
