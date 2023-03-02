@@ -182,6 +182,95 @@ const product = [
       ],
       is_favourite: false,
   },
+  {
+    id: '011',
+    title: 'GRAPHIC PRINT HOODIE',
+    price: '4290',
+    color: 'brown',
+    sex: 'men',
+    categories: 'Hoodies & Sweatshirts',
+    detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+    listImg: [
+        require('../assets/products/GRAPHIC_PRINT_HOODIE_0.jpg'),
+        require('../assets/products/GRAPHIC_PRINT_HOODIE_1.jpg'),
+        require('../assets/products/GRAPHIC_PRINT_HOODIE_2.jpg'),
+        require('../assets/products/GRAPHIC_PRINT_HOODIE_3.jpg'),
+        require('../assets/products/GRAPHIC_PRINT_HOODIE_4.jpg'),
+        require('../assets/products/GRAPHIC_PRINT_HOODIE_5.jpg')
+    ],
+    is_favourite: false,
+},
+{
+  id: '012',
+  title: 'GRAPHIC T-SHIRT',
+  price: '2290',
+  color: 'purple',
+  sex: 'men',
+  categories: 'T-Shirts & Tops',
+  detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+  listImg: [
+      require('../assets/products/GRAPHIC_TSHIRT_0.jpg'),
+      require('../assets/products/GRAPHIC_TSHIRT_1.jpg'),
+      require('../assets/products/GRAPHIC_TSHIRT_2.jpg'),
+      require('../assets/products/GRAPHIC_TSHIRT_3.jpg'),
+      require('../assets/products/GRAPHIC_TSHIRT_4.jpg'),
+      require('../assets/products/GRAPHIC_TSHIRT_5.jpg')
+  ],
+  is_favourite: false,
+},
+{
+  id: '013',
+  title: 'PRINTED TRAINING SHORTS',
+  price: '1990',
+  color: 'white',
+  sex: 'men',
+  categories: 'Shorts',
+  detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+  listImg: [
+      require('../assets/products/PRINTED_TRAINING_SHORTS_0.jpg'),
+      require('../assets/products/PRINTED_TRAINING_SHORTS_1.jpg'),
+      require('../assets/products/PRINTED_TRAINING_SHORTS_2.jpg'),
+      require('../assets/products/PRINTED_TRAINING_SHORTS_3.jpg'),
+      require('../assets/products/PRINTED_TRAINING_SHORTS_4.jpg'),
+      require('../assets/products/PRINTED_TRAINING_SHORTS_5.jpg')
+  ],
+  is_favourite: false,
+},
+{
+  id: '014',
+  title: 'SUIT BLAZER',
+  price: '5490',
+  color: 'blue',
+  sex: 'men',
+  categories: 'T-Shirts & Tops',
+  detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+  listImg: [
+      require('../assets/products/SUIT_BLAZER_0.jpg'),
+      require('../assets/products/SUIT_BLAZER_1.jpg'),
+      require('../assets/products/SUIT_BLAZER_2.jpg'),
+      require('../assets/products/SUIT_BLAZER_3.jpg'),
+      require('../assets/products/SUIT_BLAZER_4.jpg'),
+      require('../assets/products/SUIT_BLAZER_5.jpg')
+  ],
+  is_favourite: false,
+},
+{
+  id: '015',
+  title: 'TECHNICAL WINDBREAKER JACKET',
+  price: '3790',
+  color: 'blue',
+  sex: 'men',
+  categories: 'Jackets',
+  detail: 'Lorem Ipsum is simply dummy text of the printing setting industry',
+  listImg: [
+      require('../assets/products/TECHNICAL_WINDBREAKER_JACKET_0.jpg'),
+      require('../assets/products/TECHNICAL_WINDBREAKER_JACKET_1.jpg'),
+      require('../assets/products/TECHNICAL_WINDBREAKER_JACKET_2.jpg'),
+      require('../assets/products/TECHNICAL_WINDBREAKER_JACKET_3.jpg'),
+      require('../assets/products/TECHNICAL_WINDBREAKER_JACKET_4.jpg')
+  ],
+  is_favourite: false,
+},
 ]
 import Forgot from "../views/forgotPassword.vue"
 const routes = [
