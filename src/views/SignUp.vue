@@ -46,16 +46,56 @@
                         <option value="1" class="">1</option>
                         <option value="2" class="">2</option>
                         <option value="3" class="">3</option>
+                        <option value="4" class="">4</option>
+                        <option value="5" class="">5</option>
+                        <option value="6" class="">6</option>
+                        <option value="7" class="">7</option>
+                        <option value="8" class="">8</option>
+                        <option value="9" class="">9</option>
+                        <option value="10" class="">10</option>
+                        <option value="11" class="">11</option>
+                        <option value="12" class="">12</option>
+                        <option value="13" class="">13</option>
+                        <option value="14" class="">14</option>
+                        <option value="15" class="">15</option>
+                        <option value="16" class="">16</option>
+                        <option value="17" class="">17</option>
+                        <option value="18" class="">18</option>
+                        <option value="19" class="">19</option>
+                        <option value="20" class="">20</option>
+                        <option value="21" class="">21</option>
+                        <option value="22" class="">22</option>
+                        <option value="23" class="">23</option>
+                        <option value="24" class="">24</option>
+                        <option value="25" class="">25</option>
+                        <option value="26" class="">26</option>
+                        <option value="27" class="">27</option>
+                        <option value="28" class="">28</option>
+                        <option value="29" class="">29</option>
+                        <option value="30" class="">30</option>
+                        <option value="31" class="">31</option>
                     </select>
                     <select name="" class="bg-gray-200 h-9 w-1/3" id="" v-model="month">
                         <option value="JAN">JAN</option>
                         <option value="FEB">FEB</option>
                         <option value="MAR">MAR</option>
+                        <option value="APR">APR</option>
+                        <option value="MAY">MAY</option>
+                        <option value="JUN">JUN</option>
+                        <option value="JUL">JUL</option>
+                        <option value="AUG">AUG</option>
+                        <option value="SEP">SEP</option>
+                        <option value="OCT">OCT</option>
+                        <option value="NOV">NOV</option>
+                        <option value="DEC">DEC</option>
                     </select>
                     <select name="" class="bg-gray-200 h-9 w-1/3" id="" v-model="year">
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
                     </select>
                 </div>
                 <span class="mt-6">PHONE NUMBER *</span>
