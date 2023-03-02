@@ -24,7 +24,7 @@
                     <p class="py-2 px-4">Account</p>
                     <p @click="LinkTo('/order')" class="py-2 px-4">My Order</p>
                     <p @click="LinkTo('/wishlist')" class="py-2 px-4">Favourite</p>
-                    <p class="py-2 px-4">Logout</p>
+                    <p @click="logout()" class="py-2 px-4">Logout</p>
                 </div>
             </div>
         </div>
@@ -33,10 +33,10 @@
                 <button class="btn-search"><img src="../assets/icons/Search_light.svg" alt=""></button>
                 <input type="text" class="input-search" placeholder="Type to Search...">
             </div>
-            <div @click="LinkTo('/signin')" id="btn-login" class="hidden px-8 py-2 border cursor-pointer select-none">
+            <div v-if="this.user == null" @click="LinkTo('/signin')" id="btn-login" class="px-8 py-2 border cursor-pointer select-none">
                 LOGIN
             </div>
-            <div class=" flex items-center space-x-4">
+            <div v-else class=" flex items-center space-x-4">
                 <img @click="LinkTo('/cart')" class="cursor-pointer" src="../assets/icons/basket.svg" />
                 <img @click="LinkTo('/wishlist')" class="cursor-pointer" src="../assets/icons/favourite.svg" />
                 <img v-on:mouseover="slideDown('.dropdown-profile')" src="../assets/icons/profile.svg" alt="" />
@@ -161,7 +161,7 @@ export default {
     name: "navbar",
     data() {
         return {
-            isOpen: false,
+            user: JSON.parse(localStorage.getItem("user")),
             men_item: [
                 { name: "Hoodies & Sweatshirts", path: "/" },
                 { name: "Jackets", path: "/" },
@@ -189,6 +189,9 @@ export default {
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
+        logout(){
+            localStorage.removeItem("user")
+        }
     },
     components: {}
 }

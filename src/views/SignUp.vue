@@ -107,7 +107,7 @@ export default {
                 localEmail: this.email,
                 localPassword: this.password,
             }]
-            localStorage.setItem('regisList', JSON.stringify(getData));
+            localStorage.setItem('user', JSON.stringify(getData));
         }
 
     }

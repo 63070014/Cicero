@@ -142,7 +142,6 @@ export default {
     computed:{
         renderProduct(){
             let filterProduct = this.products.filter(e => e.sex == this.$route.params.sex)
-            console.log(filterProduct)
             if (filterProduct.length > 0){
                 return filterProduct
             }else{
