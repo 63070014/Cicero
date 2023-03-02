@@ -7,7 +7,7 @@
         <div v-for="(item, index) in forWho" :key="index" @click="LinkTo(item.path)"
           class="img-forwomen overflow-hidden w-full h-full flex center-set font-frans cursor-pointer">
           <img class="zoomImg" :src="item.url" />
-          <div class="w-36 h-14 bg-black text-lg font-semibold text-white flex center-set absolute">
+          <div class="w-36 h-14 bg-black text-lg font-normal text-white flex center-set absolute">
             {{ item.name }}
           </div>
         </div>
@@ -34,14 +34,14 @@
       <div class="first-buyNowBanner mt-8 w-full h-full relative">
         <img src="../assets/homepage/buyNow1.svg" />
         <div
-          class="w-44 h-14 bg-black text-white font-semibold center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
+          class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
           BUY NOW
         </div>
       </div>
       <div class="second-buyNowBanner mt-10 w-full h-full relative">
         <img src="../assets/homepage/buyNow2.svg" />
         <div
-          class="w-44 h-14 bg-black text-white font-semibold center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
+          class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
           BUY NOW
         </div>
       </div>

@@ -87,9 +87,9 @@
                                         class="w-5 absolute right-0 cursor-pointer select-none"
                                         @click="item.is_favourite = !item.is_favourite, addToFav()"
                                         src="../assets/icons/heartt.svg">
-                                    <p class="text-md ">{{ item.title }}</p>
+                                    <p class="text-md w-64">{{ item.title }}</p>
                                 </div>
-                                <p class="text-2xl text-left leading-5">{{ item.price }} <span
+                                <p class="text-2xl text-left leading-6">{{ item.price }} <span
                                         class="text-sm text-gray-600">THB</span></p>
                             </div>
                         </div>
