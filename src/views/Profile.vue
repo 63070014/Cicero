@@ -28,10 +28,10 @@
                         <option value="">{{ getData[0].localDay }}</option>
                     </select>
                     <select name="" :value="month" class="non-pointer bg-gray-200 h-9 w-1/3 pl-2 text-gray-500" id="" :class="{'pointer-events-none' : enableEdit}">
-                        <option value="">{{ this.getData[0].localMonth }}</option>
+                        <option value="">{{ getData[0].localMonth }}</option>
                     </select>
                     <select name="" :value="year" class="non-pointer bg-gray-200 h-9 w-1/3 pl-2 text-gray-500" id="" :class="{'pointer-events-none' : enableEdit}">
-                        <option value="">{{ this.getData[0].localYear }}</option>
+                        <option value="">{{ getData[0].localYear }}</option>
                     </select>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="space-y-6">
                 <button @click="enableEdit = !enableEdit" class="border-black border w-full h-9 mt-2">{{ enableEdit ? 'EDIT' : 'SAVE' }}</button>
-                <button class="bg-black text-white w-full h-9">LOGOUT</button>
+                <button @click="LinkTo('/')" class="bg-black text-white w-full h-9">LOGOUT</button>
             </div>
         </div>
     </div>
@@ -76,6 +76,9 @@ export default {
         }
     },
     methods: {
+        LinkTo(whereTo) {
+            this.$router.push(whereTo)
+        },
         // showData() {
         //     var getData = JSON.parse(localStorage.getItem('user'))
         //     var fname = ''; var lname = ''; var day = ''; var month = ''; var year = ''; var phone = ''; var email = ''
