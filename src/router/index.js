@@ -183,6 +183,7 @@ const product = [
       is_favourite: false,
   },
 ]
+import Forgot from "../views/forgotPassword.vue"
 const routes = [
   {
     path: "/",
@@ -245,6 +246,11 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+  },
+  {
+    path: "/forgot",
+    name: "forgot",
+    component: Forgot,
   },
 ];
 

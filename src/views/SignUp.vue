@@ -70,7 +70,7 @@
                 <div class="password mt-2">
                     <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="password">
                 </div>
-                <button @click="saveData(), LinkTo('/')"  class="bg-black text-white h-9 mt-8">REGISTER</button>
+                <button @click="saveData(), LinkTo('/signin')" class="bg-black text-white h-9 mt-8">REGISTER</button>
             </div>
         </div>
 
@@ -79,34 +79,35 @@
 <script>
 
 export default {
-    fname: '',
-    lname: '',
-    day: '',
-    month: '',
-    year: '',
-    phone: '',
-    email: '',
-    password: '',
     name: 'signin',
     data() {
-        
+        return {
+            fname: '',
+            lname: '',
+            day: '',
+            month: '',
+            year: '',
+            phone: '',
+            email: '',
+            password: '',
+        }
     },
     methods: {
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
-        saveData(){
+        saveData() {
             var getData = [{
-            localFname: this.fname,
-            localLname: this.lname,
-            localDay: this.day,
-            localMonth: this.month,
-            localYear: this.year,
-            localPhone: this.phone,
-            localEmail: this.email,
-            localPassword: this.password,
-        }]
-        localStorage.setItem('regisList', JSON.stringify(getData));
+                localFname: this.fname,
+                localLname: this.lname,
+                localDay: this.day,
+                localMonth: this.month,
+                localYear: this.year,
+                localPhone: this.phone,
+                localEmail: this.email,
+                localPassword: this.password,
+            }]
+            localStorage.setItem('regisList', JSON.stringify(getData));
         }
 
     }
