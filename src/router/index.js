@@ -295,7 +295,7 @@ const product = [
   },
   {
     id: "018",
-    title: "BULL RAINBOW LOGO PATCH",
+    title: "BULL RAINBOW LOGO",
     price: "2490",
     color: "white",
     sex: "men",
@@ -306,7 +306,7 @@ const product = [
   },
   {
     id: "019",
-    title: "CROPPED OVERLOGO T-SHIRT",
+    title: "CROPPED OVER T-SHIRT",
     price: "990",
     color: "blue",
     sex: "women",

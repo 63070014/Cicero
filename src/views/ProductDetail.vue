@@ -73,6 +73,9 @@ export default {
         LinkTo(whereTo){
             this.$router.push(whereTo)
         },
+        addItemToCart(){
+            
+        }
     }
 }
 </script>

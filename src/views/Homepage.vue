@@ -19,10 +19,10 @@
             <img :src="item[0].listImg[0]" @click="LinkTo('/productDetail/'+item[0].title)"/>
             <div class="p-2">
               <div class="flex items-center">
-                <img v-show="item.is_favourite == false" class="w-5 absolute right-0"
-                  @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heart.svg">
-                <img v-show="item.is_favourite == true" class="w-5 absolute right-0"
-                  @click="item.is_favourite = !item.is_favourite" src="../assets/icons/heartt.svg">
+                <img v-show="item[0].is_favourite == false" class="w-5 absolute right-0"
+                  @click="item[0].is_favourite = !item[0].is_favourite" src="../assets/icons/heart.svg">
+                <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
+                  @click="item[0].is_favourite = !item[0].is_favourite" src="../assets/icons/heartt.svg">
                 <p class="text-md">{{ item[0].title }}</p>
               </div>
               <p class="text-2xl leading-5">{{ item[0].price }} <span class="text-sm text-gray-600">THB</span></p>
