@@ -10,6 +10,7 @@ import confirmPayment from "../views/confirmPayment.vue"
 import wishlist from "../views/wishlist.vue"
 import Purchase from "../views/MyPurchase.vue"
 import Profile from "../views/Profile.vue"
+import Forgot from "../views/forgotPassword.vue"
 const routes = [
   {
     path: "/",
@@ -70,6 +71,11 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+  },
+  {
+    path: "/forgot",
+    name: "forgot",
+    component: Forgot,
   },
 ];
 
