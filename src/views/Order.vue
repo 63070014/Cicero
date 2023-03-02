@@ -21,10 +21,10 @@
 }
 
 .img-summary {
-    width: 300px !important;
-    height: 120px !important;
-    object-fit: none;
-    background-position: bottom;
+    width: 9rem;
+    height: 9rem;
+    object-fit: cover;
+    background-position: center;
 
 }
 </style>
@@ -39,7 +39,7 @@
         </div>
         <div class="flex space-x-5">
             <div class="flex flex-col shipping-address border mt-12">
-                <div class="line-order flex text-xl font-bold p-5 tracking-wider">SHIPPING ADDRESS</div>
+                <div class="line-order flex text-2xl font-light font-frans p-5 tracking-wider">SHIPPING ADDRESS</div>
                 <!-- <div v-for="(item, index) in detailAddress1" :key="index" class="w-full">
                         <div class="enter-address flex justify-between item-center">
                             <div class="flex p-5">{{ item.topic }}</div>
@@ -97,9 +97,9 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col w-96 mt-12">
-                <div class="border flex text-xl font-bold p-5 tracking-wider">ORDER SUMMARY</div>
-                <div v-for="(item, index) in orderSummary" :key="index" class="w-full border">
+            <div class="flex flex-col w-96 mt-12 ">
+                <div class="border flex text-2xl font-light p-5 tracking-wider font-frans ">ORDER SUMMARY</div>
+                <div v-for="(item, index) in orderSummary" :key="index" class="w-full border font-jura">
                     <div class="flex">
                         <div class="w-32 p-2">
                             <img :src="item.listImg[0]" class="img-summary">
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="border center-set flex-col font-bold h-28">
+                <div class="border center-set flex-col font-bold h-28 font-jura text-bold text-lg">
                     <div class="flex w-80">
                         <div class="w-1/2 ">TOTAL PRODUCT</div>
                         <div class="w-1/2 ">{{ this.totalPrice() }} THB</div>
@@ -126,9 +126,9 @@
                 </div>
             </div>
         </div>
-        <div class="flex line-order w-3/5 mt-12 border-2"></div>
+        <div class="flex line-order w-3/5 mt-12 border-1"></div>
         <div class="flex w-3/5 justify-between">
-            <div class="text-xl font-bold p-5 tracking-wider">TOTAL {{ this.totalPrice() }} THB</div>
+            <div class="text-2xl font-light p-5 tracking-wider font-frans">TOTAL {{ this.totalPrice() }} THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
                 <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">BACK</button>
                 <button @click="saveAddress()"
