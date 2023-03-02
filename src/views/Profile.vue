@@ -58,7 +58,6 @@
 // @ is an alias to /src
 
 export default {
-
     name: "Homepage",
     components: {
     },
@@ -94,7 +93,6 @@ export default {
                 this.year = year,
                 this.phone = phone,
                 this.email = email
-                // window.onload = showData();
         }
     },
     watch: {

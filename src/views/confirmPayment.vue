@@ -19,8 +19,8 @@
                         </div>
                         <div class="flex flex-col space-y-3">
                             <div class="">1,590 THB</div>
-                            <div class="">FEB 23, 2022</div>
-                            <div class="">ACCOUNT</div>
+                            <div class="">MAR 3, 2022</div>
+                            <div class="">ACCOUNT *1203</div>
                         </div>
                     </div>
                     <div class="border font-frans p-4 w-full text-center border-black">ORDER NUMBER : 1RSTGO-5D</div>
@@ -30,7 +30,7 @@
             <div class="flex justify-between w-full p-9 relative">
                 <div class="flex flex-col space-y-2">
                     <div class="font-frans">SHIPPING ADDRESS</div>
-                    <div class="w-60">123/345 PRUKSA VILLETTE SUANLUANG PATTHANAKARN 44 BANGKOK 10250,  THAILAND</div>
+                    <div class="w-60" >{{ this.getData[0].localAddress + " " + this.getData[0].localPostcode + " " + this.getData[0].localProvince }}</div>
                 </div>
                 <div class="flex flex-col-reverse font-jura font-bold relative">
                     <p class="text-lg">Cicero.</p></div>
@@ -38,3 +38,19 @@
         </div>
     </div>
 </template>
+<script>
+export default{
+    data(){
+        return{
+            address:'',
+            getData:JSON.parse(localStorage.getItem('address')) 
+        }
+    },
+    methods:{
+        showData(){
+            var getData = JSON.parse(localStorage.getItem('address')) 
+            this.address = getData[0].localAddress
+        }
+    }
+}
+</script>
