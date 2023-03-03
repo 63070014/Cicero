@@ -29,10 +29,7 @@
             </div>
         </div>
         <div class="flex items-center justify-end space-x-4 mr-6 z-10">
-            <div class="search-box">
-                <button class="btn-search"><img src="../assets/icons/Search_light.svg" alt=""></button>
-                <input type="text" class="input-search" placeholder="Type to Search...">
-            </div>
+            <img @click="LinkTo('/search')" class="cursor-pointer select-none" :style="{'width':'30px'}" src="../assets/icons/Search_light.svg" alt="">
             <div v-if="this.user == null" @click="LinkTo('/signin')" id="btn-login" class="px-8 py-2 border cursor-pointer select-none">
                 LOGIN
             </div>
@@ -47,11 +44,6 @@
 
     </nav>
 
-    <!-- <div class="dropdown-menu-items" :class="{ isOpen }" v-on:mouseleave="slideToggle()">
-        <li v-for="item in men_item" :key="item.name">
-            <router-link :to="{ path: item.path }">{{ item.name }}</router-link>
-        </li>
-    </div> -->
 </template>
 <style>
 .menu-navbar-group>a {
@@ -135,8 +127,8 @@ nav a.router-link-exact-active {
     pointer-events: painted;
 }
 
-.btn-search:focus~.input-search {
-    width: 200px;
+.btn-search~.input-search {
+    width: 400px;
     margin-right: 40px;
     border-radius: 0px;
     padding-bottom: 7px;
@@ -147,7 +139,7 @@ nav a.router-link-exact-active {
 }
 
 .input-search:focus {
-    width: 300px;
+    width: 500px;
     margin-right: 40px;
     border-radius: 0px;
     background-color: transparent;

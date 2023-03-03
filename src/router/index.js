@@ -10,6 +10,7 @@ import confirmPayment from "../views/confirmPayment.vue";
 import wishlist from "../views/wishlist.vue";
 import Purchase from "../views/MyPurchase.vue";
 import Profile from "../views/Profile.vue";
+import Search from "../views/search.vue"
 const product = [
   {
     id: "001",
@@ -399,6 +400,12 @@ const routes = [
     name: "forgot",
     component: Forgot,
   },
+  {
+    path:"/search",
+    name:"search",
+    component: Search,
+    props: { products: product },
+  }
 ];
 
 const router = createRouter({

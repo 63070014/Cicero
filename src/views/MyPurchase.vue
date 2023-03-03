@@ -1,7 +1,7 @@
 <template>
     <div class="center-set flex-col">
         <div class="payment-head center-set mt-12 space-x-3 font-semibold text-lg tracking-widest">
-            <div class="flex font-bold">MY PURCHASE</div>
+            <div class="flex font-bold font-frans text-lg">MY PURCHASE</div>
             <div class="opacity-0 flex">
                 <div class="line-order w-40"></div>
                 <div class="flex text-gray-200">PAYMENT</div>
@@ -14,7 +14,7 @@
                 <div class="flex justify-between space-x-6">
                     <img class="w-60" :src="item.listImg[0]" alt="">
                     <div class="flex">
-                        <div class="flex space-y-5 flex-col px-4 py-6">
+                        <div class="flex space-y-5 flex-col px-4 py-6 w-72">
                             <div class="flex flex-col">
                                 <div class="text-base font-semibold">{{ item.title }}</div>
                                 <div class="w-44 text-gray-400">{{ item.detail_product }}</div>

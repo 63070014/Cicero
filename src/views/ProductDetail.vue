@@ -102,32 +102,37 @@ export default {
         },
         addItemToCart() {
             if (localStorage.getItem("user") != null){
-                let check = 0;
-                let index = 0;
-                if (localStorage.getItem("cart") == null) {
-                    let data = [{ id: this.thisProduct[0].id, count: 1 }]
-                    localStorage.setItem("cart", JSON.stringify(data))
-                }
-                else {
-                    let temp = JSON.parse(localStorage.getItem("cart"));
-                    for (let i = 0; i < temp.length; i++) {
-                        if (temp[i].id == this.thisProduct[0].id) {
-                            check = 1;
-                            index = i
+                if (this.size != ''){
+                    let check = 0;
+                    let index = 0;
+                    if (localStorage.getItem("cart") == null) {
+                        let data = [{ id: this.thisProduct[0].id, count: 1 , size: this.size}]
+                        localStorage.setItem("cart", JSON.stringify(data))
+                    }
+                    else {
+                        let temp = JSON.parse(localStorage.getItem("cart"));
+                        for (let i = 0; i < temp.length; i++) {
+                            if (temp[i].id == this.thisProduct[0].id && temp[i].size == this.size) {
+                                check = 1;
+                                index = i
+                            }
                         }
+                        if (check) {
+                            let backup = temp[index];
+                            temp.splice(index, 1);
+                            backup.count++;
+                            temp.push(backup)
+                        }
+                        else{
+                            temp.push({"id" : this.thisProduct[0].id, "count" : 1, "size" : this.size})
+                        }
+                        localStorage.setItem("cart", JSON.stringify(temp))
+                        // localStorage.setItem("size", )
+                        alert("Product added to Cart")
                     }
-                    if (check) {
-                        let backup = temp[index];
-                        temp.splice(index, 1);
-                        backup.count++;
-                        temp.push(backup)
-                    }
-                    else{
-                        temp.push({"id" : this.thisProduct[0].id, "count" : 1})
-                    }
-                    localStorage.setItem("cart", JSON.stringify(temp))
-                    // localStorage.setItem("size", )
-                    alert("Product added to Cart")
+                }
+                else{
+                    alert("Please Select Size")
                 }
             }
             else{

@@ -10,7 +10,7 @@
             <div class="inline-grid grid-cols-4 gap-x-6 gap-y-9 p-8">
                 <div v-for="(item, index) in favorite" :key="index" id="card-wishlist-product"
                     class="relative space-y-2 cursor-pointer select-none">
-                    <img :src="item.listImg[0]" alt="">
+                    <img @click="LinkTo('/productDetail/' + item.title)" :src="item.listImg[0]" alt="">
                     <div class="h-20 space-y-1">
                         <p class="text-md">{{ item.title }}</p>
                         <p class="text-2xl text-left leading-5">{{ item.price }} <span
@@ -47,6 +47,9 @@ export default {
         }
     },
     methods: {
+        LinkTo(whereTo) {
+            this.$router.push(whereTo)
+        },
         cancelFav(e){
             if (this.enableEdit){
                 let temp = this.favorite;

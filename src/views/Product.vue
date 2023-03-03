@@ -148,14 +148,6 @@ export default {
                 { ic: 5, title: "Sets", hover: false },
                 { ic: 6, title: "Dresses", hover: false },
                 { ic: 7, title: "Jumpsuits", hover: false }],
-            // listProducts:this.products.filter(e => e.sex == this.$route.params.sex),
-            // listProduct: [
-            //     { title: "THE STAR CROP VEST", price: "1590", url: require('../assets/homepage/img1.svg'), is_favourite: false },
-            //     { title: "THE STAR CROP VEST", price: "2790", url: require('../assets/homepage/img2.svg'), is_favourite: false },
-            //     { title: "THE STAR CROP VEST", price: "690", url: require('../assets/homepage/img3.svg'), is_favourite: false },
-            //     { title: "THE STAR CROP VEST", price: "990", url: require('../assets/homepage/img4.svg'), is_favourite: false },
-            //     { title: "THE STAR CROP VEST", price: "1290", url: require('../assets/homepage/img5.svg'), is_favourite: false },
-            // ],
         }
     },
     methods: {

@@ -106,9 +106,9 @@
                         </div>
                         <div class="flex flex-col">
                             <div class="p-3 font-semibold">{{ item.title }}</div>
-                            <div class="border w-16 h-10 text-center border-gray-500 border-2 ml-3 p-1">L
+                            <div class="border w-16 h-10 text-center border-gray-500 border-2 ml-3 p-1">{{ item.size }}
                             </div>
-                            <div class="flex text-lg p-2">{{ item.price }} <div class="ml-2 text-gray-400">THB x 1
+                            <div class="flex text-lg p-2">{{ item.price }} <div class="ml-2 text-gray-400">THB x {{ item.count }}
                                 </div>
                             </div>
                         </div>

@@ -83,26 +83,6 @@ export default {
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
-        // showData() {
-        //     var getData = JSON.parse(localStorage.getItem('user'))
-        //     var fname = ''; var lname = ''; var day = ''; var month = ''; var year = ''; var phone = ''; var email = ''
-        //     for (let i = 0; i < getData.length; i++) {
-        //         fname += getData[i].localFname
-        //         lname += getData[i].localLname
-        //         day += getData[i].localDay
-        //         month += getData[i].localMonth
-        //         year += getData[i].localYear
-        //         phone += getData[i].localPhone
-        //         email += getData[i].localEmail
-        //     }
-        //     this.fname = fname
-        //     this.lname = lname
-        //     this.day = day,
-        //         this.month = month,
-        //         this.year = year,
-        //         this.phone = phone,
-        //         this.email = email
-        // }
     },
     watch: {
 
