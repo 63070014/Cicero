@@ -43,15 +43,15 @@
                 <span class="mt-6">DATE OF BIRTH (OPTIONAL)</span>
                 <div class="flex justify-between item-center space-x-3 mt-2">
                     <select name="" class="bg-gray-200 h-9 w-1/3" id="" v-model="day">
-                        <option value="1" class="">1</option>
-                        <option value="2" class="">2</option>
-                        <option value="3" class="">3</option>
-                        <option value="4" class="">4</option>
-                        <option value="5" class="">5</option>
-                        <option value="6" class="">6</option>
-                        <option value="7" class="">7</option>
-                        <option value="8" class="">8</option>
-                        <option value="9" class="">9</option>
+                        <option value="01" class="">1</option>
+                        <option value="02" class="">2</option>
+                        <option value="03" class="">3</option>
+                        <option value="04" class="">4</option>
+                        <option value="05" class="">5</option>
+                        <option value="06" class="">6</option>
+                        <option value="07" class="">7</option>
+                        <option value="08" class="">8</option>
+                        <option value="09" class="">9</option>
                         <option value="10" class="">10</option>
                         <option value="11" class="">11</option>
                         <option value="12" class="">12</option>
@@ -76,18 +76,18 @@
                         <option value="31" class="">31</option>
                     </select>
                     <select name="" class="bg-gray-200 h-9 w-1/3" id="" v-model="month">
-                        <option value="JAN">JAN</option>
-                        <option value="FEB">FEB</option>
-                        <option value="MAR">MAR</option>
-                        <option value="APR">APR</option>
-                        <option value="MAY">MAY</option>
-                        <option value="JUN">JUN</option>
-                        <option value="JUL">JUL</option>
-                        <option value="AUG">AUG</option>
-                        <option value="SEP">SEP</option>
-                        <option value="OCT">OCT</option>
-                        <option value="NOV">NOV</option>
-                        <option value="DEC">DEC</option>
+                        <option value="01">JAN</option>
+                        <option value="02">FEB</option>
+                        <option value="03">MAR</option>
+                        <option value="04">APR</option>
+                        <option value="05">MAY</option>
+                        <option value="06">JUN</option>
+                        <option value="07">JUL</option>
+                        <option value="08">AUG</option>
+                        <option value="09">SEP</option>
+                        <option value="10">OCT</option>
+                        <option value="11">NOV</option>
+                        <option value="12">DEC</option>
                     </select>
                     <select name="" class="bg-gray-200 h-9 w-1/3" id="" v-model="year">
                         <option value="2022">2022</option>
@@ -117,7 +117,7 @@
     </div>
 </template>
 <script>
-
+import axios from "axios";
 export default {
     name: 'signin',
     data() {
@@ -137,18 +137,25 @@ export default {
             this.$router.push(whereTo)
         },
         saveData() {
-            var getData = [{
-                localFname: this.fname,
-                localLname: this.lname,
-                localDay: this.day,
-                localMonth: this.month,
-                localYear: this.year,
-                localPhone: this.phone,
-                localEmail: this.email,
-                localPassword: this.password,
-            }]
-            localStorage.setItem('user', JSON.stringify(getData));
-        }
+            console.log(this.year+"-"+this.month+"-"+this.day);
+            try {
+                axios.post('http://localhost:3000/user/signup', {
+                    firstname: this.fname,
+                    lastname: this.lname,
+                    birth_date: this.year+"-"+this.month+"-"+this.day,
+                    phone: this.phone,
+                    email: this.email,
+                    password: this.password
+                }).then((res)=>{
+                    alert(res.data)
+                })
+            } catch (error) {
+                console.log(error);
+            }
+                
+          
+        },
+
 
     }
 }

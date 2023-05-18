@@ -3,37 +3,37 @@ const pool = require("../config")
 const Joi = require('joi')
 const { generateToken } = require("../utils/token");
 const bcrypt = require('bcrypt');
-const { isLoggedIn } = require('../middlewares')
+// const { isLoggedIn } = require('../middlewares')
 
 router = express.Router();
 
-const passwordValidator = (value, helpers) => {
-    if (value.length < 8) {
-        throw new Joi.ValidationError('Password must contain at least 8 characters')
-    }
-    if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-        throw new Joi.ValidationError('Password must be harder')
-    }
-    return value
-}
+// const passwordValidator = (value, helpers) => {
+//     if (value.length < 8) {
+//         throw new Joi.ValidationError('Password must contain at least 8 characters')
+//     }
+//     if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+//         throw new Joi.ValidationError('Password must be harder')
+//     }
+//     return value
+// }
 
-const usernameValidator = async (value, helpers) => {
-    const [rows, _] = await pool.query("SELECT username FROM users WHERE username = ?", [value])
-    if (rows.length > 0) {
-        const message = 'This username is already taken'
-        throw new Joi.ValidationError(message, { message })
-    }
-    return value
-}
+// const usernameValidator = async (value, helpers) => {
+//     const [rows, _] = await pool.query("SELECT username FROM users WHERE username = ?", [value])
+//     if (rows.length > 0) {
+//         const message = 'This username is already taken'
+//         throw new Joi.ValidationError(message, { message })
+//     }
+//     return value
+// }
 
 const signupSchema = Joi.object({
+    firstname: Joi.string().required().max(150),
+    lastname: Joi.string().required().max(150),
+    birth_date: Joi.date().required(),
+    phone: Joi.string().required().pattern(/0[0-9]{9}/),
     email: Joi.string().required().email(),
-    mobile: Joi.string().required().pattern(/0[0-9]{9}/),
-    first_name: Joi.string().required().max(150),
-    last_name: Joi.string().required().max(150),
-    password: Joi.string().required().custom(passwordValidator),
-    confirm_password: Joi.string().required().valid(Joi.ref('password')),
-    username: Joi.string().required().min(5).max(20).external(usernameValidator),
+    password: Joi.string().required()
+    // confirm_password: Joi.string().required().valid(Joi.ref('password')),
 })
 
 router.post('/user/signup', async (req, res, next) => {
@@ -46,20 +46,21 @@ router.post('/user/signup', async (req, res, next) => {
     const conn = await pool.getConnection()
     await conn.beginTransaction()
 
-    const username = req.body.username
-    const password = await bcrypt.hash(req.body.password, 5)
-    const first_name = req.body.first_name
-    const last_name = req.body.last_name
+    const firstname = req.body.firstname
+    const lastname = req.body.lastname
+    const birth_date = req.body.birth_date
+    const phone = req.body.phone
     const email = req.body.email
-    const mobile = req.body.mobile
+    const password = await bcrypt.hash(req.body.password, 5)
+    const user_img = ""
 
     try {
         await conn.query(
-            'INSERT INTO users(username, password, first_name, last_name, email, mobile) VALUES (?, ?, ?, ?, ?, ?)',
-            [username, password, first_name, last_name, email, mobile]
+            'INSERT INTO users(firstname, lastname, birth_date, phone, email, password, user_img) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [firstname, lastname, birth_date, phone, email, password, user_img]
         )
         conn.commit()
-        res.status(201).send()
+        res.status(201).send("eiei")
     } catch (err) {
         conn.rollback()
         res.status(400).json(err.toString());
@@ -68,7 +69,7 @@ router.post('/user/signup', async (req, res, next) => {
     }
 })
 const loginSchema = Joi.object({
-    username: Joi.string().required(),
+    email: Joi.string().required(),
     password: Joi.string().required()
 })
 
@@ -78,7 +79,7 @@ router.post('/user/login', async (req, res, next) => {
     } catch (err) {
         return res.status(400).send(err)
     }
-    const username = req.body.username
+    const email = req.body.email
     const password = req.body.password
 
     const conn = await pool.getConnection()
@@ -87,31 +88,31 @@ router.post('/user/login', async (req, res, next) => {
     try {
         // Check if username is correct
         const [users] = await conn.query(
-            'SELECT * FROM users WHERE username=?', 
-            [username]
+            'SELECT * FROM users WHERE email=?', 
+            [email]
         )
         const user = users[0]
+        console.log(user);
         if (!user) {    
             throw new Error('Incorrect username or password')
         }
 
-        // Check if password is correct
         if (!(await bcrypt.compare(password, user.password))) {
             throw new Error('Incorrect username or password')
         }
 
         // Check if token already existed
         const [tokens] = await conn.query(
-            'SELECT * FROM tokens WHERE user_id=?', 
-            [user.id]
+            'SELECT * FROM token WHERE user_id=?', 
+            [user.user_id]
         )
-        let token = tokens[0]?.token
+        let token = tokens[0]?.tokens
         if (!token) {
             // Generate and save token into database
             token = generateToken()
             await conn.query(
-                'INSERT INTO tokens(user_id, token) VALUES (?, ?)', 
-                [user.id, token]
+                'INSERT INTO token(user_id, tokens) VALUES (?, ?)', 
+                [user.user_id, token]
             )
         }
 
@@ -124,10 +125,10 @@ router.post('/user/login', async (req, res, next) => {
         conn.release()
     }
 })
-router.get('/user/me', isLoggedIn, async (req, res, next) => {
-    // req.user ถูก save ข้อมูล user จาก database ใน middleware function "isLoggedIn"
-    res.json(req.user)
-})
+// router.get('/user/me', isLoggedIn, async (req, res, next) => {
+//     // req.user ถูก save ข้อมูล user จาก database ใน middleware function "isLoggedIn"
+//     res.json(req.user)
+// })
 
 
 

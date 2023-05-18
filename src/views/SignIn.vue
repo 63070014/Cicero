@@ -45,7 +45,7 @@
                 <div class="password mt-2">
                     <input type="password" class="w-full bg-gray-200 h-9 p-2" v-model="password">
                 </div>
-                <button @click="checkData()" class="bg-black text-white h-9 mt-8">LOGIN</button>
+                <button @click="getData()" class="bg-black text-white h-9 mt-8">LOGIN</button>
                 <span @click="LinkTo('/forgot')" class="forgot mt-6 text-center cursor-pointer">Forgot your password
                     ?</span>
             </div>
@@ -53,6 +53,7 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     name: 'signin',
     data() {
@@ -65,24 +66,17 @@ export default {
         }
     },
     methods: {
-        checkData() {
-            var getData = JSON.parse(localStorage.getItem('user'))
-            var getEmail = ''; var getPass = '';
-            if (getData != null) {
-                for (let i = 0; i < getData.length; i++) {
-                    getEmail += getData[i].localEmail
-                    getPass += getData[i].localPassword
-                }
-                this.getEmail = getEmail
-                this.getPass = getPass
-                if (this.username == this.getEmail && this.password == this.getPass) {
-                    this.homepage()
-                } else {
-                    alert("Your Email or Password is invalid")
-                }
-            }
-            else {
-                alert("Your Email or Password is invalid")
+        getData(){
+            console.log(this.getPass);
+            try {
+                axios.post('http://localhost:3000/user/login',{
+                    email: this.username,
+                    password: this.password
+                }).then((res)=>{
+                    alert(res.data.token)
+                })
+            } catch (error) {
+                console.log(error)
             }
         },
         homepage() {
