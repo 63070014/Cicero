@@ -3,37 +3,39 @@ const pool = require("../config")
 const Joi = require('joi')
 const { generateToken } = require("../utils/token");
 const bcrypt = require('bcrypt');
+const { helpers } = require("@vuelidate/validators");
 // const { isLoggedIn } = require('../middlewares')
 
 router = express.Router();
 
-// const passwordValidator = (value, helpers) => {
-//     if (value.length < 8) {
-//         throw new Joi.ValidationError('Password must contain at least 8 characters')
-//     }
-//     if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-//         throw new Joi.ValidationError('Password must be harder')
-//     }
-//     return value
-// }
-
-// const usernameValidator = async (value, helpers) => {
-//     const [rows, _] = await pool.query("SELECT username FROM users WHERE username = ?", [value])
-//     if (rows.length > 0) {
-//         const message = 'This username is already taken'
-//         throw new Joi.ValidationError(message, { message })
-//     }
-//     return value
-// }
-
+const passwordValidator = (value, helpers) => {
+    if (value.length < 8){
+        throw new Joi.ValidationError('Password must be at least 8 characters')
+    }
+    if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))){
+        throw new Joi.ValidationError('Password is too easy')
+    }
+    return value
+}
+//  if use external must use like this naja eiei
+const usernameValidator = async (value, helpers) => {
+    const [rows] = await pool.query('SELECT email from users where email = ?', [value])
+    if (rows.length > 0){
+        throw new Joi.ValidationError('DUPLICATE_ERROR', {
+            message : 'This email is already taken'
+        })
+        
+    }
+    return value
+}
 const signupSchema = Joi.object({
     firstname: Joi.string().required().max(150),
     lastname: Joi.string().required().max(150),
     birth_date: Joi.date().required(),
     phone: Joi.string().required().pattern(/0[0-9]{9}/),
-    email: Joi.string().required().email(),
-    password: Joi.string().required()
-    // confirm_password: Joi.string().required().valid(Joi.ref('password')),
+    email: Joi.string().required().email().external(usernameValidator),
+    password: Joi.string().required().custom(passwordValidator),
+    confirm_password: Joi.string().required().valid(Joi.ref('password')),
 })
 
 router.post('/user/signup', async (req, res, next) => {
@@ -68,6 +70,7 @@ router.post('/user/signup', async (req, res, next) => {
         conn.release()
     }
 })
+
 const loginSchema = Joi.object({
     email: Joi.string().required(),
     password: Joi.string().required()
