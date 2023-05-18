@@ -24,7 +24,7 @@ const routes = [
     component: HomeView,
     props: (route) => ({ products: route.params.products })
   },
-  {
+  { 
     path: "/signin",
     name: "signin",
     component: SignIn,
@@ -55,37 +55,43 @@ const routes = [
   {
     path: "/wishlist",
     name: "Wishlist",
+    meta: {login: true},
     component: wishlist,
   },
   {
     path: "/order",
     name: "order",
+    meta: {login: true},
     component: Order,
   },
   {
     path: "/cart",
     name: "cart",
     component: Cart,
+    meta: {login: true},
     props: (route) => ({ products: route.params.products })
   },
   {
     path: "/confirm",
     name: "confirm",
+    meta: {login: true},
     component: confirmPayment,
   },
   {
     path: "/mypurchase",
     name: "mypurchase",
+    meta: {login: true},
     component: Purchase,
   },
   {
     path: "/profile",
     name: "profile",
+    meta: {login: true},
     component: Profile,
   },
   {
     path: "/forgot",
-    name: "forgot",
+    name: "forgot", 
     component: Forgot,
   },
   {
@@ -111,10 +117,18 @@ const router = createRouter({
  }
 });
 router.beforeEach(async (to, from, next) => {
+  const isLoggedIn = !localStorage.getItem('user')
+  if (to.meta.login && isLoggedIn){
+    alert('Please login first!')
+    next({path: '/signin'})
+  }
+  if (to.meta.guess && isLoggedIn){
+    alert("You've already logged in")
+    next({path: '/'})
+  }
   if (to.name === 'home' || to.name.startsWith('product')) {
     const product = await fetchData();
     to.params.products = product; 
-
     next();
   } else {
     next();

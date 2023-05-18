@@ -24,21 +24,21 @@
                 <div id="size-slide" class="hidden mb-4">
                     <div class="flex space-x-4 mb-3">
                         <div id="btn-size"
-                            class="border w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">XS
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">XS
                         </div>
                         <div id="btn-size"
-                            class="border w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">S
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">S
                         </div>
                         <div id="btn-size"
-                            class="border w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">M
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">M
                         </div>
                     </div>
                     <div class="flex space-x-4">
                         <div id="btn-size"
-                            class="border w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">L
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">L
                         </div>
                         <div id="btn-size"
-                            class="border w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">XL
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">XL
                         </div>
                     </div>
                 </div>
@@ -80,14 +80,14 @@
                             <img class="w-80" :src="renderImg(item.product_img)" @click="LinkTo('/productDetail/' + item.product_title)" />
                             <div class="py-2">
                                 <div class="relative flex items-center text-left">
-                                    <!-- <img v-show="item.is_favourite == false"
+                                    <img
                                         class="w-5 absolute right-0 cursor-pointer select-none"
                                         @click="item.is_favourite = !item.is_favourite, addToFav(item)"
                                         src="../assets/icons/heart.svg">
                                     <img v-show="item.is_favourite == true"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
                                         @click="item.is_favourite = !item.is_favourite, cancelFav(index)"
-                                        src="../assets/icons/heartt.svg"> -->
+                                        src="../assets/icons/heartt.svg">
                                     <p class="text-md w-64">{{ item.product_title }}</p>
                                 </div>
                                 <p class="text-2xl text-left leading-6">{{ item.product_price }} <span

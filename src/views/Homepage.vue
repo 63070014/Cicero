@@ -20,7 +20,7 @@
               @click="LinkTo('/productDetail/' + item[0].title)" />
             <div class="p-2">
               <div class="flex items-center">
-                <img v-show="item[0].is_favourite == false" class="w-5 absolute right-0"
+                <img class="w-5 absolute right-0"
                   @click="item[0].is_favourite = !item[0].is_favourite, addToFav(item[0])" src="../assets/icons/heart.svg">
                 <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
                   @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])" src="../assets/icons/heartt.svg">

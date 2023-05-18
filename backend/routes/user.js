@@ -100,24 +100,8 @@ router.post('/user/login', async (req, res, next) => {
         if (!(await bcrypt.compare(password, user.password))) {
             throw new Error('Incorrect username or password')
         }
-
-        // Check if token already existed
-        const [tokens] = await conn.query(
-            'SELECT * FROM token WHERE user_id=?', 
-            [user.user_id]
-        )
-        let token = tokens[0]?.tokens
-        if (!token) {
-            // Generate and save token into database
-            token = generateToken()
-            await conn.query(
-                'INSERT INTO token(user_id, tokens) VALUES (?, ?)', 
-                [user.user_id, token]
-            )
-        }
-
+        res.status(200).json(user)
         conn.commit()
-        res.status(200).json({'token': token})
     } catch (error) {
         conn.rollback()
         res.status(400).json(error.toString())

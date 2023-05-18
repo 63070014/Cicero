@@ -73,7 +73,11 @@ export default {
                     email: this.username,
                     password: this.password
                 }).then((res)=>{
-                    alert(res.data.token)
+                    if (res.data.user_id){
+                        alert("Successfully")
+                        localStorage.setItem("user", JSON.stringify(res.data))
+                        this.homepage()
+                    }
                 })
             } catch (error) {
                 console.log(error)
