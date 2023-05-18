@@ -6,7 +6,7 @@
                     this.$route.params.sex }}</h1>
                 <div id="category-group" @click="slideSidebar('#category-slide')"
                     class="flex justify-between items-center cursor-pointer select-none">
-                    <h2 class="text-xl font-bold py-6 font-frans font-normal">CATEGORIES</h2>
+                    <h2 class="text-xl font-bold py-6 font-frans font-normal" @click="logdata()">CATEGORIES</h2>
                     <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
                 </div>
                 <div id="category-slide" class="hidden mb-4">
@@ -150,7 +150,12 @@ export default {
                 { ic: 7, title: "Jumpsuits", hover: false }],
         }
     },
+   
     methods: {
+        logdata(){
+            console.log(this.products);
+            console.log(this.browseProduct)
+        },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },

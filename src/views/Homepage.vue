@@ -16,16 +16,16 @@
       <div class="flex w-full space-x-6 mt-10 cursor-pointer">
         <div class="listhomeProduct w-full" v-for="(item, index) in homeProduct" :key="index">
           <div class="w-full relative">
-            <img :src="item[0].listImg[0]" @click="LinkTo('/productDetail/' + item[0].title)" />
+            <!-- <img :src="item[0].listImg[0]" @click="LinkTo('/productDetail/' + item[0].title)" /> -->
             <div class="p-2">
               <div class="flex items-center">
-                <img v-show="item[0].is_favourite == false" class="w-5 absolute right-0"
+                <!-- <img v-show="item[0].is_favourite == false" class="w-5 absolute right-0"
                   @click="item[0].is_favourite = !item[0].is_favourite, addToFav(item[0])" src="../assets/icons/heart.svg">
                 <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
-                  @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])" src="../assets/icons/heartt.svg">
-                <p class="text-md">{{ item[0].title }}</p>
+                  @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])" src="../assets/icons/heartt.svg"> -->
+                <!-- <p class="text-md">{{ item[0].title }}</p> -->
               </div>
-              <p class="text-2xl leading-5">{{ item[0].price }} <span class="text-sm text-gray-600">THB</span></p>
+              <!-- <p class="text-2xl leading-5">{{ item[0].price }} <span class="text-sm text-gray-600">THB</span></p> -->
             </div>
           </div>
         </div>
