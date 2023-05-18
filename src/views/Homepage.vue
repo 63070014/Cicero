@@ -16,29 +16,32 @@
       <div class="flex w-full space-x-6 mt-10 cursor-pointer">
         <div class="listhomeProduct w-full" v-for="(item, index) in homeProduct" :key="index">
           <div class="w-full relative">
-            <!-- <img :src="item[0].listImg[0]" @click="LinkTo('/productDetail/' + item[0].title)" /> -->
+            <img :src="productImage(item[0].product_img)"
+              @click="LinkTo('/productDetail/' + item[0].title)" />
             <div class="p-2">
               <div class="flex items-center">
-                <!-- <img v-show="item[0].is_favourite == false" class="w-5 absolute right-0"
+                <img v-show="item[0].is_favourite == false" class="w-5 absolute right-0"
                   @click="item[0].is_favourite = !item[0].is_favourite, addToFav(item[0])" src="../assets/icons/heart.svg">
                 <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
-                  @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])" src="../assets/icons/heartt.svg"> -->
-                <!-- <p class="text-md">{{ item[0].title }}</p> -->
+                  @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])" src="../assets/icons/heartt.svg">
+                <p class="text-md">{{ item[0].product_title }}</p>
               </div>
-              <!-- <p class="text-2xl leading-5">{{ item[0].price }} <span class="text-sm text-gray-600">THB</span></p> -->
+              <p class="text-2xl leading-5">{{ item[0].product_price }} <span class="text-sm text-gray-600">THB</span></p>
             </div>
           </div>
         </div>
       </div>
 
-      <div @click="LinkTo('/product/women')" class="first-buyNowBanner mt-8 w-full h-full relative cursor-pointer select-none">
+      <div @click="LinkTo('/product/women')"
+        class="first-buyNowBanner mt-8 w-full h-full relative cursor-pointer select-none">
         <img src="../assets/homepage/buyNow1.svg" />
         <div
           class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
           BUY NOW
         </div>
       </div>
-      <div @click="LinkTo('/product/men')" class="second-buyNowBanner mt-10 w-full h-full relative cursor-pointer select-none">
+      <div @click="LinkTo('/product/men')"
+        class="second-buyNowBanner mt-10 w-full h-full relative cursor-pointer select-none">
         <img src="../assets/homepage/buyNow2.svg" />
         <div
           class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
@@ -109,7 +112,8 @@ export default {
       default: []
     }
   },
-  components: {
+  mounted() {
+    console.log(this.homeProduct)
   },
   data() {
     return {
@@ -120,15 +124,18 @@ export default {
         { name: "FOR KIDS", path: '/product/kids', url: require('../assets/homepage/forKids.png') }
       ],
       homeProduct: [
-        this.products.filter(e => e.id == '016'),
-        this.products.filter(e => e.id == '017'),
-        this.products.filter(e => e.id == '018'),
-        this.products.filter(e => e.id == '019'),
-        this.products.filter(e => e.id == '020'),
+        this.products.filter(e => e.product_id == 1),
+        this.products.filter(e => e.product_id == 7),
+        this.products.filter(e => e.product_id == 8),
+        this.products.filter(e => e.product_id == 9),
+        this.products.filter(e => e.product_id == 10),
       ],
     }
   },
   methods: {
+    productImage(img) {
+      return 'http://localhost:3000/products/'+JSON.parse(img)[0]
+    },
     LinkTo(whereTo) {
       this.$router.push(whereTo)
     },
@@ -138,13 +145,13 @@ export default {
       }
       localStorage.setItem('favorite', JSON.stringify(this.fav))
     },
-    cancelFav(e){
-            let temp = JSON.parse(localStorage.getItem('favorite'));
-            let index_delete = temp.indexOf(e)
-            temp.splice(index_delete,1)
-            localStorage.setItem('favorite', JSON.stringify(temp))
+    cancelFav(e) {
+      let temp = JSON.parse(localStorage.getItem('favorite'));
+      let index_delete = temp.indexOf(e)
+      temp.splice(index_delete, 1)
+      localStorage.setItem('favorite', JSON.stringify(temp))
 
-        }
+    }
   },
   watch: {
 

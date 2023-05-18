@@ -13,17 +13,16 @@ import Profile from "../views/Profile.vue";
 import Search from "../views/search.vue"
 import Forgot from "../views/forgotPassword.vue";
 import axios from "axios";
-var product = []
-axios.get(`http://localhost:3000/product/`).then((res)=> {
-  product = res.data
-  console.log(product);
-})
+async function fetchData() {
+  const response = await axios.get(`http://localhost:3000/product/`);
+  return response.data;
+}
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
-    props: { products: product },
+    props: (route) => ({ products: route.params.products })
   },
   {
     path: "/signin",
@@ -39,19 +38,19 @@ const routes = [
     path: "/product/:sex",
     name: "productSex",
     component: Product,
-    props: { products: product },
+    props: (route) => ({ products: route.params.products })
   },
   {
     path: "/product/:sex/:category",
     name: "productCategory",
     component: Product,
-    props: { products: product },
+    props: (route) => ({ products: route.params.products })
   },
   {
     path: "/productDetail/:title",
     name: "productDetail",
     component: productDetail,
-    props: { products: product },
+    props: (route) => ({ products: route.params.products })
   },
   {
     path: "/wishlist",
@@ -67,7 +66,7 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
-    props: { products: product },
+    props: (route) => ({ products: route.params.products })
   },
   {
     path: "/confirm",
@@ -93,7 +92,7 @@ const routes = [
     path:"/search",
     name:"search",
     component: Search,
-    props: { products: product },
+    props: (route) => ({ products: route.params.products })
   }
 ];
 
@@ -107,11 +106,19 @@ const router = createRouter({
     if (to.hash) {
       return { el: to.hash, behavior: "smooth" };
     } else {
-      console.log("moving to top of the page");
       window.scrollTo(0, 0);
     }
  }
 });
+router.beforeEach(async (to, from, next) => {
+  if (to.name === 'home' || to.name.startsWith('product')) {
+    const product = await fetchData();
+    to.params.products = product; 
 
+    next();
+  } else {
+    next();
+  }
+});
 export default router;
 // https://router.vuejs.org/guide/essentials/dynamic-matching.html
