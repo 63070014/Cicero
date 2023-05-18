@@ -13,6 +13,8 @@ import Profile from "../views/Profile.vue";
 import Search from "../views/search.vue"
 import Forgot from "../views/forgotPassword.vue";
 import axios from "axios";
+// import Vuelidate from 'vuelidate'
+// Vue.use(Vuelidate)
 async function fetchData() {
   const response = await axios.get(`http://localhost:3000/product/`);
   return response.data;

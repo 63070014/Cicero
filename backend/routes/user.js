@@ -75,7 +75,7 @@ const loginSchema = Joi.object({
     email: Joi.string().required(),
     password: Joi.string().required()
 })
-
+7
 router.post('/user/login', async (req, res, next) => {
     try {
         await loginSchema.validateAsync(req.body, { abortEarly: false })
