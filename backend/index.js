@@ -18,6 +18,7 @@ const commentRouter = require('./routes/comment')
 const imageRouter = require('./routes/image')
 const userRouter = require('./routes/user')
 const wishlistRouter = require('./routes/wishlist')
+const cartsRouter = require('./routes/carts')
 
 app.use(indexRouter.router)
 app.use(blogRouter.router)
@@ -25,6 +26,7 @@ app.use(commentRouter.router)
 app.use(imageRouter.router)
 app.use(userRouter.router)
 app.use(wishlistRouter.router)
+app.use(cartsRouter.router)
 
 app.listen(3000, () => {
   console.log(`Example app listening at http://localhost:3000`)

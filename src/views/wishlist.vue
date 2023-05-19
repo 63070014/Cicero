@@ -17,11 +17,10 @@
                                 class="text-sm text-gray-600">THB</span>
                         </p>
                     </div>
-                    <div @click="addItemToCart(), cancelFav(item)"
+                    <div @click="cancelFav(item)"
                         class="btn-add-to-cart relative bottom-0 font-frans font-boldborder text-center border-gray-500 border-2 py-2 px-4 text-black cursor-pointer hover:bg-black hover:text-white">
                         {{ enableEdit ? 'DELETE' : 'ADD TO CART' }}</div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -68,6 +67,8 @@ export default {
                 } catch (er) {
                     console.log(er)
                 }
+            }else{
+                this.LinkTo(`/productDetail/${e.product_title}`)
             }
             this.$forceUpdate();
 
