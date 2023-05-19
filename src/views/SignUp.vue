@@ -104,8 +104,15 @@
                 </div>
                 <span class="mt-6">EMAIL ADDRESS</span>
                 <div class="email mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="email">
+                    <input type="text" class="w-full bg-gray-200 h-9 p-2"
+                     
+                     >
                 </div>
+                <p class="help is-danger">error</p>
+                <!-- <template v-if="$v.email.$error">
+                    <p class="help is-danger" v-if="!$v.email.required">This field is required</p>
+                    <p class="help is-danger" v-if="!$v.email.mobile">Invalid Mobile Number</p>
+                </template> -->
                 <span class="mt-6">PASSWORD</span>
                 <div class="password mt-2">
                     <input type="password" class="w-full bg-gray-200 h-9 p-2" v-model="password">
@@ -118,46 +125,55 @@
 </template>
 <script>
 import axios from "axios";
+// import { required, email } from 'vuelidate/lib/validators'
+
 export default {
     name: 'signin',
     data() {
         return {
-            fname: '',
-            lname: '',
-            day: '',
-            month: '',
-            year: '',
-            phone: '',
-            email: '',
-            password: '',
+            fname: "",
+            lname: "",
+            day: "",
+            month: "",
+            year: "",
+            phone: "",
+            email: null,
+            password: "",
         }
     },
+
     methods: {
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
         saveData() {
-            console.log(this.year+"-"+this.month+"-"+this.day);
+            console.log(this.year + "-" + this.month + "-" + this.day);
             try {
                 axios.post('http://localhost:3000/user/signup', {
                     firstname: this.fname,
                     lastname: this.lname,
-                    birth_date: this.year+"-"+this.month+"-"+this.day,
+                    birth_date: this.year + "-" + this.month + "-" + this.day,
                     phone: this.phone,
                     email: this.email,
                     password: this.password
-                }).then((res)=>{
+                }).then((res) => {
                     alert(res.data)
                 })
             } catch (error) {
                 console.log(error);
             }
-                
-          
+
+
         },
 
 
-    }
+    },
+    // validations: {
+    //     email: {
+    //         required: required,
+    //         email: email,
+    //     }
+    // }
 }
 
 </script>
