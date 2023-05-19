@@ -13,9 +13,9 @@ router.post("/likeByUser", async function (req, res, next) {
       [user_id, product_id]
     );
     if (rows.length > 0) {
-      res.status(200).send(true);
+      res.status(200).json(product_id);
     } else {
-      res.status(200).send(false);
+      res.status(200).json(null);
     }
   } catch (err) {
     return res.status(500).json(err);
@@ -29,14 +29,14 @@ router.post("/like/:pid", async function (req, res, next) {
       "insert into wishlist (user_id, product_id) values (?, ?)",
       [user_id, product_id]
     );
-    res.status(200).send("AddLiked");
+    res.status(200).json("AddLiked");
   } catch (err) {
     console.log(err);
   }
 });
-router.delete("/like/:pid", async function (req, res, next) {
+router.delete("/like/:pid/:uid", async function (req, res, next) {
   const product_id = req.params.pid;
-  const user_id = req.body.user_id;
+  const user_id = req.params.uid;
   try {
     const [get] = await pool.query("select * from wishlist where user_id = ? and product_id = ?", [user_id, product_id])
     console.log(get)

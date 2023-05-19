@@ -166,7 +166,7 @@ export default {
             ],
             women_item: [
                 { name: "Tops" }, { name: "Shorts" }, { name: "Skirts" }, { name: "Trousers" }, { name: "Sets" }, { name: "Dresses" }, { name: "Jumpsuits" }],
-            kids_item:[{name: "Tops"}, {name:"Shprts"}, {name: "Skirts"},{name: "Trousers"}, {name: "Hoodies"}],
+            kids_item:[{name: "Tops"}, {name:"Shorts"}, {name: "Skirts"},{name: "Trousers"}, {name: "Hoodies"}],
             sale_item:[{name: "Men"}, {name:"Women"}, {name: "Kids"}],
             navbar_item: [],
         };

@@ -2,7 +2,7 @@
     <div class="center-set">
         <div class="flex mt-20 space-x-8 w-5/6">
             <div class="sidebar-sort-group">
-                <h1 class="text-4xl font-bold line-height-cus border-b-2 border-gray-300 font-frans uppercase font-light">{{
+                <h1 class="text-4xl font-bold line-height-cus border-b-2 border-gray-300 font-frans uppercase">{{
                     this.$route.params.sex }}</h1>
                 <div id="category-group" @click="slideSidebar('#category-slide')"
                     class="flex justify-between items-center cursor-pointer select-none">
@@ -10,7 +10,7 @@
                     <hr id="line-category" class="w-8 border-0" :style="{ 'height': '2px' }">
                 </div>
                 <div id="category-slide" class="hidden mb-4">
-                    <p v-for="(catego, index) in categorie" :key="index"
+                    <p v-for="(catego, index) in categorie[0][this.$route.params.sex]" :key="index"
                         class="py-2 px-4 text-xl cursor-pointer select-none font-jura" @click="LinkTo('/product/women')"
                         @mouseover="catego.hover = true" @mouseleave="catego.hover = false"
                         :id="'items_category_hover' + index" :class="{ hover_items_bg: catego.hover }">{{ catego.title }}
@@ -82,15 +82,16 @@
                                 @click="LinkTo('/productDetail/' + item.product_title)" />
                             <div class="py-2">
                                 <div class="relative flex items-center text-left">
-                                    <p>{{ fav }}</p>
-                                    <img v-if="fav.includes(item.product_id)"
+                                    <div v-if="this.checkLikeLength()">
+                                        <img v-show="this.like.includes(item.product_id)"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="item.is_favourite = !item.is_favourite, cancelFav(index)"
+                                        @click="this.changeLike(item.product_id, index);"
                                         src="../assets/icons/heartt.svg">
-                                    <img v-else
+                                        <img v-show="this.like.includes(item.product_id) == false"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="item.is_favourite = !item.is_favourite, addToFav(item.product_id)"
+                                        @click="this.changeLike(item.product_id, index)"
                                         src="../assets/icons/heart.svg">
+                                    </div>
                                     <p class="text-md w-64">{{ item.product_title }}</p>
                                 </div>
                                 <p class="text-2xl text-left leading-6">{{ item.product_price }} <span
@@ -139,29 +140,73 @@ export default {
     props: ['products'],
     data() {
         return {
-            fav: [],
+            user_id : JSON.parse(localStorage.getItem("user")).user_id,
+            like: [],
             browseProduct: this.products,
+            params:  this.$route.params.sex,
             categorie: [
-                { id: 1, title: "Tops", hover: false },
-                { ic: 2, title: "Shorts", hover: false },
-                { ic: 3, title: "Skirts", hover: false },
-                { ic: 4, title: "Trousers", hover: false },
-                { ic: 5, title: "Sets", hover: false },
-                { ic: 6, title: "Dresses", hover: false },
-                { ic: 7, title: "Jumpsuits", hover: false }],
+                {
+                    women: [
+                        { id: 1, title: "Tops", hover: false },
+                        { ic: 2, title: "Shorts", hover: false },
+                        { ic: 3, title: "Skirts", hover: false },
+                        { ic: 4, title: "Trousers", hover: false },
+                        { ic: 5, title: "Sets", hover: false },
+                        { ic: 6, title: "Dresses", hover: false },
+                        { ic: 7, title: "Jumpsuits", hover: false }
+                    ]
+                    ,
+                    men: [
+                        { title: "Hoodies & Sweatshirts", path: "/", hover: false },
+                        { title: "Jackets", path: "/", hover: false },
+                        { title: "Pants", path: "/", hover: false },
+                        { title: "Tracksuits", path: "/", hover: false },
+                        { title: "Leggings", path: "/", hover: false },
+                        { title: "T-Shirts & Tops", path: "/", hover: false },
+                        { title: "Shorts", path: "/", hover: false },
+                    ],
+                    kids: [{ title: "Tops" }, { title: "Shorts" }, { title: "Skirts" }, { title: "Trousers" }, { title: "Hoodies" }],
+                    sale: [{ title: "Men" }, { title: "Women" }, { title: "Kids" }],
+                }
+
+            ],
         }
     },
 
     methods: {
+        changeLike(product_id, index){
+            if(this.like.includes(product_id)){
+                try {
+                    axios.delete(`http://localhost:3000/like/${product_id}/${this.user_id}`)
+                    .then((res) =>{
+                        if (res.data == "RemoveLiked"){
+                            this.like[index] = "null"
+                        }
+                    })
+                } catch (er) {
+                    console.log(er)
+                }
+            }
+            else{
+                this.like[index] = product_id
+                try {
+                    axios.post(`http://localhost:3000/like/${product_id}`, {
+                        user_id: this.user_id,
+                    })
+                } catch (er) {
+                    console.log(er)
+                }
+            }
+        },
+        checkLikeLength(){
+            return this.like.length > 0;
+        },
         async checkLike(product_id) {
-            let user_id = JSON.parse(localStorage.getItem("user")).user_id
              await axios.post(`http://localhost:3000/likeByUser/`, {
-                user_id: user_id,
+                user_id: this.user_id,
                 product_id: product_id
             }).then((res)=>{
-                if (res.data){
-                    this.fav.push(product_id)
-                }
+                this.like.push(res.data)
             })
         },
         LinkTo(whereTo) {
@@ -170,32 +215,12 @@ export default {
         slideSidebar(comp) {
             $(comp).slideToggle();
         },
-        addToFav(product_id) {
-            let user_id = JSON.parse(localStorage.getItem("user")).user_id
-            try {
-                let response = axios.post(`http://localhost:3000/like/${product_id}`, {
-                    user_id: user_id,
-                })
-                if(response.data == "AddLiked"){
-                    alert('yeah')
-                }
-            } catch (er) {
-                console.log(er)
-            }
-        },
-        cancelFav(e) {
-            let temp = JSON.parse(localStorage.getItem('favorite'));
-            let index_delete = temp.indexOf(e)
-            temp.splice(index_delete, 1)
-            localStorage.setItem('favorite', JSON.stringify(temp))
-
-        },
         renderImg(img) {
             return "http://localhost:3000/products/" + JSON.parse(img)[0]
         }
     },
     mounted() {
-    },
+  },
     computed: {
         renderProduct() {
             let filterProduct
@@ -205,10 +230,10 @@ export default {
                 filterProduct = this.browseProduct.filter(e => e.product_sex == this.$route.params.sex)
             }
             if (filterProduct.length > 0) {
-                let filterWishlist = filterProduct.map(e => e.product_id)
-                for (let i = 0; i < filterWishlist; i++) {
-                    this.checkLike(filterWishlist[i])
-                }
+                filterProduct.forEach(element => {
+                    console.log(element);
+                    this.checkLike(element.product_id)
+                });
                 return filterProduct
             } else {
                 return this.browseProduct
