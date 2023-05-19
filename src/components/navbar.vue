@@ -15,8 +15,8 @@
                 <router-link class="ml-4" to="/product/sale" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'sale'">SALE</router-link>
                 <router-link class="ml-4" to="/product/new in" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'new in'">NEW IN</router-link>
                 <div class="dropdown-menu-items left-0" v-on:mouseleave="slideUp('.dropdown-menu-items')">
-                    <div v-for="item in navbar_item" :key="item.name">
-                        <router-link :to="'/product/'+this.sex_path+'/' + item.name">{{ item.name }}</router-link>
+                    <div v-for="item in navbar_item" :key="item.name" >
+                        <router-link id="routerp" :to="'/product/'+this.sex_path+'/' + item.name">{{ item.name }}</router-link>
                     </div>
                 </div>
                 <div v-on:mouseleave="slideUp('.dropdown-profile')"
@@ -73,12 +73,15 @@ nav a.router-link-exact-active {
 }
 
 .dropdown-menu-items>div {
-    padding: .75rem;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.93);
+    display: flex;
     list-style-type: none;
 }
-
+.dropdown-menu-items>div>#routerp {
+    width: 100%;
+    padding: .75rem;
+}
 .dropdown-menu-items>div:hover {
     background-color: rgb(171, 168, 168)
 }

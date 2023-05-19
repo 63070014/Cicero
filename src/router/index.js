@@ -47,6 +47,12 @@ const routes = [
     props: (route) => ({ products: route.params.products })
   },
   {
+    path: "/product/:sex/:category",
+    name: "productCategory",
+    component: Product,
+    props: (route) => ({ products: route.params.products })
+  },
+  {
     path: "/productDetail/:title",
     name: "productDetail",
     component: productDetail,
@@ -126,6 +132,7 @@ router.beforeEach(async (to, from, next) => {
     alert("You've already logged in")
     next({path: '/'})
   }
+  console.log(to.name)
   if (to.name === 'home' || to.name.startsWith('product')) {
     const product = await fetchData();
     to.params.products = product; 
