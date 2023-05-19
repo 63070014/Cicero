@@ -188,6 +188,7 @@ export default {
             localStorage.removeItem("user")
             this.LinkTo('/')
             this.$forceUpdate();
+            window.location.reload()    
         }
     },
     components: {},

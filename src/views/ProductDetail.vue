@@ -81,13 +81,14 @@ export default {
     },
     data() {
         return {
-            size:'',
+            size:[],
             fav:[],
             thisProduct: this.products.filter(e => e.product_title == this.$route.params.title),
         }
     },
     mounted(){
-        console.log(this.thisProduct)
+        this.size = this.thisProduct[0].product_size
+        console.log(this.size)
     },
     methods: {
         addToFav(e) {
@@ -144,7 +145,6 @@ export default {
                 this.LinkTo('/signin')
             }
         }
-        // localStorage.setItem(JSON.stringify())
     }
 }
 </script>

@@ -6,20 +6,21 @@
                     this.$route.params.sex }}</h1>
                 <div id="category-group" @click="slideSidebar('#category-slide')"
                     class="flex justify-between items-center cursor-pointer select-none">
-                    <h2 class="text-xl font-bold py-6 font-frans" >CATEGORIES</h2>
-                    <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
+                    <h2 class="text-xl font-bold py-6 font-frans">CATEGORIES</h2>
+                    <hr id="line-category" class="w-8 border-0" :style="{ 'height': '2px' }">
                 </div>
                 <div id="category-slide" class="hidden mb-4">
                     <p v-for="(catego, index) in categorie" :key="index"
-                        class="py-2 px-4 text-xl cursor-pointer select-none font-jura" @click="LinkTo('/product/women')" @mouseover="catego.hover = true"
-                        @mouseleave="catego.hover = false" :id="'items_category_hover' + index"
-                        :class="{ hover_items_bg: catego.hover }">{{ catego.title }}</p>
+                        class="py-2 px-4 text-xl cursor-pointer select-none font-jura" @click="LinkTo('/product/women')"
+                        @mouseover="catego.hover = true" @mouseleave="catego.hover = false"
+                        :id="'items_category_hover' + index" :class="{ hover_items_bg: catego.hover }">{{ catego.title }}
+                    </p>
                 </div>
                 <!-- SIZE DROPDOWN -->
                 <div id="size-group" @click="slideSidebar('#size-slide')"
                     class="flex justify-between items-center border-t-2 border-gray-300 cursor-pointer select-none">
                     <h3 class="text-xl font-bold py-6 font-frans">SIZE</h3>
-                    <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
+                    <hr id="line-category" class="w-8 border-0" :style="{ 'height': '2px' }">
                 </div>
                 <div id="size-slide" class="hidden mb-4">
                     <div class="flex space-x-4 mb-3">
@@ -45,7 +46,7 @@
                 <div id="color-group" @click="slideSidebar('#color-slide')"
                     class="flex justify-between items-center border-t-2 border-gray-300 cursor-pointer select-none">
                     <h3 class="text-xl font-bold py-6 font-frans">COLOR</h3>
-                    <hr id="line-category" class="w-8 border-0 rounded" :style="{ 'height': '2px' }">
+                    <hr id="line-category" class="w-8 border-0" :style="{ 'height': '2px' }">
                 </div>
                 <div id="color-slide" class="grid grid-cols-3 gap-y-5 w-36 mt-2 ml-2">
                     <div class="w-8 h-8 bg-red-500 rounded-full cursor-pointer select-none"
@@ -77,17 +78,19 @@
                 <div id="browserProduct" class="grid grid-cols-3 gap-6 mt-10">
                     <div class="cardProduct cursor-pointer select-none" v-for="(item, index) in renderProduct" :key="index">
                         <div class="w-full relative">
-                            <img class="w-80" :src="renderImg(item.product_img)" @click="LinkTo('/productDetail/' + item.product_title)" />
+                            <img class="w-80" :src="renderImg(item.product_img)"
+                                @click="LinkTo('/productDetail/' + item.product_title)" />
                             <div class="py-2">
                                 <div class="relative flex items-center text-left">
-                                    <img
-                                        class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="item.is_favourite = !item.is_favourite, addToFav(item)"
-                                        src="../assets/icons/heart.svg">
-                                    <img v-show="item.is_favourite == true"
+                                    <p>{{ fav }}</p>
+                                    <img v-if="fav.includes(item.product_id)"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
                                         @click="item.is_favourite = !item.is_favourite, cancelFav(index)"
                                         src="../assets/icons/heartt.svg">
+                                    <img v-else
+                                        class="w-5 absolute right-0 cursor-pointer select-none"
+                                        @click="item.is_favourite = !item.is_favourite, addToFav(item.product_id)"
+                                        src="../assets/icons/heart.svg">
                                     <p class="text-md w-64">{{ item.product_title }}</p>
                                 </div>
                                 <p class="text-2xl text-left leading-6">{{ item.product_price }} <span
@@ -130,6 +133,7 @@
 </style>
 <script>
 import $ from 'jquery'
+import axios from 'axios'
 export default {
     name: "Product",
     props: ['products'],
@@ -149,17 +153,35 @@ export default {
     },
 
     methods: {
+        async checkLike(product_id) {
+            let user_id = JSON.parse(localStorage.getItem("user")).user_id
+             await axios.post(`http://localhost:3000/likeByUser/`, {
+                user_id: user_id,
+                product_id: product_id
+            }).then((res)=>{
+                if (res.data){
+                    this.fav.push(product_id)
+                }
+            })
+        },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
         slideSidebar(comp) {
             $(comp).slideToggle();
         },
-        addToFav(e) {
-            if (!this.fav.includes(e)) {
-                this.fav.push(e)
+        addToFav(product_id) {
+            let user_id = JSON.parse(localStorage.getItem("user")).user_id
+            try {
+                let response = axios.post(`http://localhost:3000/like/${product_id}`, {
+                    user_id: user_id,
+                })
+                if(response.data == "AddLiked"){
+                    alert('yeah')
+                }
+            } catch (er) {
+                console.log(er)
             }
-            localStorage.setItem('favorite', JSON.stringify(this.fav))
         },
         cancelFav(e) {
             let temp = JSON.parse(localStorage.getItem('favorite'));
@@ -168,22 +190,25 @@ export default {
             localStorage.setItem('favorite', JSON.stringify(temp))
 
         },
-        renderImg(img){
-            return "http://localhost:3000/products/"+JSON.parse(img)[0]
+        renderImg(img) {
+            return "http://localhost:3000/products/" + JSON.parse(img)[0]
         }
     },
     mounted() {
     },
     computed: {
         renderProduct() {
-            console.log(JSON.parse(this.browseProduct[0].product_img)[0])
             let filterProduct
-            if (this.$route.params.sex == "new in"){
+            if (this.$route.params.sex == "new in") {
                 filterProduct = this.browseProduct.filter(e => e.product_promotion == "newIn")
-            }else{
+            } else {
                 filterProduct = this.browseProduct.filter(e => e.product_sex == this.$route.params.sex)
             }
             if (filterProduct.length > 0) {
+                let filterWishlist = filterProduct.map(e => e.product_id)
+                for (let i = 0; i < filterWishlist; i++) {
+                    this.checkLike(filterWishlist[i])
+                }
                 return filterProduct
             } else {
                 return this.browseProduct
