@@ -82,16 +82,14 @@
                                 @click="LinkTo('/productDetail/' + item.product_title)" />
                             <div class="py-2">
                                 <div class="relative flex items-center text-left">
-                                    <div v-if="this.checkLikeLength()">
-                                        <img v-show="this.like.includes(item.product_id)"
+                                    <img v-show="this.like.includes(item.product_id)"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="this.changeLike(item.product_id, index);"
+                                        @click="this.changeLike(item.product_id);"
                                         src="../assets/icons/heartt.svg">
                                         <img v-show="this.like.includes(item.product_id) == false"
                                         class="w-5 absolute right-0 cursor-pointer select-none"
-                                        @click="this.changeLike(item.product_id, index)"
+                                        @click="this.changeLike(item.product_id)"
                                         src="../assets/icons/heart.svg">
-                                    </div>
                                     <p class="text-md w-64">{{ item.product_title }}</p>
                                 </div>
                                 <p class="text-2xl text-left leading-6">{{ item.product_price }} <span
@@ -147,13 +145,13 @@ export default {
             categorie: [
                 {
                     women: [
-                        { id: 1, title: "Tops", hover: false },
-                        { ic: 2, title: "Shorts", hover: false },
-                        { ic: 3, title: "Skirts", hover: false },
-                        { ic: 4, title: "Trousers", hover: false },
-                        { ic: 5, title: "Sets", hover: false },
-                        { ic: 6, title: "Dresses", hover: false },
-                        { ic: 7, title: "Jumpsuits", hover: false }
+                        { title: "Tops", hover: false },
+                        { title: "Shorts", hover: false },
+                        { title: "Skirts", hover: false },
+                        { title: "Trousers", hover: false },
+                        { title: "Sets", hover: false },
+                        { title: "Dresses", hover: false },
+                        { title: "Jumpsuits", hover: false }
                     ]
                     ,
                     men: [
@@ -167,6 +165,7 @@ export default {
                     ],
                     kids: [{ title: "Tops" }, { title: "Shorts" }, { title: "Skirts" }, { title: "Trousers" }, { title: "Hoodies" }],
                     sale: [{ title: "Men" }, { title: "Women" }, { title: "Kids" }],
+                    newin: [{ title: "Men" }, { title: "Women" }, { title: "Kids" }],
                 }
 
             ],
@@ -174,21 +173,20 @@ export default {
     },
 
     methods: {
-        changeLike(product_id, index){
+        changeLike(product_id){
             if(this.like.includes(product_id)){
+                this.like.splice(this.like.indexOf(product_id), 1)
                 try {
                     axios.delete(`http://localhost:3000/like/${product_id}/${this.user_id}`)
                     .then((res) =>{
-                        if (res.data == "RemoveLiked"){
-                            this.like[index] = "null"
-                        }
+                        console.log(res.data);
                     })
                 } catch (er) {
                     console.log(er)
                 }
             }
             else{
-                this.like[index] = product_id
+                this.like.push(product_id)
                 try {
                     axios.post(`http://localhost:3000/like/${product_id}`, {
                         user_id: this.user_id,
@@ -206,7 +204,9 @@ export default {
                 user_id: this.user_id,
                 product_id: product_id
             }).then((res)=>{
-                this.like.push(res.data)
+                if(res.data != null){
+                    this.like.push(res.data)
+                }
             })
         },
         LinkTo(whereTo) {

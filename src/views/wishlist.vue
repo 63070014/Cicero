@@ -10,10 +10,10 @@
             <div class="inline-grid grid-cols-4 gap-x-6 gap-y-9 p-8">
                 <div v-for="(item, index) in favorite" :key="index" id="card-wishlist-product"
                     class="relative space-y-2 cursor-pointer select-none">
-                    <img @click="LinkTo('/productDetail/' + item.title)" :src="item.listImg[0]" alt="">
+                    <img @click="LinkTo('/productDetail/' + item.product_title)" :src="renderImg(item.product_img)" alt="">
                     <div class="h-20 space-y-1">
-                        <p class="text-md">{{ item.title }}</p>
-                        <p class="text-2xl text-left leading-5">{{ item.price }} <span
+                        <p class="text-md">{{ item.product_title }}</p>
+                        <p class="text-2xl text-left leading-5">{{ item.product_price }} <span
                                 class="text-sm text-gray-600">THB</span>
                         </p>
                     </div>
@@ -33,6 +33,7 @@
 }
 </style>
 <script>
+import axios from 'axios';
 export default {
     name: "Wishlist",
     props: {
@@ -43,10 +44,14 @@ export default {
     data() {
         return {
             enableEdit: false,
-            favorite: JSON.parse(localStorage.getItem("favorite"))
+            favorite: [],
+            user_id : JSON.parse(localStorage.getItem("user")).user_id
         }
     },
     methods: {
+        renderImg(img) {
+            return "http://localhost:3000/products/" + JSON.parse(img)[0]
+        },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
@@ -55,10 +60,15 @@ export default {
                 let temp = this.favorite;
                 let index_delete = temp.indexOf(e)
                 temp.splice(index_delete,1)
-                localStorage.setItem('favorite', JSON.stringify(temp))
-
+                try {
+                    axios.delete(`http://localhost:3000/like/${e.product_id}/${this.user_id}`)
+                    .then((res) =>{
+                        console.log(res.data);
+                    })
+                } catch (er) {
+                    console.log(er)
+                }
             }
-            this.favorite = JSON.parse(localStorage.getItem("favorite"))
             this.$forceUpdate();
 
 
@@ -98,10 +108,15 @@ export default {
         // }
     },
     mounted() {
-        if (JSON.parse(localStorage.getItem("user")) == null) {
-            alert("Please Login First !")
-            this.$router.push('/signin')
-        }
+        axios.post(`http://localhost:3000/like/`,{
+            user_id: this.user_id
+        }).then((res) =>{
+            console.log(res.data)
+            this.favorite = res.data
+        })
+    },
+    computed:{
+
     }
 }
 </script>

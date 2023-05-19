@@ -3,6 +3,16 @@ const pool = require("../config");
 
 router = express.Router();
 
+router.post("/like", async function(req,res,next){
+  const user_id = req.body.user_id
+  console.log(user_id)
+  try{
+    const [rows] = await pool.query("SELECT * FROM `wishlist`as w join products as p on p.product_id = w.product_id where w.user_id = ?", [user_id])
+    res.status(200).json(rows)
+  }catch(er){
+    console.log(er)
+  }
+})
 router.post("/likeByUser", async function (req, res, next) {
   const user_id = req.body.user_id;
   const product_id = req.body.product_id;
