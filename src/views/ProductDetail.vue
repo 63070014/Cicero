@@ -72,6 +72,7 @@
 }
 </style>
 <script>
+import axios from "axios";
 export default {
     name: "productDetail",
     props: {
@@ -84,6 +85,7 @@ export default {
             size:[],
             fav:[],
             thisProduct: this.products.filter(e => e.product_title == this.$route.params.title),
+            user_id : JSON.parse(localStorage.getItem("user")).user_id
         }
     },
     mounted(){
@@ -106,45 +108,66 @@ export default {
             this.$router.push(whereTo)
         },
         addItemToCart() {
-            if (localStorage.getItem("user") != null){
-                if (this.size != ''){
-                    let check = 0;
-                    let index = 0;
-                    if (localStorage.getItem("cart") == null) {
-                        let data = [{ id: this.thisProduct[0].id, count: 1 , size: this.size}]
-                        localStorage.setItem("cart", JSON.stringify(data))
-                    }
-                    else {
-                        let temp = JSON.parse(localStorage.getItem("cart"));
-                        for (let i = 0; i < temp.length; i++) {
-                            if (temp[i].id == this.thisProduct[0].id && temp[i].size == this.size) {
-                                check = 1;
-                                index = i
-                            }
-                        }
-                        if (check) {
-                            let backup = temp[index];
-                            temp.splice(index, 1);
-                            backup.count++;
-                            temp.push(backup)
-                        }
-                        else{
-                            temp.push({"id" : this.thisProduct[0].id, "count" : 1, "size" : this.size})
-                        }
-                        localStorage.setItem("cart", JSON.stringify(temp))
-                        // localStorage.setItem("size", )
-                        alert("Product added to Cart")
-                    }
+            console.log(this.size)
+            try {
+                if(this.size.length <= 2 && this.size.length > 0){
+                    axios.post('http://localhost:3000/addcarts', {
+                        size : this.size,
+                        amount : 1,
+                        user_id: this.user_id,
+                        product_id: this.thisProduct[0].product_id
+    
+                    }).then(() => {
+                        alert("Add to cart success")
+                    })
+                }else{
+                    alert("Please select a size")
                 }
-                else{
-                    alert("Please Select Size")
-                }
+            } catch (error) {
+                console.log(error);
             }
-            else{
-                alert("Please Login First !")
-                this.LinkTo('/signin')
-            }
-        }
+        },
+        
+        // addItemToCart() {
+        //     if (localStorage.getItem("user") != null){
+        //         if (this.size != ''){
+        //             let check = 0;
+        //             let index = 0;
+        //             if (localStorage.getItem("cart") == null) {
+        //                 let data = [{ id: this.thisProduct[0].id, count: 1 , size: this.size}]
+        //                 localStorage.setItem("cart", JSON.stringify(data))
+        //             }
+        //             else {
+        //                 let temp = JSON.parse(localStorage.getItem("cart"));
+        //                 for (let i = 0; i < temp.length; i++) {
+        //                     if (temp[i].id == this.thisProduct[0].id && temp[i].size == this.size) {
+        //                         check = 1;
+        //                         index = i
+        //                     }
+        //                 }
+        //                 if (check) {
+        //                     let backup = temp[index];
+        //                     temp.splice(index, 1);
+        //                     backup.count++;
+        //                     temp.push(backup)
+        //                 }
+        //                 else{
+        //                     temp.push({"id" : this.thisProduct[0].id, "count" : 1, "size" : this.size})
+        //                 }
+        //                 localStorage.setItem("cart", JSON.stringify(temp))
+        //                 // localStorage.setItem("size", )
+        //                 alert("Product added to Cart")
+        //             }
+        //         }
+        //         else{
+        //             alert("Please Select Size")
+        //         }
+        //     }
+        //     else{
+        //         alert("Please Login First !")
+        //         this.LinkTo('/signin')
+        //     }
+        // }
     }
 }
 </script>
