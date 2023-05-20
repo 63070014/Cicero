@@ -25,46 +25,46 @@
                                 <div class="flex space-x-4 mb-3">
 
                                     <div v-if="item.size === 'XS'" @click="item.size = ''" id="btn-size"
-                                        class="border w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                        class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         XS
                                     </div>
                                     <div v-else @click="item.size = 'XS'"
-                                        class="border w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
+                                        class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         XS
                                     </div>
                                     <div v-if="item.size === 'S'" @click="item.size = ''" id="btn-size"
-                                        class="border w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                        class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         S
                                     </div>
                                     <div v-else @click="item.size = 'S'"
-                                        class="border w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
+                                        class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         S
                                     </div>
                                     <div v-if="item.size === 'M'" @click="item.size = ''" id="btn-size"
-                                        class="border w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                        class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         M
                                     </div>
                                     <div v-else @click="item.size = 'M'"
-                                        class="border w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
+                                        class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         M
                                     </div>
 
                                 </div>
                                 <div class="flex space-x-4">
                                     <div v-if="item.size === 'L'" @click="item.size = ''" id="btn-size"
-                                        class="border w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                        class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         L
                                     </div>
                                     <div v-else @click="item.size = 'L'"
-                                        class="border w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
+                                        class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         L
                                     </div>
                                     <div v-if="item.size === 'XL'" @click="item.size = ''" id="btn-size"
-                                        class="border w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                        class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         XL
                                     </div>
                                     <div v-else @click="item.size = 'XL'"
-                                        class="border w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
+                                        class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         XL
                                     </div>
                                 </div>
@@ -93,10 +93,10 @@
             <div class="text-xl font-frans font-bold p-5 tracking-wider">SUBTOTAL {{ totalPrice }} THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
                 <button @click="LinkTo('/')"
-                    class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">CONTINUE
+                    class="text-center border-gray-500 border-2  w-1/2 h-10 text-black">CONTINUE
                     SHOPPING</button>
                 <button @click="savePayment(), LinkTo('/order')"
-                    class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
+                    class="text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">CHECK
                     OUT</button>
             </div>
         </div>
@@ -120,7 +120,6 @@ export default {
         return {
             cartProduct: [],
             count: JSON.parse(localStorage.getItem("cart")),
-            check_count: [],
             user_id: JSON.parse(localStorage.getItem("user")).user_id
         }
     },
@@ -134,8 +133,8 @@ export default {
                     user_id: this.user_id,
                     product_id: value.product_id
 
-                }).then((res) => {
-                    alert(res.data)
+                }).then(() => {
+                    window.location.reload()
                 })
             } catch (error) {
                 console.log(error);

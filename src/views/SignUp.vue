@@ -104,31 +104,41 @@
                 </div>
                 <span class="mt-6">EMAIL ADDRESS</span>
                 <div class="email mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2"
-                     
-                     >
+                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="v$.email.$model"
+                        :class="{ 'bg-red-200': v$.email.$error }">
                 </div>
-                <p class="help is-danger">error</p>
-                <!-- <template v-if="$v.email.$error">
-                    <p class="help is-danger" v-if="!$v.email.required">This field is required</p>
-                    <p class="help is-danger" v-if="!$v.email.mobile">Invalid Mobile Number</p>
-                </template> -->
+                <template v-if="v$.email.$error">
+                    <p class="help is-danger" v-if="!v$.email.required">This field is required</p>
+                    <p class="help is-danger" v-if="!v$.email.mobile">Invalid Mobile Number</p>
+                </template>
                 <span class="mt-6">PASSWORD</span>
                 <div class="password mt-2">
                     <input type="password" class="w-full bg-gray-200 h-9 p-2" v-model="password">
                 </div>
-                <button @click="saveData(), LinkTo('/signin')" class="bg-black text-white h-9 mt-8">REGISTER</button>
+                <button @click="saveData()" class="bg-black text-white h-9 mt-8">REGISTER</button>
+                
             </div>
         </div>
 
     </div>
 </template>
 <script>
-import axios from "axios";
-// import { required, email } from 'vuelidate/lib/validators'
-
+// import axios from "axios";
+// import {
+//   required,
+//   email,
+//   helpers,
+//   minLength,
+//   maxLength,
+//   sameAs,
+// } from "vuelidate/lib/validators";
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 export default {
-    name: 'signin',
+    name: 'signup',
+    setup() {
+        return { v$: useVuelidate() }
+    },
     data() {
         return {
             fname: "",
@@ -137,7 +147,7 @@ export default {
             month: "",
             year: "",
             phone: "",
-            email: null,
+            email: "",
             password: "",
         }
     },
@@ -147,33 +157,37 @@ export default {
             this.$router.push(whereTo)
         },
         saveData() {
-            console.log(this.year + "-" + this.month + "-" + this.day);
-            try {
-                axios.post('http://localhost:3000/user/signup', {
-                    firstname: this.fname,
-                    lastname: this.lname,
-                    birth_date: this.year + "-" + this.month + "-" + this.day,
-                    phone: this.phone,
-                    email: this.email,
-                    password: this.password
-                }).then((res) => {
-                    alert(res.data)
-                })
-            } catch (error) {
-                console.log(error);
+            this.v$.$touch();
+            if (!this.v$.$invalid){
+                // try {
+                //     axios.post('http://localhost:3000/user/signup', {
+                //         firstname: this.fname,
+                //         lastname: this.lname,
+                //         birth_date: this.year + "-" + this.month + "-" + this.day,
+                //         phone: this.phone,
+                //         email: this.email,
+                //         password: this.password
+                //     }).then((res) => {
+                //         alert(res.data)
+                //     })
+                // } catch (error) {
+                //     console.log(error);
+                // }
+                // this.LinkTo('/signin')
+                console.log("pass")
             }
 
 
         },
-
-
     },
-    // validations: {
-    //     email: {
-    //         required: required,
-    //         email: email,
-    //     }
-    // }
+    validations () {
+        return {
+            email: {
+                required,
+                email,
+            },
+        }
+    },
 }
 
 </script>
