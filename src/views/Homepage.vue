@@ -1,51 +1,55 @@
 <template>
-  <div class="flex flex-col center-set">
-    <div class="content-homepage flex flex-col center-set ">
-      <img @click="LinkTo('/product/women')" class="w-full mt-10 cursor-pointer" src="../assets/homepage/banner.svg" />
-      <div class="w-full space-x-6 mt-10 flex justify-between">
-        <!-- FOR WOMEN, FOR MEN, FOR KIDS -->
-        <div v-for="(item, index) in forWho" :key="index" @click="LinkTo(item.path)"
-          class="img-forwomen overflow-hidden w-full h-full flex center-set font-frans cursor-pointer">
-          <img class="zoomImg" :src="item.url" />
-          <div class="w-36 h-14 bg-black text-lg font-normal text-white flex center-set absolute">
-            {{ item.name }}
+  <div class="center-set">
+    <div class="flex flex-col center-set w-4/5">
+      <div class="content-homepage flex flex-col center-set ">
+        <img @click="LinkTo('/product/women')" class="w-full mt-10 cursor-pointer" src="../assets/homepage/banner.svg" />
+        <div class="w-full space-x-6 mt-10 flex justify-between">
+          <!-- FOR WOMEN, FOR MEN, FOR KIDS -->
+          <div v-for="(item, index) in forWho" :key="index" @click="LinkTo(item.path)"
+            class="img-forwomen overflow-hidden w-full h-full flex center-set font-frans cursor-pointer">
+            <img class="zoomImg" :src="item.url" />
+            <div class="w-36 h-14 bg-black text-lg font-normal text-white flex center-set absolute">
+              {{ item.name }}
+            </div>
           </div>
-        </div>
 
-      </div>
-      <div class="flex w-full space-x-6 mt-10 cursor-pointer">
-        <div class="listhomeProduct w-full" v-for="(item, index) in homeProduct" :key="index">
-          <div class="w-full relative">
-            <img :src="productImage(item[0].product_img)"
-              @click="LinkTo('/productDetail/' + item[0].title)" />
-            <div class="p-2">
-              <div class="flex items-center">
-                <img class="w-5 absolute right-0"
-                  @click="item[0].is_favourite = !item[0].is_favourite, addToFav(item[0])" src="../assets/icons/heart.svg">
-                <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
-                  @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])" src="../assets/icons/heartt.svg">
-                <p class="text-md">{{ item[0].product_title }}</p>
+        </div>
+        <div class="flex w-full space-x-6 mt-10 cursor-pointer">
+          <div class="listhomeProduct w-full" v-for="(item, index) in homeProduct" :key="index">
+            <div class="w-full relative">
+              <img :src="productImage(item[0].product_img)" @click="LinkTo('/productDetail/' + item[0].product_title)" />
+              <div class="p-2">
+                <div class="flex items-center">
+                  <img class="w-5 absolute right-0"
+                    @click="item[0].is_favourite = !item[0].is_favourite, addToFav(item[0])"
+                    src="../assets/icons/heart.svg">
+                  <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
+                    @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])"
+                    src="../assets/icons/heartt.svg">
+                  <p class="text-md">{{ item[0].product_title }}</p>
+                </div>
+                <p class="text-2xl leading-5">{{ item[0].product_price }} <span class="text-sm text-gray-600">THB</span>
+                </p>
               </div>
-              <p class="text-2xl leading-5">{{ item[0].product_price }} <span class="text-sm text-gray-600">THB</span></p>
             </div>
           </div>
         </div>
-      </div>
 
-      <div @click="LinkTo('/product/women')"
-        class="first-buyNowBanner mt-8 w-full h-full relative cursor-pointer select-none">
-        <img src="../assets/homepage/buyNow1.svg" />
-        <div
-          class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
-          BUY NOW
+        <div @click="LinkTo('/product/women')"
+          class="first-buyNowBanner mt-8 w-full h-full relative cursor-pointer select-none">
+          <img src="../assets/homepage/buyNow1.svg" />
+          <div
+            class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
+            BUY NOW
+          </div>
         </div>
-      </div>
-      <div @click="LinkTo('/product/men')"
-        class="second-buyNowBanner mt-10 w-full h-full relative cursor-pointer select-none">
-        <img src="../assets/homepage/buyNow2.svg" />
-        <div
-          class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
-          BUY NOW
+        <div @click="LinkTo('/product/men')"
+          class="second-buyNowBanner mt-10 w-full h-full relative cursor-pointer select-none">
+          <img src="../assets/homepage/buyNow2.svg" />
+          <div
+            class="w-44 h-14 bg-black text-white font-medium center-set absolute top-10 right-10 cursor-pointer text-lg font-frans">
+            BUY NOW
+          </div>
         </div>
       </div>
     </div>
@@ -134,7 +138,7 @@ export default {
   },
   methods: {
     productImage(img) {
-      return 'http://localhost:3000/products/'+JSON.parse(img)[0]
+      return 'http://localhost:3000/products/' + JSON.parse(img)[0]
     },
     LinkTo(whereTo) {
       this.$router.push(whereTo)

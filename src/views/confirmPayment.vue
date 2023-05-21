@@ -14,23 +14,21 @@
                     <div class="flex justify-between font-jura space-x-28 mt-2">
                         <div class="flex flex-col space-y-3">
                             <div class="">PAYMENT AMOUT</div>
-                            <div class="">PAYMENT DATE</div>
-                            <div class="">PAYMENT METHOD</div>
+                            <div class="">PAYMENT DATE</div>                   
                         </div>
                         <div class="flex flex-col space-y-3">
-                            <div class="">{{ this.totalPrice() }} THB</div>
+                            <div class="">{{ this.userOrder.product_price }} THB</div>
                             <div class="">MAR 3, 2022</div>
-                            <div class="">ACCOUNT *1203</div>
                         </div>
                     </div>
-                    <div class="border font-frans p-4 w-full text-center border-black">ORDER NUMBER : 1RSTGO-5D</div>
+                    <div class="border font-frans p-4 w-full text-center border-black">ORDER NUMBER : {{ this.userOrder.order_id }}RSTGO-SD</div>
                 </div>
                 <div class="pt-7"><img src="../assets/icons/fish-line.svg" alt=""></div>
             </div>
             <div class="flex justify-between w-full p-9 relative">
                 <div class="flex flex-col space-y-2">
                     <div class="font-frans">SHIPPING ADDRESS</div>
-                    <div class="w-60" >{{ this.getData[0].localAddress + " " + this.getData[0].localPostcode + " " + this.getData[0].localProvince }}</div>
+                    <div class="w-60" >{{ this.userOrder.address + " " + this.userOrder.postcode + " " + this.userOrder.province }}</div>
                 </div>
                 <div class="flex flex-col-reverse font-jura font-bold relative">
                     <p class="text-lg">Cicero.</p></div>
@@ -39,12 +37,15 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default{
     data(){
         return{
             address:'',
             getData:JSON.parse(localStorage.getItem('address')),
             orderSummary: JSON.parse(localStorage.getItem("payment_items")),
+            user_id: JSON.parse(localStorage.getItem("user")).user_id,
+            userOrder:[]
         }
     },
     methods:{
@@ -56,10 +57,20 @@ export default{
             }
             return price
         },
+        async getOrderUser() {
+            await axios.get(`http://localhost:3000/confirmOrder/${this.user_id}/${this.$route.params.order_id}`).then((res) => {
+                this.userOrder = res.data[0]
+                console.log(this.userOrder);
+            })
+        },
         // showData(){
         //     var getData = JSON.parse(localStorage.getItem('address')) 
         //     this.address = getData[0].localAddress
         // }
+    },
+    mounted() {
+        this.getOrderUser()
+
     }
 }
 </script>

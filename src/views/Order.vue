@@ -44,7 +44,8 @@
                     <div class="enter-address flex justify-between item-center">
                         <div class="flex p-5">{{ item.topic }}</div>
                         <div class="center-set">
-                            <input type="text" class="w-96 h-10 p-2 outline-none" :placeholder="item.detail" @input="setInputValue($event.target.value,item.vModel)">
+                            <input type="text" class="w-96 h-10 p-2 outline-none" :placeholder="item.detail"
+                                @input="setInputValue($event.target.value, item.vModel)">
                         </div>
                     </div>
                 </div>
@@ -95,6 +96,7 @@
 <script>
 import axios from 'axios'
 export default {
+    
     data() {
         return {
             fname: '',
@@ -109,20 +111,19 @@ export default {
             detailAddress1: [
                 { topic: "First name", detail: "First name", vModel: "fname" },
                 { topic: "Last name", detail: "Last name", vModel: "lname" },
-                { topic: "Tel.", detail: "Tel.", vModel: "phone" },
+                { topic: "Tel", detail: "Tel", vModel: "phone" },
                 { topic: "Email", detail: "Email", vModel: "email" },
                 { topic: "Country", detail: "Country", vModel: "country" },
                 { topic: "Address", detail: "Address", vModel: "address" },
                 { topic: "Province", detail: "Province", vModel: "province" },
                 { topic: "Postcode", detail: "Postcode", vModel: "postcode" },
-                { topic: "Company", detail: "Company", vModel: "company" }
             ],
             user_id: JSON.parse(localStorage.getItem("user")).user_id,
             orderSummary: [],
         }
     },
     methods: {
-        setInputValue(value, item){
+        setInputValue(value, item) {
             this[item] = value
         },
         totalPrice() {
@@ -145,9 +146,7 @@ export default {
             })
         },
         saveAddress() {
-            console.log(this.fname)
             this.orderSummary.forEach(value => {
-                console.log(this.user_id)
                 axios.post(`http://localhost:3000/addOrder`, {
                     firstname: this.fname,
                     lastname: this.lname,
@@ -161,11 +160,13 @@ export default {
                     size: value.size,
                     product_id: value.product_id,
                     user_id: this.user_id
+                }).then((res)=>{
+                    this.LinkTo(`/confirm/${res.data}`)
                 })
 
             });
-            this.LinkTo('/confirm')
         },
+    
     },
     mounted() {
         this.getCarts()
