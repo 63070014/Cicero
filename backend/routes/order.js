@@ -21,10 +21,33 @@ router.post("/addOrder", async function (req, res, next) {
             "INSERT INTO orders(firstname, lastname, tel, email, country, address, province, postcode, size, amount, product_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [firstname, lastname, tel, email, country, address, province, postcode, size, amount, product_id, user_id]
           );
-          res.status(200).json("Add Order successfully");
+          res.status(200).json(rows.insertId);
     } catch (er) {
       console.log(er);
     }
 })
+router.get("/userOrder/:id", async function (req, res, next) {
+  const user_id = req.params.id;
+  try {
+    const [rows] = await pool.query("select * from orders as o join products as p on o.product_id = p.product_id where user_id = ?", [
+      user_id,
+    ]);
+    res.status(200).json(rows);
+  } catch (er) {
+    console.log(er);
+  }
+});
+router.get("/confirmOrder/:uid/:oid", async function (req, res, next) {
+  const user_id = req.params.uid;
+  const order_id = req.params.oid;
+  try {
+    const [rows] = await pool.query("select * from orders as o join products as p on o.product_id = p.product_id where user_id = ? and order_id = ?", [
+      user_id,order_id
+    ]);
+    res.status(200).json(rows);
+  } catch (er) {
+    console.log(er);
+  }
+});
 
 exports.router = router;

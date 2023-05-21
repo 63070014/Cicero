@@ -80,7 +80,7 @@ const routes = [
     props: (route) => ({ products: route.params.products }),
   },
   {
-    path: "/confirm",
+    path: "/confirm/:order_id",
     name: "confirm",
     meta: { login: true },
     component: confirmPayment,

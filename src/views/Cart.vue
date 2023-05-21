@@ -176,7 +176,6 @@ export default {
         async getCarts() {
             await axios.get(`http://localhost:3000/carts/${this.user_id}`).then((res) => {
                 this.cartProduct = res.data
-
             })
         },
         renderImg(img) {
