@@ -206,7 +206,7 @@ export default {
     },
     methods: {
         selectColor(value){
-            this.$router.push("/product/"+value)
+            this.$router.push(`/product/${this.$route.params.sex}/`+value)
         },
         changeLike(product_id) {
             if (this.like.includes(product_id)) {
@@ -268,7 +268,10 @@ export default {
             if (this.$route.params.sex == "new in") {
                 routeParamSex = "newIn"
             }
-            if (routeParamCategory) {
+            if (this.colorSelect.map(e => e.value).includes(routeParamCategory)){
+                filterProduct = this.browseProduct.filter(e => e.product_color == routeParamCategory && e.product_sex == routeParamSex)
+            }
+            else if (routeParamCategory) {
                 filterProduct = this.browseProduct.filter(e => e.product_sex == routeParamSex && e.product_categories == routeParamCategory)
             }
             else {

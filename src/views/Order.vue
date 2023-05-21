@@ -40,60 +40,12 @@
         <div class="flex space-x-5">
             <div class="flex flex-col shipping-address border mt-12">
                 <div class="line-order flex text-2xl font-light font-frans p-5 tracking-wider">SHIPPING ADDRESS</div>
-                <!-- <div v-for="(item, index) in detailAddress1" :key="index" class="w-full">
-                        <div class="enter-address flex justify-between item-center">
-                            <div class="flex p-5">{{ item.topic }}</div>
-                            <div class="center-set">
-                                <input type="text" class="w-96 h-10 p-2" :placeholder="item.detail">
-                            </div>
+                <div v-for="(item, index) in detailAddress1" :key="index" class="w-full">
+                    <div class="enter-address flex justify-between item-center">
+                        <div class="flex p-5">{{ item.topic }}</div>
+                        <div class="center-set">
+                            <input type="text" class="w-96 h-10 p-2 outline-none" :placeholder="item.detail" @input="setInputValue($event.target.value,item.vModel)">
                         </div>
-                    </div> -->
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Firstname</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Firstname" v-model="fname">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Lastname</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Lastname" v-model="lname">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Tel.</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Tel." v-model="phone">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Email</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Email" v-model="email">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Country</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Country" v-model="country">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Address</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Address" v-model="address">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Province</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Province" v-model="province">
-                    </div>
-                </div>
-                <div class="enter-address flex justify-between item-center">
-                    <div class="flex p-5">Postcode</div>
-                    <div class="center-set">
-                        <input type="text" class="w-96 h-10 p-2" placeholder="Postcode" v-model="postcode">
                     </div>
                 </div>
             </div>
@@ -102,13 +54,15 @@
                 <div v-for="(item, index) in orderSummary" :key="index" class="w-full border font-jura">
                     <div class="flex">
                         <div class="w-32 p-2">
-                            <img :src="item.listImg[0]" class="img-summary">
+                            <img :src="this.renderImg(item.product_img)" class="img-summary">
                         </div>
                         <div class="flex flex-col">
-                            <div class="p-3 font-semibold">{{ item.title }}</div>
-                            <div class="border w-16 h-10 text-center border-gray-500 border-2 ml-3 p-1">{{ item.size }}
+                            <div class="p-3 font-semibold">{{ item.product_title }}</div>
+                            <div class="w-16 h-10 text-center border-gray-500 border-2 ml-3 p-1 cursor-default select-none">
+                                {{ item.size }}
                             </div>
-                            <div class="flex text-lg p-2">{{ item.price }} <div class="ml-2 text-gray-400">THB x {{ item.count }}
+                            <div class="flex text-lg p-2">{{ item.price }} <div class="ml-2 text-gray-400">THB x {{
+                                item.amount }}
                                 </div>
                             </div>
                         </div>
@@ -130,15 +84,16 @@
         <div class="flex w-3/5 justify-between">
             <div class="text-2xl font-light p-5 tracking-wider font-frans">TOTAL {{ this.totalPrice() }} THB</div>
             <div class="w-1/2 mt-4 flex space-x-3">
-                <button class="border text-center border-gray-500 border-2  w-1/2 h-10 text-black">BACK</button>
+                <button class="text-center border-gray-500 border-2  w-1/2 h-10 text-black">BACK</button>
                 <button @click="saveAddress()"
-                    class="border text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">PLACE MY
+                    class="text-center border-gray-500 border-2 text-white h-10 w-1/2 bg-black">PLACE MY
                     ORDER</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -150,6 +105,7 @@ export default {
             address: '',
             province: '',
             postcode: '',
+            company: '',
             detailAddress1: [
                 { topic: "First name", detail: "First name", vModel: "fname" },
                 { topic: "Last name", detail: "Last name", vModel: "lname" },
@@ -159,36 +115,61 @@ export default {
                 { topic: "Address", detail: "Address", vModel: "address" },
                 { topic: "Province", detail: "Province", vModel: "province" },
                 { topic: "Postcode", detail: "Postcode", vModel: "postcode" },
+                { topic: "Company", detail: "Company", vModel: "company" }
             ],
-            orderSummary: JSON.parse(localStorage.getItem("payment_items")),
+            user_id: JSON.parse(localStorage.getItem("user")).user_id,
+            orderSummary: [],
         }
     },
     methods: {
-        totalPrice(){
-            let price = 0
-            for (let i = 0; i < this.orderSummary.length; i++) {
-                price += parseInt(this.orderSummary[i].price)
-                
-            }
+        setInputValue(value, item){
+            this[item] = value
+        },
+        totalPrice() {
+            var price = 0
+            this.orderSummary.map(e => e.product_price * e.amount).forEach(element => {
+                price += element
+            });
             return price
         },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
         },
+        renderImg(img) {
+            return "http://localhost:3000/products/" + JSON.parse(img)[0]
+        },
+        async getCarts() {
+            await axios.get(`http://localhost:3000/carts/${this.user_id}`).then((res) => {
+                this.orderSummary = res.data
+                console.log(res.data)
+            })
+        },
         saveAddress() {
-            var getData = [{
-                localFname: this.fname,
-                localLname: this.lname,
-                localPhone: this.phone,
-                localEmail: this.email,
-                localCountry: this.country,
-                localAddress: this.address,
-                localProvince: this.province,
-                localPostcode: this.postcode,
-            }]
-            localStorage.setItem('address', JSON.stringify(getData));
+            console.log(this.fname)
+            this.orderSummary.forEach(value => {
+                console.log(this.user_id)
+                axios.post(`http://localhost:3000/addOrder`, {
+                    firstname: this.fname,
+                    lastname: this.lname,
+                    tel: this.phone,
+                    email: this.email,
+                    country: this.country,
+                    address: this.address,
+                    province: this.province,
+                    postcode: this.postcode,
+                    amount: value.amount,
+                    size: value.size,
+                    product_id: value.product_id,
+                    user_id: this.user_id
+                })
+
+            });
             this.LinkTo('/confirm')
         },
     },
+    mounted() {
+        this.getCarts()
+
+    }
 }
 </script>
