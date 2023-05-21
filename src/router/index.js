@@ -10,7 +10,7 @@ import confirmPayment from "../views/confirmPayment.vue";
 import wishlist from "../views/wishlist.vue";
 import Purchase from "../views/MyPurchase.vue";
 import Profile from "../views/Profile.vue";
-import Search from "../views/search.vue"
+import Search from "../views/search.vue";
 import Forgot from "../views/forgotPassword.vue";
 import axios from "axios";
 async function fetchData() {
@@ -22,90 +22,93 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
-    props: (route) => ({ products: route.params.products })
+    props: (route) => ({ products: route.params.products }),
   },
-  { 
+  {
     path: "/signin",
     name: "signin",
+    meta: { guess: true },
     component: SignIn,
   },
   {
     path: "/signup",
     name: "signup",
+    meta: { guess: true },
     component: SignUp,
   },
   {
     path: "/product/:sex",
     name: "productSex",
     component: Product,
-    props: (route) => ({ products: route.params.products })
+    props: (route) => ({ products: route.params.products }),
   },
   {
     path: "/product/:sex/:category",
     name: "productCategory",
     component: Product,
-    props: (route) => ({ products: route.params.products })
+    props: (route) => ({ products: route.params.products }),
   },
   {
-    path: "/product/:sex/:category",
-    name: "productCategory",
+    path: "/product/:sex/:category/:size",
+    name: "productSize",
     component: Product,
-    props: (route) => ({ products: route.params.products })
+    props: (route) => ({ products: route.params.products }),
   },
   {
     path: "/productDetail/:title",
     name: "productDetail",
     component: productDetail,
-    props: (route) => ({ products: route.params.products })
+    props: (route) => ({ products: route.params.products }),
   },
   {
     path: "/wishlist",
     name: "Wishlist",
-    meta: {login: true},
+    meta: { login: true },
     component: wishlist,
   },
   {
     path: "/order",
     name: "order",
-    meta: {login: true},
+    meta: { login: true },
     component: Order,
   },
   {
     path: "/cart",
     name: "cart",
     component: Cart,
-    meta: {login: true},
-    props: (route) => ({ products: route.params.products })
+    meta: { login: true },
+    props: (route) => ({ products: route.params.products }),
   },
   {
     path: "/confirm",
     name: "confirm",
-    meta: {login: true},
+    meta: { login: true },
     component: confirmPayment,
   },
   {
     path: "/mypurchase",
     name: "mypurchase",
-    meta: {login: true},
+    meta: { login: true },
     component: Purchase,
   },
   {
     path: "/profile",
     name: "profile",
-    meta: {login: true},
+    meta: { login: true },
     component: Profile,
   },
   {
     path: "/forgot",
-    name: "forgot", 
+    name: "forgot",
+    meta: { guess: true },
     component: Forgot,
   },
   {
-    path:"/search",
-    name:"search",
+    path: "/search",
+    name: "productSearch",
     component: Search,
-    props: (route) => ({ products: route.params.products })
-  }
+    props: (route) => ({ products: route.params.products }),
+  },
 ];
 
 const router = createRouter({
@@ -120,22 +123,22 @@ const router = createRouter({
     } else {
       window.scrollTo(0, 0);
     }
- }
+  },
 });
 router.beforeEach(async (to, from, next) => {
-  const isLoggedIn = !localStorage.getItem('user')
-  if (to.meta.login && isLoggedIn){
-    alert('Please login first!')
-    next({path: '/signin'})
+  const isLoggedIn = localStorage.getItem("user");
+  if (to.meta.login && !isLoggedIn) {
+    alert("Please login first!");
+    next({ path: "/signin" });
   }
-  if (to.meta.guess && isLoggedIn){
-    alert("You've already logged in")
-    next({path: '/'})
+  if (to.meta.guess && isLoggedIn) {
+    alert("You've already logged in");
+    next({ path: "/" });
   }
-  console.log(to.name)
-  if (to.name === 'home' || to.name.startsWith('product')) {
+  console.log(to.name);
+  if (to.name === "home" || to.name.startsWith("product")) {
     const product = await fetchData();
-    to.params.products = product; 
+    to.params.products = product;
     next();
   } else {
     next();

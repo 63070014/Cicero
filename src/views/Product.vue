@@ -26,21 +26,21 @@
                 <div id="size-slide" class="hidden mb-4">
                     <div class="flex space-x-4 mb-3">
                         <div id="btn-size"
-                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">XS
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none" :class="{ 'bg-black': this.size == 'XS', 'text-white': this.size == 'XS' }" @click="pathSize('XS')">XS
                         </div>
                         <div id="btn-size"
-                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">S
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none" :class="{ 'bg-black': this.size == 'S', 'text-white': this.size == 'S' }" @click="pathSize('S')">S
                         </div>
                         <div id="btn-size"
-                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">M
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none" :class="{ 'bg-black': this.size == 'M', 'text-white': this.size == 'M' }" @click="pathSize('M')">M
                         </div>
                     </div>
                     <div class="flex space-x-4">
                         <div id="btn-size"
-                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">L
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none" :class="{ 'bg-black': this.size == 'L', 'text-white': this.size == 'L' }" @click="pathSize('L')">L
                         </div>
                         <div id="btn-size"
-                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none">XL
+                            class="w-16 h-10 text-center border-gray-500 border-2 p-1 cursor-pointer select-none" :class="{ 'bg-black': this.size == 'XL', 'text-white': this.size == 'XL' }" @click="pathSize('XL')">XL
                         </div>
                     </div>
                 </div>
@@ -60,8 +60,7 @@
                     <div class="cardProduct cursor-pointer select-none" v-for="(item, index) in renderProduct"
                         :key="index">
                         <div class="w-full relative">
-                            <img class="w-80" :src="renderImg(item.product_img)"
-                                @click="LinkTo('/productDetail/' + item.product_title)" />
+                            <img class="w-80" :src="renderImg(item.product_img)" @click="LinkTo('/productDetail/' + item.product_title)"/>
                             <div class="py-2">
                                 <div class="relative flex items-center text-left">
                                     <img v-show="this.like.includes(item.product_id)"
@@ -104,8 +103,12 @@
 .hover_items_bg {
     background-color: #d9d9d9;
 }
-
-#btn-size:hover {
+button:disabled{
+    border-color: rgb(209 213 219);
+    color:  rgb(209 213 219);
+    cursor: default;
+}
+#btn-size:hover:not([disabled]) {
     background-color: black;
     color: white
 }
@@ -119,6 +122,7 @@ export default {
     data() {
         return {
             user_id: "",
+            size:"",
             like: [],
             browseProduct: this.products,
             params: this.$route.params.sex,
@@ -208,27 +212,37 @@ export default {
         selectColor(value){
             this.$router.push(`/product/${this.$route.params.sex}/`+value)
         },
+        pathSize(size){
+            this.size = size;
+            this.$router.push(`/product/${this.$route.params.sex}/${this.$route.params.category}/`+size)
+        },
         changeLike(product_id) {
-            if (this.like.includes(product_id)) {
-                this.like.splice(this.like.indexOf(product_id), 1)
-                try {
-                    axios.delete(`http://localhost:3000/like/${product_id}/${this.user_id}`)
-                        .then((res) => {
-                            console.log(res.data);
+            if (this.user_id){
+                if (this.like.includes(product_id)) {
+                    this.like.splice(this.like.indexOf(product_id), 1)
+                    try {
+                        axios.delete(`http://localhost:3000/like/${product_id}/${this.user_id}`)
+                            .then((res) => {
+                                console.log(res.data);
+                            })
+                    } catch (er) {
+                        console.log(er)
+                    }
+                }
+                else {
+                    this.like.push(product_id)
+                    try {
+                        axios.post(`http://localhost:3000/like/${product_id}`, {
+                            user_id: this.user_id,
                         })
-                } catch (er) {
-                    console.log(er)
+                    } catch (er) {
+                        console.log(er)
+                    }
                 }
             }
-            else {
-                this.like.push(product_id)
-                try {
-                    axios.post(`http://localhost:3000/like/${product_id}`, {
-                        user_id: this.user_id,
-                    })
-                } catch (er) {
-                    console.log(er)
-                }
+            else{
+                alert('Please login first')
+                this.$router.push('/signin')
             }
         },
         checkLikeLength() {
@@ -265,14 +279,22 @@ export default {
             let filterProduct
             let routeParamSex = this.$route.params.sex
             let routeParamCategory = this.$route.params.category
+            let routeParamSize = this.$route.params.size
             if (this.$route.params.sex == "new in") {
                 routeParamSex = "newIn"
             }
             if (this.colorSelect.map(e => e.value).includes(routeParamCategory)){
                 filterProduct = this.browseProduct.filter(e => e.product_color == routeParamCategory && e.product_sex == routeParamSex)
             }
+            // Route Sex Category and Size
+            else if (routeParamSize){
+                filterProduct = this.browseProduct.filter(e => JSON.parse(e.product_size).includes(routeParamSize) && e.product_sex == routeParamSex && e.product_categories == routeParamCategory)
+            }
             else if (routeParamCategory) {
                 filterProduct = this.browseProduct.filter(e => e.product_sex == routeParamSex && e.product_categories == routeParamCategory)
+            }
+            else if (routeParamSex == "newIn" || routeParamSex == "sale"){
+                filterProduct = this.browseProduct.filter(e => e.product_promotion == routeParamSex)
             }
             else {
                 filterProduct = this.browseProduct.filter(e => e.product_sex == routeParamSex)

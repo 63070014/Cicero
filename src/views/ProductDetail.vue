@@ -5,7 +5,7 @@
         <div id="product" class="flex space-x-8">
             <div class="image-scroll">
                 <div v-for="(img, index) in productImage()" :key="index">
-                    <img :src="'http://localhost:3000/products/'+img" alt="">
+                    <img :src="'http://localhost:3000/products/' + img" alt="">
                 </div>
             </div>
             <div class="relative w-80">
@@ -17,40 +17,49 @@
                     <div class="flex flex-col ">
                         <div class="font-medium text-2xl font-frans pb-3">SIZE</div>
                         <div class="flex space-x-4 mb-3">
+                            <button :disabled="!this.sizeProduct.includes('XS')" v-if="this.size === 'XS'" @click="this.selectSize('')" id="btn-size"
+                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                XS
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('XS')" v-else @click="this.selectSize('XS')" id="btn-size"
+                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                XS
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('XS')" v-if="this.size === 'S'" @click="this.selectSize('')" id="btn-size"
+                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                S
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('S')" v-else @click="this.selectSize('S') " id="btn-size"
+                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                S
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('M')" v-if="this.size === 'M'" @click="this.selectSize('')" id="btn-size"
+                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                M
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('M')" v-else @click="this.selectSize('M')" id="btn-size"
+                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                M
+                            </button>
 
-                            <div v-if="this.size === 'XS'" @click="this.size = ''" id="btn-size"
-                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">XS
-                            </div>
-                            <div v-else @click="this.size = 'XS'" id="btn-size"
-                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">XS
-                            </div>
-                            <div v-if="this.size === 'S'" @click="this.size = ''" id="btn-size"
-                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">S
-                            </div>
-                            <div v-else @click="this.size = 'S'" id="btn-size"
-                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">S
-                            </div>
-                            <div v-if="this.size === 'M'" @click="this.size = ''" id="btn-size"
-                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">M
-                            </div>
-                            <div v-else @click="this.size = 'M'" id="btn-size"
-                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">M
-                            </div>
-                            
                         </div>
                         <div class="flex space-x-4">
-                            <div v-if="this.size === 'L'" @click="this.size = ''" id="btn-size"
-                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">L
-                            </div>
-                            <div v-else @click="this.size = 'L'" id="btn-size"
-                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">L
-                            </div>
-                            <div v-if="this.size === 'XL'" @click="this.size = ''" id="btn-size"
-                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">XL
-                            </div>
-                            <div v-else @click="this.size = 'XL'" id="btn-size"
-                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">XL
-                            </div>
+                            <button :disabled="!this.sizeProduct.includes('L')" v-if="this.size === 'L'" @click="this.selectSize('')" id="btn-size"
+                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                L
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('L')" v-else @click="this.selectSize('L')" id="btn-size"
+                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                L
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('XL')" v-if="this.size === 'XL'" @click="this.selectSize('')" id="btn-size"
+                                class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                XL
+                            </button>
+                            <button :disabled="!this.sizeProduct.includes('XL')" v-else @click="this.selectSize('XL')" id="btn-size"
+                                class="w-16 h-10 text-center text-black border-gray-500 border-2 p-1 cursor-pointer select-none">
+                                XL
+                            </button>
                         </div>
                     </div>
                     <div class="space-y-3 select-none">
@@ -82,25 +91,31 @@ export default {
     },
     data() {
         return {
-            size:[],
-            fav:[],
+            size: [],
+            sizeProduct: [],
+            fav: [],
             thisProduct: this.products.filter(e => e.product_title == this.$route.params.title),
-            user_id : JSON.parse(localStorage.getItem("user")).user_id
+            user_id: JSON.parse(localStorage.getItem("user")).user_id
         }
     },
-    mounted(){
-        this.size = this.thisProduct[0].product_size
-        console.log(this.size)
+    mounted() {
+        this.sizeProduct = JSON.parse(this.thisProduct[0].product_size)
+        console.log(this.sizeProduct)
     },
     methods: {
+        selectSize(value) {
+            if (this.sizeProduct.includes(value)){
+                this.size = value
+            }
+        },
         addToFav(e) {
-            if (!this.fav.includes(e)){
+            if (!this.fav.includes(e)) {
                 this.fav.push(e)
             }
             localStorage.setItem('favorite', JSON.stringify(this.fav))
             alert('Added to Wishlist')
         },
-        productImage(){
+        productImage() {
             console.log(JSON.parse(this.thisProduct[0].product_img))
             return JSON.parse(this.thisProduct[0].product_img)
         },
@@ -110,24 +125,24 @@ export default {
         addItemToCart() {
             console.log(this.size)
             try {
-                if(this.size.length <= 2 && this.size.length > 0){
+                if (this.size.length <= 2 && this.size.length > 0) {
                     axios.post('http://localhost:3000/addcarts', {
-                        size : this.size,
-                        amount : 1,
+                        size: this.size,
+                        amount: 1,
                         user_id: this.user_id,
                         product_id: this.thisProduct[0].product_id
-    
+
                     }).then(() => {
                         alert("Add to cart success")
                     })
-                }else{
+                } else {
                     alert("Please select a size")
                 }
             } catch (error) {
                 console.log(error);
             }
         },
-        
+
         // addItemToCart() {
         //     if (localStorage.getItem("user") != null){
         //         if (this.size != ''){

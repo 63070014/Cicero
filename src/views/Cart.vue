@@ -23,47 +23,46 @@
                             <div class="flex flex-col ">
                                 <div class="font-medium text-2xl font-frans pb-3">SIZE</div>
                                 <div class="flex space-x-4 mb-3">
-
-                                    <div v-if="item.size === 'XS'" @click="item.size = ''" id="btn-size"
+                                    <div v-if="item.size === 'XS'" id="btn-size"
                                         class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         XS
                                     </div>
-                                    <div v-else @click="item.size = 'XS'"
+                                    <div v-else
                                         class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         XS
                                     </div>
-                                    <div v-if="item.size === 'S'" @click="item.size = ''" id="btn-size"
+                                    <div v-if="item.size === 'S'" id="btn-size"
                                         class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         S
                                     </div>
-                                    <div v-else @click="item.size = 'S'"
+                                    <div v-else 
                                         class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         S
                                     </div>
-                                    <div v-if="item.size === 'M'" @click="item.size = ''" id="btn-size"
+                                    <div v-if="item.size === 'M'"  id="btn-size"
                                         class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         M
                                     </div>
-                                    <div v-else @click="item.size = 'M'"
+                                    <div v-else 
                                         class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         M
                                     </div>
 
                                 </div>
                                 <div class="flex space-x-4">
-                                    <div v-if="item.size === 'L'" @click="item.size = ''" id="btn-size"
+                                    <div disabled v-if="item.size === 'L'" id="btn-size"
                                         class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         L
                                     </div>
-                                    <div v-else @click="item.size = 'L'"
+                                    <div disabled v-else
                                         class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         L
                                     </div>
-                                    <div v-if="item.size === 'XL'" @click="item.size = ''" id="btn-size"
+                                    <div v-if="item.size === 'XL'" id="btn-size"
                                         class="w-16 h-10 text-center bg-black text-white border-gray-500 border-2 p-1 cursor-pointer select-none">
                                         XL
                                     </div>
-                                    <div v-else @click="item.size = 'XL'"
+                                    <div v-else
                                         class="w-16 h-10 text-center text-gray-300 border-gray-300 border-2 p-1  select-none">
                                         XL
                                     </div>

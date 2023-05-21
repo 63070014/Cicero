@@ -204,12 +204,12 @@ export default {
                         confirm_password: this.confirm,
                     }).then((res) => {
                         alert(res.data)
+                        this.LinkTo('/signin')
+                        console.log("pass")
                     })
                 } catch (error) {
                     console.log(error);
                 }
-                // this.LinkTo('/signin')
-                console.log("pass")
             }
 
 
