@@ -17,7 +17,7 @@
                             <div class="">PAYMENT DATE</div>                   
                         </div>
                         <div class="flex flex-col space-y-3">
-                            <div class="">{{ this.userOrder.product_price }} THB</div>
+                            <div class="">{{ this.userOrder.product_price*this.userOrder.amount }} THB</div>
                             <div class="">MAR 3, 2022</div>
                         </div>
                     </div>

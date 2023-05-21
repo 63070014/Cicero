@@ -38,12 +38,13 @@
                         :class="{ 'bg-red-200': v$.fname.$error }">
                 </div>
                 <template v-if="v$.fname.$error">
-                    <p class="text-red-500">Please enter your First name</p>
-                    <!-- <p class="" v-if="!v$.fname.$params.minLength">Must be at least 5 character</p> -->
+                    <p v-if="!v$.fname.$error.required" class="text-red-500">Please enter your First name</p>
+                    <!-- <p v-if="!v$.fname.$error.minLength && !v$.fname.$error.required" class="text-red-500">Must be at least 5 character</p> -->
                 </template>
                 <span class="mt-6">LAST NAME *</span>
                 <div class="password mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.lname.$error }" v-model="v$.lname.$model">
+                    <input type="text" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.lname.$error }"
+                        v-model="v$.lname.$model">
                 </div>
                 <template v-if="v$.lname.$error">
                     <p class="text-red-500">Please enter your Last name</p>
@@ -51,7 +52,8 @@
                 </template>
                 <span class="mt-6">DATE OF BIRTH (OPTIONAL)</span>
                 <div class="flex justify-between item-center space-x-3 mt-2">
-                    <select name="" class="bg-gray-200 h-9 w-1/3" id="" :class="{ 'bg-red-200': v$.day.$error }" v-model="day">
+                    <select name="" class="bg-gray-200 h-9 w-1/3" id="" :class="{ 'bg-red-200': v$.day.$error }"
+                        v-model="day">
                         <option value="01" class="">1</option>
                         <option value="02" class="">2</option>
                         <option value="03" class="">3</option>
@@ -84,7 +86,8 @@
                         <option value="30" class="">30</option>
                         <option value="31" class="">31</option>
                     </select>
-                    <select name="" class="bg-gray-200 h-9 w-1/3" :class="{ 'bg-red-200': v$.month.$error }" id="" v-model="month">
+                    <select name="" class="bg-gray-200 h-9 w-1/3" :class="{ 'bg-red-200': v$.month.$error }" id=""
+                        v-model="month">
                         <option value="01">JAN</option>
                         <option value="02">FEB</option>
                         <option value="03">MAR</option>
@@ -98,7 +101,8 @@
                         <option value="11">NOV</option>
                         <option value="12">DEC</option>
                     </select>
-                    <select name="" class="bg-gray-200 h-9 w-1/3" :class="{ 'bg-red-200': v$.year.$error }" id="" v-model="v$.year.$model">
+                    <select name="" class="bg-gray-200 h-9 w-1/3" :class="{ 'bg-red-200': v$.year.$error }" id=""
+                        v-model="v$.year.$model">
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
@@ -109,10 +113,12 @@
                 </div>
                 <span class="mt-6">PHONE NUMBER *</span>
                 <div class="password mt-2">
-                    <input maxlength="10" type="text" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.phone.$error }" v-model="v$.phone.$model">
+                    <input maxlength="10" type="text" class="w-full bg-gray-200 h-9 p-2"
+                        :class="{ 'bg-red-200': v$.phone.$error }" v-model="v$.phone.$model">
                 </div>
                 <template v-if="v$.phone.$error">
                     <p class="text-red-500">Please enter your Phone number</p>
+
                 </template>
                 <span class="mt-6">EMAIL ADDRESS</span>
                 <div class="email mt-2">
@@ -120,22 +126,24 @@
                         :class="{ 'bg-red-200': v$.email.$error }">
                 </div>
                 <template v-if="v$.email.$error">
-                    <p class="text-red-500" >Please enter your Email address</p>
+                    <p class="text-red-500">Please enter your Email address</p>
                     <!-- <p class="help is-danger" v-if="!v$.email.mobile">Invalid Mobile Number</p> -->
                 </template>
                 <span class="mt-6">PASSWORD</span>
                 <div class="password mt-2">
-                    <input type="password" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.password.$error }" v-model="v$.password.$model">
+                    <input type="password" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.password.$error }"
+                        v-model="v$.password.$model">
                 </div>
                 <template v-if="v$.password.$error">
                     <p class="text-red-500">Please enter your Password</p>
                 </template>
                 <span class="mt-6">CONFIRM PASSWORD</span>
                 <div class="password mt-2">
-                    <input type="password" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.confirm.$error }" v-model="v$.confirm.$model">
+                    <input type="password" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.confirm.$error }"
+                        v-model="v$.confirm.$model">
                 </div>
                 <template v-if="v$.confirm.$error">
-                    <p class="text-red-500">Please enter your confirm Password</p>
+                    <p v-if="v$.confirm.required" class="text-red-500">Please enter your confirm Password</p>
                 </template>
                 <button @click="saveData()" class="bg-black text-white h-9 mt-8">REGISTER</button>
 
@@ -155,17 +163,17 @@ import axios from "axios";
 //   sameAs,
 // } from "vuelidate/lib/validators";
 import { useVuelidate } from '@vuelidate/core'
-import { required} from '@vuelidate/validators'
-// function mobile(value) {
-//   return !helpers.req(value) || !!value.match(/0[0-9]{9}/);
-// }
+import { required, email, minLength, maxLength, helpers, sameAs } from '@vuelidate/validators'
+function mobile(value) {
+    return !helpers.req(value) || !!value.match(/0[0-9]{9}/);
+}
 
-// function complexPassword(value) {
-//   if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-//     return false;
-//   }
-//   return true;
-// }
+function complexPassword(value) {
+    if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+        return false;
+    }
+    return true;
+}
 export default {
     name: 'signup',
     setup() {
@@ -192,7 +200,6 @@ export default {
         saveData() {
             this.v$.$touch();
             if (!this.v$.$invalid) {
-                console.log(this.email, this.fname, this.lname, this.year, this.month, this.day);
                 try {
                     axios.post('http://localhost:3000/user/signup', {
                         firstname: this.fname,
@@ -210,6 +217,8 @@ export default {
                 } catch (error) {
                     console.log(error);
                 }
+            }else{
+                alert('Please Input your Information')
             }
 
 
@@ -219,9 +228,12 @@ export default {
         return {
             email: {
                 required,
+                email,
             },
             fname: {
                 required,
+                minLength: minLength(5),
+                maxLength: maxLength(30)
             },
             lname: {
                 required,
@@ -237,12 +249,16 @@ export default {
             },
             phone: {
                 required,
+                mobile: mobile,
             },
             password: {
                 required,
+                minLength: minLength(8),
+                complex: complexPassword,
             },
             confirm: {
                 required,
+                sameAs: sameAs(this.password),
             },
         }
     },

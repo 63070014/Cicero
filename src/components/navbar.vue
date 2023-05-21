@@ -13,7 +13,7 @@
                     v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = women_item, sex_path = 'women'">WOMEN</router-link>
                 <router-link class="ml-4" to="/product/kids" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = kids_item, sex_path = 'kids'" >KIDS</router-link>
                 <router-link class="ml-4" to="/product/sale" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'sale'">SALE</router-link>
-                <router-link class="ml-4" to="/product/new in" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'new in'">NEW IN</router-link>
+                <router-link class="ml-4" to="/product/new in" v-on:mouseover="slideDown('.dropdown-menu-items'), navbar_item = sale_item, sex_path = 'new   in'">NEW IN</router-link>
                 <div class="dropdown-menu-items left-0" v-on:mouseleave="slideUp('.dropdown-menu-items')">
                     <div v-for="item in navbar_item" :key="item.name" >
                         <router-link id="routerp" :to="'/product/'+this.sex_path+'/' + item.name">{{ item.name }}</router-link>
