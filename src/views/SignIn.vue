@@ -74,7 +74,6 @@ export default {
                     password: this.password
                 }).then((res)=>{
                     if (res.data.user_id){
-                        alert("Successfully")
                         localStorage.setItem("user", JSON.stringify(res.data))
                         this.homepage()
                     }

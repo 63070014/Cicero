@@ -136,7 +136,7 @@ export default {
                         alert("Add to cart success")
                     })
                 } else {
-                    alert("Please select a size")
+                    alert("Please select your sizef")
                 }
             } catch (error) {
                 console.log(error);
