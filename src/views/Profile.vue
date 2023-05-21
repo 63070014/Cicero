@@ -90,7 +90,7 @@
             <div class="">
                 <span>PHONE NUMBER</span>
                 <div class=" mt-2">
-                    <input type="text" :placeholder="getData.phone" :class="{ 'pointer-events-none': enableEdit }"
+                    <input type="text" :placeholder="getData.phone" maxlength="10" :class="{ 'pointer-events-none': enableEdit }"
                         class="non-pointer w-full bg-gray-200 h-9 p-3 text-gray-500" v-model="phone">
                 </div>
             </div>
@@ -149,18 +149,20 @@ export default {
                     this.year = res.data[0].birth_date.slice(0,4)
                     this.month = res.data[0].birth_date.slice(5,7)
                     this.day = res.data[0].birth_date.slice(8,10)
-                    console.log(res.data[0].birth_date.slice(8,10));
                 })
             
         },
         updateProfile() {
             if (this.enableEdit) {
+                console.log(this.fname, this.lname,);
                 try {
                     axios.put(`http://localhost:3000/editUser/${this.getData.user_id}`, {
                         fname: this.fname,
                         lname: this.lname,
                         birth_date: this.year + "-" + this.month + "-" + this.day,
                         phone: this.phone,
+                        email: this.email,
+                        password: this.password,
                     }).then((res) => {
                         alert(res.data)
                         window.location.reload()

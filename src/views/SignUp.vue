@@ -25,7 +25,7 @@
 </style>
 <template>
     <div class="center-set">
-        <div class="group-signup flex justify-center flex-col items-center mt-6">
+        <div class="group-signup flex justify-center flex-col items-center mt-20 mb-14">
             <div class="center-set w-full">
                 <div class="head-in w-2/4 text-center text-3xl text-gray-200 cursor-pointer" @click="LinkTo('/signin')">Sign
                     in</div>
@@ -109,7 +109,7 @@
                 </div>
                 <span class="mt-6">PHONE NUMBER *</span>
                 <div class="password mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.phone.$error }" v-model="v$.phone.$model">
+                    <input maxlength="10" type="text" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.phone.$error }" v-model="v$.phone.$model">
                 </div>
                 <template v-if="v$.phone.$error">
                     <p class="text-red-500">Please enter your Phone number</p>
@@ -129,6 +129,13 @@
                 </div>
                 <template v-if="v$.password.$error">
                     <p class="text-red-500">Please enter your Password</p>
+                </template>
+                <span class="mt-6">CONFIRM PASSWORD</span>
+                <div class="password mt-2">
+                    <input type="password" class="w-full bg-gray-200 h-9 p-2" :class="{ 'bg-red-200': v$.confirm.$error }" v-model="v$.confirm.$model">
+                </div>
+                <template v-if="v$.confirm.$error">
+                    <p class="text-red-500">Please enter your confirm Password</p>
                 </template>
                 <button @click="saveData()" class="bg-black text-white h-9 mt-8">REGISTER</button>
 
@@ -174,6 +181,7 @@ export default {
             phone: "",
             email: "",
             password: "",
+            confirm: "",
         }
     },
 
@@ -183,9 +191,8 @@ export default {
         },
         saveData() {
             this.v$.$touch();
-            console.log(this.email);
-            console.log(this.v$.fname.$params.minLength)
             if (!this.v$.$invalid) {
+                console.log(this.email, this.fname, this.lname, this.year, this.month, this.day);
                 try {
                     axios.post('http://localhost:3000/user/signup', {
                         firstname: this.fname,
@@ -193,14 +200,15 @@ export default {
                         birth_date: this.year + "-" + this.month + "-" + this.day,
                         phone: this.phone,
                         email: this.email,
-                        password: this.password
+                        password: this.password,
+                        confirm_password: this.confirm,
                     }).then((res) => {
                         alert(res.data)
                     })
                 } catch (error) {
                     console.log(error);
                 }
-                this.LinkTo('/signin')
+                // this.LinkTo('/signin')
                 console.log("pass")
             }
 
@@ -231,6 +239,9 @@ export default {
                 required,
             },
             password: {
+                required,
+            },
+            confirm: {
                 required,
             },
         }

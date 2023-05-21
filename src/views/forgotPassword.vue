@@ -12,58 +12,53 @@
             <div class="flex flex-col justify-center w-full mt-8">
                 <span>EMAIL ADDRESS</span>
                 <div class="email mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="username">
+                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="email">
                 </div>
                 <span class="mt-6">NEW PASSWORD</span>
                 <div class="password mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="password">
+                    <input type="password" class="w-full bg-gray-200 h-9 p-2" v-model="password">
                 </div>
                 <span class="mt-6">CONFIRM PASSWORD</span>
                 <div class="password mt-2">
-                    <input type="text" class="w-full bg-gray-200 h-9 p-2" v-model="confirm">
+                    <input type="password" class="w-full bg-gray-200 h-9 p-2" v-model="confirm">
                 </div>
-                <button @click="setNewPass()" class="bg-black text-white h-9 mt-8">RESET PASSWORD</button>
+                <button @click="changePass()" class="bg-black text-white h-9 mt-8">RESET PASSWORD</button>
                 <button @click="LinkTo('/signin')" class="border border-black text-black h-9 mt-8">BACK</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     name: 'forgot',
     data() {
         return {
-            username: '',
+            email: '',
             password: '',
-            confirm:'',
+            confirm: '',
             getEmail: '',
             getPass: '',
             check: '',
         }
     },
     methods: {
-        setNewPass(){
-            var getData = JSON.parse(localStorage.getItem('regisList'))
-            for(let i = 0;i < getData.length; i++){
-                if (this.username === getData[i].localEmail) {
-                    getData[i].localPassword = this.password;
-                    alert("Succesful password reset!")
-                    this.username = ''
-                    this.password = ''
-                    this.confirm = ''
-                }
-                else{
-                    alert("Sorry We couldn't find your account.")
-                }
-            }
-                localStorage.setItem('regisList', JSON.stringify(getData))
-            
-        },
         homepage() {
             location.href = '/'
         },
         LinkTo(whereTo) {
             this.$router.push(whereTo)
+        },
+        async changePass() {
+            if(this.password == this.confirm){
+                await axios.put(`http://localhost:3000/changePass/`,{
+                    email : this.email,
+                    password : this.password
+                }).
+                    then(() => {
+                        alert("Your new Password change successfully")
+                    })
+            }
         },
     }
 }
