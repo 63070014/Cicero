@@ -75,7 +75,6 @@ const loginSchema = Joi.object({
     email: Joi.string().required(),
     password: Joi.string().required()
 })
-7
 router.post('/user/login', async (req, res, next) => {
     try {
         await loginSchema.validateAsync(req.body, { abortEarly: false })
@@ -112,6 +111,34 @@ router.post('/user/login', async (req, res, next) => {
         conn.release()
     }
 })
+router.get("/user/:id", async function (req, res, next) {
+    const user_id = req.params.id;
+    try {
+      const [rows] = await pool.query(
+        "select * from users where user_id = ?",
+        [user_id]
+      );
+      res.status(200).json(rows);
+    } catch (er) {
+      console.log(er);
+    }
+  });
+router.put("/editUser/:id", async function (req, res, next) {
+    const user_id = req.params.id;
+    const fname = req.body.fname
+    const lname = req.body.lname
+    const birth_date = req.body.birth_date
+    const phone = req.body.phone
+    try {
+      const [rows] = await pool.query(
+        "update users set firstname = ?, lastname = ?, birth_date = ?, phone = ? where user_id = ?",
+        [fname, lname, birth_date, phone ,user_id]
+      );
+      res.status(200).json("eiei");
+    } catch (er) {
+      console.log(er);
+    }
+  });
 // router.get('/user/me', isLoggedIn, async (req, res, next) => {
 //     // req.user ถูก save ข้อมูล user จาก database ใน middleware function "isLoggedIn"
 //     res.json(req.user)
