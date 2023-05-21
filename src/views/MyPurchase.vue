@@ -24,7 +24,8 @@
                         </div>
                         <div class="flex justify-between ml-24 flex-col ">
                             <div class="flex space-x-4 p-6">
-                                <p class="font-bold w-44 font-frans"># ORDER 1RSTGO-5D</p>
+                                <p class="font-bold w-44 font-frans"># ORDER  {{
+                        item.order_id }}RSTGO-SD</p>
                             </div>
                             <div class="">
                                 <button @click="LinkTo('/productDetail/' + item.product_title)"

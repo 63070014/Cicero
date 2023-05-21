@@ -209,8 +209,8 @@ export default {
                         email: this.email,
                         password: this.password,
                         confirm_password: this.confirm,
-                    }).then((res) => {
-                        alert(res.data)
+                    }).then(() => {
+                        alert("SignUp Successfully")
                         this.LinkTo('/signin')
                         console.log("pass")
                     })
