@@ -57,6 +57,7 @@ export default {
                 }).
                     then(() => {
                         alert("Your new Password change successfully")
+                        this.LinkTo('/signin')
                     })
             }
         },

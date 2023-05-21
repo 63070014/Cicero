@@ -34,7 +34,9 @@ router.post("/likeByUser", async function (req, res, next) {
 router.post("/like/:pid", async function (req, res, next) {
   const product_id = req.params.pid;
   const user_id = req.body.user_id;
+  console.log(product_id, user_id)
   try {
+    const [check] = await pool.query("select * from wishlist where user_id = ? and product_id = ?",[user_id, product_id]);
     const [rows] = await pool.query(
       "insert into wishlist (user_id, product_id) values (?, ?)",
       [user_id, product_id]

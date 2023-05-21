@@ -2,7 +2,7 @@
     <div class="center-set flex-col">
         <div class="flex flex-col mt-12 ">
             <div class="flex font-bold font-frans text-xl mb-12">MY PURCHASE</div> 
-            <div v-for="(item, index) in userOrder" :key="index" class="flex flex-col w-full">
+            <div v-for="(item, index) in userOrder.reverse()" :key="index" class="flex flex-col w-full">
                 <div class="flex justify-between space-x-6">
                     <img class="w-60" :src="this.renderImg(item.product_img)" alt="">
                     <div class="flex">
@@ -13,10 +13,10 @@
                             </div>
                             <div class="flex flex-col">
                                 <div class="flex space-x-4">
-                                    <div id="btn-size"
+                                    <button
                                         class="w-16 px-4 py-1.5 text-center border-gray-500 border-2 cursor-pointer">
                                         XS
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
                             <div class="flex text-2xl">{{ item.product_price }} <p class="text-base text-gray-400 p-2">THB x {{ item.amount }}</p>

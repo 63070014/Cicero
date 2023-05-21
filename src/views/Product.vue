@@ -156,7 +156,7 @@ export default {
                     sale: [{ title: "Men", path: "/sale/men" },
                     { title: "Women", path: "/sale/women" },
                     { title: "Kids", path: "/sale/kids" }],
-                    newin: [{ title: "Men" }, { title: "Women" }, { title: "Kids" }],
+                    "new in": [{ title: "Men" , path: "/new in/men" }, { title: "Women", path: "/new in/women" }, { title: "Kids", path: "/new in/kids" }],
                 },
 
             ],

@@ -20,12 +20,12 @@
               <img :src="productImage(item[0].product_img)" @click="LinkTo('/productDetail/' + item[0].product_title)" />
               <div class="p-2">
                 <div class="flex items-center">
-                  <img class="w-5 absolute right-0"
-                    @click="item[0].is_favourite = !item[0].is_favourite, addToFav(item[0])"
-                    src="../assets/icons/heart.svg">
-                  <img v-show="item[0].is_favourite == true" class="w-5 absolute right-0"
-                    @click="item[0].is_favourite = !item[0].is_favourite, cancelFav(item[0])"
+                  <img v-show="this.like.includes(item[0].product_id)"
+                    class="w-5 absolute right-0 cursor-pointer select-none" @click="this.changeLike(item[0].product_id);"
                     src="../assets/icons/heartt.svg">
+                  <img v-show=" this.like.includes(item[0].product_id) == false "
+                    class="w-5 absolute right-0 cursor-pointer select-none" @click=" this.changeLike(item[0].product_id) "
+                    src="../assets/icons/heart.svg">
                   <p class="text-md">{{ item[0].product_title }}</p>
                 </div>
                 <p class="text-2xl leading-5">{{ item[0].product_price }} <span class="text-sm text-gray-600">THB</span>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <div @click="LinkTo('/product/women')"
+        <div @click=" LinkTo('/product/women') "
           class="first-buyNowBanner mt-8 w-full h-full relative cursor-pointer select-none">
           <img src="../assets/homepage/buyNow1.svg" />
           <div
@@ -43,7 +43,7 @@
             BUY NOW
           </div>
         </div>
-        <div @click="LinkTo('/product/men')"
+        <div @click=" LinkTo('/product/men') "
           class="second-buyNowBanner mt-10 w-full h-full relative cursor-pointer select-none">
           <img src="../assets/homepage/buyNow2.svg" />
           <div
@@ -107,8 +107,8 @@ img {
 }
 </style>
 <script>
+import axios from 'axios';
 // @ is an alias to /src
-
 export default {
   name: "Homepage",
   props: {
@@ -117,10 +117,20 @@ export default {
     }
   },
   mounted() {
+    if (localStorage.getItem("user")) {
+      this.user_id = JSON.parse(localStorage.getItem("user")).user_id
+    }
+    this.checkLike(1)
+    this.checkLike(7)
+    this.checkLike(8)
+    this.checkLike(9)
+    this.checkLike(10)
     console.log(this.homeProduct)
   },
   data() {
     return {
+      user_id:"",
+      like: [],
       fav: [],
       forWho: [
         { name: "FOR WOMEN", path: '/product/women', url: require('../assets/homepage/forWoman.png') },
@@ -137,6 +147,50 @@ export default {
     }
   },
   methods: {
+    changeLike(product_id) {
+      if (this.user_id) {
+        if (this.like.includes(product_id)) {
+          this.like.splice(this.like.indexOf(product_id), 1)
+          try {
+            axios.delete(`http://localhost:3000/like/${product_id}/${this.user_id}`)
+              .then((res) => {
+                console.log(res.data);
+              })
+          } catch (er) {
+            console.log(er)
+          }
+        }
+        else {
+          this.like.push(product_id)
+          try {
+            axios.post(`http://localhost:3000/like/${product_id}`, {
+              user_id: this.user_id,
+            }).then((res) =>{
+              console.log(res.data)
+            })
+          } catch (er) {
+            console.log(er)
+          }
+        }
+      }
+      else {
+        alert('Please login first')
+        this.$router.push('/signin')
+      }
+    },
+    checkLikeLength() {
+      return this.like.length > 0;
+    },
+    async checkLike(product_id) {
+      await axios.post(`http://localhost:3000/likeByUser/`, {
+        user_id: this.user_id,
+        product_id: product_id
+      }).then((res) => {
+        if (res.data != null) {
+          this.like.push(res.data)
+        }
+      })
+    },
     productImage(img) {
       return 'http://localhost:3000/products/' + JSON.parse(img)[0]
     },

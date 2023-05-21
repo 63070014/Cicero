@@ -162,8 +162,6 @@ export default {
             this.cartItems.splice(index, 1)
             try {
                 axios.delete(`http://localhost:3000/delcarts/${ item.product_id}/${ this.user_id }/${ item.size }`, {
-                }).then(() => {
-                    alert("Delete cart successfully")
                 })
             } catch (error) {
                 console.log(error);
