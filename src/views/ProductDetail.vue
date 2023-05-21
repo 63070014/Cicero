@@ -106,12 +106,15 @@ export default {
             fav: [],
             removeBtn: false,
             thisProduct: this.products.filter(e => e.product_title == this.$route.params.title),
-            user_id: JSON.parse(localStorage.getItem("user")).user_id
+            user_id: ''
         }
     },
     mounted() {
         this.sizeProduct = JSON.parse(this.thisProduct[0].product_size)
         this.checkLike()
+        if (localStorage.getItem("user")) {
+            this.user_id = JSON.parse(localStorage.getItem("user")).user_id
+        }
 
     },
     methods: {
@@ -121,20 +124,26 @@ export default {
             }
         },
         addToFav(e) {
-            if (this.removeBtn) {
-                axios.delete(`http://localhost:3000/like/${e.product_id}/${this.user_id}`)
-                    .then((res) => {
-                        console.log(res.data);
+            if (this.user_id){
+                if (this.removeBtn) {
+                    axios.delete(`http://localhost:3000/like/${e.product_id}/${this.user_id}`)
+                        .then((res) => {
+                            console.log(res.data);
+                        })
+    
+                } else {
+                    axios.post(`http://localhost:3000/like/${e.product_id}`, {
+                        user_id: this.user_id
                     })
-
-            } else {
-                axios.post(`http://localhost:3000/like/${e.product_id}`, {
-                    user_id: this.user_id
-                })
-                alert('Added to Wishlist')
+                    alert('Added to Wishlist')
+                }
+                window.location.reload()
+                this.$forceUpdate();
             }
-            window.location.reload()
-            this.$forceUpdate();
+            else{
+                this.LinkTo('/signin')
+                alert('Please login first')
+            }
         },
         productImage() {
             return JSON.parse(this.thisProduct[0].product_img)
@@ -153,22 +162,28 @@ export default {
             this.$router.push(whereTo)
         },
         addItemToCart() {
-            try {
-                if (this.size.length <= 2 && this.size.length > 0) {
-                    axios.post('http://localhost:3000/addcarts', {
-                        size: this.size,
-                        amount: 1,
-                        user_id: this.user_id,
-                        product_id: this.thisProduct[0].product_id
-
-                    }).then(() => {
-                        alert("Add to cart success")
-                    })
-                } else {
-                    alert("Please select your sizef")
+            if(this.user_id){
+                try {
+                    if (this.size.length <= 2 && this.size.length > 0) {
+                        axios.post('http://localhost:3000/addcarts', {
+                            size: this.size,
+                            amount: 1,
+                            user_id: this.user_id,
+                            product_id: this.thisProduct[0].product_id
+    
+                        }).then(() => {
+                            alert("Add to cart success")
+                        })
+                    } else {
+                        alert("Please select a size")
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
+            }
+            else{
+                this.LinkTo('/signin')
+                alert('Please login first')
             }
         },
     }

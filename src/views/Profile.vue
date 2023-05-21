@@ -104,7 +104,7 @@
             <div class="space-y-6">
                 <button @click="enableEdit = !enableEdit, updateProfile()" class="border-black border w-full h-9 mt-2">{{
                     enableEdit ? 'EDIT' : 'SAVE' }}</button>
-                <button @click="logout(), LinkTo('/')" class="bg-black text-white w-full h-9">LOGOUT</button>
+                <button @click="logout()" class="bg-black text-white w-full h-9">LOGOUT</button>
             </div>
         </div>
     </div>
@@ -135,7 +135,9 @@ export default {
     methods: {
         logout() {
             localStorage.removeItem("user")
+            this.LinkTo('/')
             this.$forceUpdate();
+            window.location.reload()    
         },
         LinkTo(whereTo) {
             this.$router.push(whereTo)

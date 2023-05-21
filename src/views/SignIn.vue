@@ -74,6 +74,7 @@ export default {
             getEmail: '',
             getPass: '',
             check: '',
+            checkInCorrect:''
         }
     },
     methods: {
@@ -89,6 +90,7 @@ export default {
                         if (res.data.user_id){
                             alert("Successfully")
                             localStorage.setItem("user", JSON.stringify(res.data))
+                            this.checkInCorrect = res.data
                             this.homepage()
                         }
                     })

@@ -107,8 +107,8 @@ router.post("/user/login", async (req, res, next) => {
     res.status(200).json(user);
     conn.commit();
   } catch (error) {
+    res.status(400).send('dsds')
     conn.rollback();
-    res.status(400).json(error.toString());
   } finally {
     conn.release();
   }
